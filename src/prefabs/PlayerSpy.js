@@ -1,13 +1,16 @@
 class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, disguiseTex) {
         super(scene, x, y, texture, frame);
-        
+        this.texDisguise = disguiseTex; //Texture to use while disguised
+        this.texNormal = texture;
+
         //These have to be first for physics stuff to work
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
         
         //needs to be tweaked when assets are loaded
-        this.setCircle(10); //Testing collision box resizing/changing
+        //this.scale = 0.5;
+        this.setBodySize(16, 32);
 
         //player variables 
         this.disguiseActive = false;
@@ -27,8 +30,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
         // remove later, for testing
         this.setCollideWorldBounds(true);
-
-        
     }
 
     update(time, delta){
@@ -114,10 +115,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             //this.scene.dressedText.x = this.y - 300;
             this.tempUI = true; //remove later 
             this.scene.dressedText.text = "Disguised"; // remove later
+            this.setTexture(this.texDisguise);
 
     }
     disguiseOff(){
         this.disguiseActive = false;
+        this.setTexture(this.texNormal);
     }
     detectedFunc(){
             this.detected = true;
