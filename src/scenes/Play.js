@@ -40,6 +40,12 @@ class Play extends Phaser.Scene {
                 tile.collideRight = false;
                 tile.collideDown = false;
             }
+            if(tile.index == 7){
+                tile.collideRight = true;
+                tile.collideLeft = false;
+                tile.collideDown = true;
+                tile.collideUp = true;
+            }
         })
 
 

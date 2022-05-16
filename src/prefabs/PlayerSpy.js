@@ -23,7 +23,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //needs to be tweaked 
         this.normalMoveSpeed = 500; //Horizontal acceleration
         this.slowedMoveSpeed = 150; //Slow (disguising) acceleration
-        this.setMaxVelocity(250,1000); // max velocity 
+        this.setMaxVelocity(250,500); // max velocity 
         this.setDragX(1000);
         this.jumpPower = -300;
         this.jumpTime = 1;
@@ -81,7 +81,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        if( (keyDisguise.getDuration() >= 5*1000) && !this.disguiseActive){
+        if( (keyDisguise.getDuration() >= 3*1000) && !this.disguiseActive){
             this.disguiseOn(); 
             // timer on how long the disguise is active
             this.scene.sound.play('sfx_disguise');
