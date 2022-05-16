@@ -210,7 +210,7 @@ class Play extends Phaser.Scene {
         this.graphics.fillStyle(0xffffff, 0.3);
         this.graphics.fillPoints(this.intersections);
         this.graphics.fillPoints(this.intersections2);
-        this.path.draw(this.graphics);    
+        //this.path.draw(this.graphics);    
     };
 
     defineKeys(){
