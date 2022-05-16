@@ -188,14 +188,14 @@ class Play extends Phaser.Scene {
         //if player is caught in light 
         this.physics.add.overlap(this.ray, this.plrSpy, function(rayFoVCircle, target){
             if(!target.disguiseActive){
-                console.log("detected");
-               // target.detectedFunc();
+                //console.log("detected");
+                target.detectedFunc();
             }
         }, this.ray.processOverlap.bind(this.ray));
         this.physics.add.overlap(this.ray2, this.plrSpy, function(rayFoVCircle, target){
             if(!target.disguiseActive){
-                console.log("detected by 2");
-                //target.detectedFunc();
+                //console.log("detected by 2");
+                target.detectedFunc();
             }
         }, this.ray2.processOverlap.bind(this.ray2));
 
