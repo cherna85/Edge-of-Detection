@@ -18,7 +18,7 @@ class Play extends Phaser.Scene {
 
     
     create() {
-        this.defineKeys()
+        this.defineKeys();
 
         //Adding tilemap
         const mapProto = this.make.tilemap({key: 'lvlDigitalProto'});
@@ -52,7 +52,7 @@ class Play extends Phaser.Scene {
         //Create player + objects
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain', 0, 'playerDisguise');
         this.createButtons();
-
+        
         //let rect = this.add.rectangle( 150, 250, 50, 50).setStrokeStyle(1, 0xff0000); Used for debugging
 
         //creating detectors for level
@@ -64,7 +64,20 @@ class Play extends Phaser.Scene {
         
 
         //moving text 
-        this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...',{fontSize: '9px'} ).setOrigin(0.5);
+        let dressedTextConfig = {
+            fontSize: '9px',
+            align: 'center'
+        }
+
+        this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
+        this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
+        this.disguiseTimer.alpha = 0;
+        this.disguiseTween = this.tweens.add({
+            targets: this.disguiseTimer.style,
+            alpha: { from: 255, to: 0},
+            duration: 2000
+        });
+        
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
 
@@ -104,8 +117,10 @@ class Play extends Phaser.Scene {
         }
         //allows text to follow player while getting dressed 
         if(this.plrSpy.gettingDressed || this.plrSpy.tempUI){
-            this.dressedText.x = this.plrSpy.x +10;
-            this.dressedText.y = this.plrSpy.y - 30;
+            this.dressedText.x = this.plrSpy.x + 8;
+            this.dressedText.y = this.plrSpy.y - 50;
+            this.disguiseTimer.x = this.plrSpy.x + 8;
+            this.disguiseTimer.y = this.plrSpy.y - 30;
         }
         //game over selection 
         if(this.gameOver){
@@ -133,6 +148,7 @@ class Play extends Phaser.Scene {
                     sceneSelect = 'playScene';
                 }  
             }  
+            //BUG: Despite calling JustDown, this can trigger if the button is held down
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
                 //console.log('selecting');
                 this.scene.start(sceneSelect);    

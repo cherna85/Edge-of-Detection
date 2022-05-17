@@ -3,21 +3,24 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
         this.texDisguise = disguiseTex; //Texture to use while disguised
         this.texNormal = texture;
-
         //These have to be first for physics stuff to work
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
         
+
         //needs to be tweaked when assets are loaded
         //this.scale = 0.5;
         this.setBodySize(16, 32);
+        this.tempUI = false; // remove later 
+
 
         //player variables 
         this.disguiseActive = false;
-        this.gettingDressed = false; 
+        this.gettingDressed = false;
         this.detected = false;
 
-        this.tempUI = false; // remove later 
+        this.disguiseTimer = 0;
+        this.disguiseDuration = 10000;
         
 
         //needs to be tweaked 
@@ -28,16 +31,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.jumpPower = -300;
         this.jumpTime = 1;
 
+
         // remove later, for testing
         this.setCollideWorldBounds(true);
     }
 
     update(time, delta){
-        /* Converts delta from milliseconds to seconds. For me it's easier
-        to read, but might not match up with how physics object uses delta.
-        Let me know if physics seems weird
-        - Santiago */
-        delta /= 1000
         //Horizontal movement
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
             this.gettingDressed ? this.setAccelerationX(-this.slowedMoveSpeed) : this.setAccelerationX(-this.normalMoveSpeed);
@@ -80,18 +79,27 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
+        this.disguiseTimer -= delta;
+        if(this.disguiseTimer <= 0 && this.disguiseActive){
+            console.log("its off");
+            this.disguiseOff()
+            this.tempUI = false;
+            this.scene.dressedText.x = this.y - 50; // remove later
+            this.scene.dressedText.text = "Getting Dressed..."; //remove later
+            this.scene.disguiseTimer.alpha = 0;
+        }
+        else if(this.disguiseTimer > 0){
+            //Display time remaining in seconds
+            this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
+        }
+
         //applying disguise
         if( (keyDisguise.getDuration() >= 3*1000) && !this.disguiseActive){
             this.disguiseOn(); 
             // timer on how long the disguise is active
             this.scene.sound.play('sfx_disguise');
-            this.active = this.scene.time.addEvent({ delay: 10000, callback: () =>{
-                console.log("its off");
-                this.disguiseOff()
-                this.tempUI = false;
-                this.scene.dressedText.x = this.y - 300; // remove later
-                this.scene.dressedText.text = "Getting Dressed..."; //remove later 
-            } });
+            this.scene.disguiseTween.duration = this.disguiseDuration;
+            this.scene.disguiseTween.play();
         }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000) && !this.disguiseActive){
             this.gettingDressed = true; // text follows player 
         }else if (!this.disguiseActive){
@@ -113,9 +121,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.disguiseActive = true;
             this.gettingDressed = false;               //turn these on when we have visuals
             //this.scene.dressedText.x = this.y - 300;
-            this.tempUI = true; //remove later 
+            this.tempUI = true; //remove later
+
             this.scene.dressedText.text = "Disguised"; // remove later
+            this.scene.disguiseTimer.alpha = 255;
             this.setTexture(this.texDisguise);
+            this.disguiseTimer = this.disguiseDuration;
 
     }
     disguiseOff(){
