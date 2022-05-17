@@ -57,7 +57,7 @@ class Play extends Phaser.Scene {
 
         //creating detectors for level
         this.degree = 0;
-        this.raycaster = this.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
+        this.raycaster = this.raycasterPlugin.createRaycaster({debug:true}); //when debugging is true, we get an error when we restart a level
         this.graphics;
         this.intersections;
         this.createSpotlights([solidLayer]);
@@ -142,7 +142,7 @@ class Play extends Phaser.Scene {
 
 
     //We will have multiple rays per scene, so we may want to set this up so that it loops over all rays or something
-    createSpotlights(mappedObjects){
+    createSpotlights(mappedObjects, losSize = 200){
         //https://github.com/wiserim/phaser-raycaster
         this.ray = this.raycaster.createRay();
         this.ray2 = this.raycaster.createRay();
@@ -171,22 +171,27 @@ class Play extends Phaser.Scene {
         this.ray2.autoSlice = true; 
         this.ray2.enablePhysics();
 
-        /*Could potentially limit the LOS range visually by surrounding it with a circle it colldies with,
-        matching the radius of the ray's collision range.*/
-        //this.rayContainer = this.add.circle(this.ray.origin.x, this.ray.origin.y, 200);
-        //mappedObjects.push(this.rayContainer);
+        
 
         //Maps objects to the ray so it can collide with them
         this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [6, 11]}); 
         
-        //set collision (field of view) range
-        this.ray.setCollisionRange(200);
-        this.ray2.setCollisionRange(200);
+        //set collision (field of view) range radius
+        this.ray.setCollisionRange(losSize);
+        //this.ray.setRayRange(losSize);
+        this.ray2.setCollisionRange(losSize);
 
         //cast ray
         this.intersections = this.ray.castCone();
         this.intersections2 = this.ray2.castCone();
         
+        /*Could potentially limit the LOS range visually by surrounding it with a circle it colldies with,
+        matching the radius of the ray's collision range.*/
+        console.log(this.ray.origin);
+        this.rayContainer = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize);
+        this.ray
+        this.rayContainer2 = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize);
+        mappedObjects.push(this.rayContainer2);
 
         //Draw ray LoS
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
@@ -210,7 +215,13 @@ class Play extends Phaser.Scene {
     }
 
     drawLOS(){
+
+        //Limit the range of points
+        //for(let point in this.intersections)
+        //This wouldn't work - intersection points can be spaced wildly differently from each-other
+
         this.intersections.push(this.ray.origin);
+        this.intersections2.push(this.ray2.origin);
         //console.log(this.intersections);
         this.graphics.clear();
         this.graphics.fillStyle(0xffffff, 0.3);
