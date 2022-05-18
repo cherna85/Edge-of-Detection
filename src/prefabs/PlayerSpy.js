@@ -20,7 +20,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
 
         this.disguiseTimer = 0;
-        this.disguiseDuration = 3000;
+        this.disguiseDuration = 10000;
         
 
         //needs to be tweaked 
@@ -90,7 +90,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         else if(this.disguiseTimer > 0){
             //Display time remaining in seconds
-            //this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
+            this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
         }
 
         //applying disguise
@@ -124,7 +124,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
             this.scene.dressedText.text = "Disguised"; // remove later
             this.scene.disguiseTimer.alpha = 1;
-            this.scene.disguiseTimer.text = "test";
             this.scene.disguiseTween.restart();
 
             this.setTexture(this.texDisguise);

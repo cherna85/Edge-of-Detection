@@ -76,7 +76,7 @@ class Play extends Phaser.Scene {
         this.disguiseTween = this.tweens.addCounter({
             from: 255,
             to: 0,
-            duration: 3000,
+            duration: this.plrSpy.disguiseDuration,
             onUpdate: function (tween)
             {
                 const value = Math.floor(tween.getValue());
