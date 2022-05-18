@@ -32,7 +32,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.jumpPower = -300;
         this.jumpTime = 1;
 
-
         // remove later, for testing
         this.setCollideWorldBounds(true);
     }
@@ -86,7 +85,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.disguiseTimer -= delta;
         if(this.disguiseTimer <= 0 && this.disguiseActive){
             console.log("its off");
-            this.disguiseOff()
+            this.disguiseOff();
             this.tempUI = false;
             this.scene.dressedText.x = this.y - 50; // remove later
             this.scene.dressedText.text = "Getting Dressed..."; //remove later
@@ -111,41 +110,44 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //Dropping through platforms (while DOWN + JUMP is held down)
-        if(keyDown.isDown && keyJump.isDown){
+        /*if(keyDown.isDown && keyJump.isDown){
             this.scene.platformCollision.active = false;
         }
         else{
             this.scene.platformCollision.active = true;
-        }
+        }*/
     }
 
     disguiseOn(){
-            console.log("Disguise On");
-            this.disguiseActive = true;
-            this.gettingDressed = false;               //turn these on when we have visuals
-            //this.scene.dressedText.x = this.y - 300;
-            this.tempUI = true; //remove later
+        console.log("Disguise On");
+        this.disguiseActive = true;
+        this.gettingDressed = false;               //turn these on when we have visuals
+        //this.scene.dressedText.x = this.y - 300;
+        this.tempUI = true; //remove later
 
-            this.scene.dressedText.text = "Disguised"; // remove later
-            this.scene.disguiseTimer.alpha = 1;
-            this.scene.disguiseTween.restart();
+        this.scene.dressedText.text = "Disguised"; // remove later
+        this.scene.disguiseTimer.alpha = 1;
+        this.scene.disguiseTween.restart();
 
-            this.setTexture(this.texDisguise);
-            this.disguiseTimer = this.disguiseDuration;
+        this.setTexture(this.texDisguise);
+        this.disguiseTimer = this.disguiseDuration;
 
     }
+
     disguiseOff(){
         this.disguiseActive = false;
         this.setTexture(this.texNormal);
     }
+
     detectedFunc(){
-            this.detected = true;
-            this.scene.gameOver = true;
-            this.scene.check++;
-            //big fixes
-            this.scene.dressedText.x = game.config.width/2 + 600; 
-            this.setAccelerationX(0);
+        this.detected = true;
+        this.scene.gameOver = true;
+        this.scene.check++;
+        //big fixes
+        this.scene.dressedText.x = game.config.width/2 + 600; 
+        this.setAccelerationX(0);
     }
+
     gameOverFunc(){
         this.scene.add.text(game.config.width/2, game.config.height/2-15, 'GAMEOVER' ).setOrigin(0.5);
         this.scene.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);

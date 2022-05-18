@@ -28,8 +28,6 @@ class Play extends Phaser.Scene {
         //create LOS for this Level
         this.levelLOS = new LOS(this, this.level.getSolidLayer());
 
-
-
         //Create player + objects
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');

@@ -13,7 +13,7 @@ let config = {
                 debug: true
           }
       },
-      scene: [ Level1, Menu, Play, Option, Credit, LevelSelect],
+      scene: [ Menu, Level1, Play, Option, Credit, LevelSelect],
       plugins:{
         scene: [
           {

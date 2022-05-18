@@ -5,7 +5,11 @@ class Level1 extends LevelBase {
 
     create(){
         this.createDefault();
-        this.plrSpy.x = 200;
+        this.plrSpy.x = 600;
         this.plrSpy.y = 300;
+    }
+
+    update(time, delta){
+        this.updateDefault(time, delta);
     }
 }

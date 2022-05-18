@@ -1,19 +1,19 @@
 class Menu extends Phaser.Scene {
-      constructor(){
-          super("menuScene");
-      }
+        constructor(){
+            super("menuScene");
+        }
 
-      preload(){
-        //load audio
-        this.load.audio('sfx_select', './assets/sfx/Blip_Select.wav');
-        this.load.audio('sfx_disguise', 'assets/sfx/Disguise_applied.wav');
-        this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
-        this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
-        this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
-          
-      }
+        preload(){
+                //load audio
+            this.load.audio('sfx_select', './assets/sfx/Blip_Select.wav');
+            this.load.audio('sfx_disguise', 'assets/sfx/Disguise_applied.wav');
+            this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
+            this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
+            this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
+            
+        }
 
-      create(){
+        create(){
             let MenuConfig = {
                   fontFamily:  'Ariel', 
                   fontSize: '16px',
@@ -38,32 +38,32 @@ class Menu extends Phaser.Scene {
             this.lsbutton = this.add.text(game.config.width/2, game.config.height/2 +32 , 'Level Select', MenuConfig).setOrigin(0.5);
             this.optionsbutton = this.add.text(game.config.width/2, game.config.height/2 +64 , 'Options', MenuConfig).setOrigin(0.5);
             this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Credits', MenuConfig).setOrigin(0.5);
-            sceneSelect = 'playScene'; //reinitalize menu
+            sceneSelect = 'level1'; //reinitalize menu
 
-      }
+        }
 
-      update(time, delta){
+        update(time, delta){
             // to select a scene 
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
-                  if(sceneSelect == 'playScene'){
-                     this.updateMenu(this.playbutton,this.lsbutton, 'levelselectScene');
-                  }
-                  else if(sceneSelect == 'levelselectScene'){
-                      this.updateMenu(this.lsbutton, this.optionsbutton, 'optionsScene');
-                  }  
-                  else if(sceneSelect == "optionsScene"){
-                      this.updateMenu(this.optionsbutton, this.creditsbutton, 'creditScene');
-                  }
-                  else if (sceneSelect == "creditScene"){
-                      this.updateMenu(this.creditsbutton, this.playbutton, "playScene");
-                  }
+                if(sceneSelect == 'level1'){
+                    this.updateMenu(this.playbutton,this.lsbutton, 'levelselectScene');
                 }
-              if (Phaser.Input.Keyboard.JustDown(keyUp)) {
-                  if(sceneSelect == 'playScene'){
-                     this.updateMenu(this.playbutton,this.creditsbutton, 'creditScene');
-                  }
                 else if(sceneSelect == 'levelselectScene'){
-                    this.updateMenu(this.lsbutton, this.playbutton, 'playScene');
+                    this.updateMenu(this.lsbutton, this.optionsbutton, 'optionsScene');
+                }  
+                else if(sceneSelect == "optionsScene"){
+                    this.updateMenu(this.optionsbutton, this.creditsbutton, 'creditScene');
+                }
+                else if (sceneSelect == "creditScene"){
+                    this.updateMenu(this.creditsbutton, this.playbutton, "level1");
+                }
+                }
+            if (Phaser.Input.Keyboard.JustDown(keyUp)) {
+                if(sceneSelect == 'level1'){
+                    this.updateMenu(this.playbutton,this.creditsbutton, 'creditScene');
+                }
+                else if(sceneSelect == 'levelselectScene'){
+                    this.updateMenu(this.lsbutton, this.playbutton, 'level1');
                 }  
                 else if(sceneSelect == "optionsScene"){
                     this.updateMenu(this.optionsbutton, this.lsbutton, "levelselectScene");
@@ -71,17 +71,18 @@ class Menu extends Phaser.Scene {
                 else if (sceneSelect == "creditScene"){
                     this.updateMenu(this.creditsbutton, this.optionsbutton, "optionsScene");
                 }
-              }
-              //selects the scene 
-              if (Phaser.Input.Keyboard.JustDown(keyJump)) { 
+            }
+            //selects the scene 
+            if (Phaser.Input.Keyboard.JustDown(keyJump)) { 
                     this.sound.play('sfx_select');
                     this.scene.start(sceneSelect);    
-                }
+            }
 
-      }
-      updateMenu(current, next, scene){
+        }
+
+        updateMenu(current, next, scene){
             next.setColor('#FFFFFF');
             current.setColor('#FF994F');
             sceneSelect = scene;
-      }
+        }
 }
