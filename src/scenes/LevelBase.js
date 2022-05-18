@@ -3,8 +3,11 @@ class LevelBase extends Phaser.Scene {
         super(levelName);
     }
 
-    preload(){
+    preloadDefault(tilemapPath, tilesetPath){
         this.load.path = 'assets/';
+        this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
+        this.load.image('tilesCityPH', tilesetPath);
+
         this.load.image('objButton', 'PH_obj_button.png');
         this.load.image('playerDisguise', 'TempDisguise.png');
         this.load.image('playerMain', 'TempPlayer.png');
@@ -12,6 +15,12 @@ class LevelBase extends Phaser.Scene {
 
     createDefault(){
         this.defineKeys();
+
+        this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
+        this.tileset = this.tilemap.addTilesetImage('PH_city_tiles', 'tilesCityPH');
+        this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
+        this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
+
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');
 
@@ -48,6 +57,7 @@ class LevelBase extends Phaser.Scene {
         console.log("Create method from levelBase");
     }
 
+    /*Calls update on PlayerSpy, the UI, and runs the gameOver function*/
     updateDefault(time, delta){
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 

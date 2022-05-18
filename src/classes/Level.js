@@ -1,5 +1,5 @@
 class Level{
-    constructor(scene, tilemap, tilesetName, loadedImage){
+    constructor(scene, tilemap = 'lvlDigitalProto', tilesetName = 'PH_city_tiles', loadedImage = 'tilesCityPH'){
         //Adding tilemap
         const mapProto = scene.make.tilemap({key: tilemap});
         const tilesCity = mapProto.addTilesetImage(tilesetName, loadedImage);
@@ -28,7 +28,7 @@ class Level{
                 tile.collideDown = true;
                 tile.collideUp = true;
             }
-        })
+        });
 
         this.tilemap = mapProto;
     }
