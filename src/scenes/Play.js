@@ -18,48 +18,15 @@ class Play extends Phaser.Scene {
 
     
     create() {
-        this.defineKeys();
         //creates level
-        this.level = new Level(this,'lvlDigitalProto', 'PH_city_tiles', 'tilesCityPH' );
-        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        //create LOS for this Level
+        this.level = new Level(this,'level1', 'lvlDigitalProto', 'PH_city_tiles', 'tilesCityPH', game.config.width/2-250, game.config.height/2+110);
         this.levelLOS = new LOS(this, this.level.getSolidLayer());
-
-
-
-        //Create player + objects
-        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain', 0, 'playerDisguise');
+        //LEVEL SPECIFIC THIINGS WILL BE OUTSIDE
         this.createButtons();
         
         //let rect = this.add.rectangle( 150, 250, 50, 50).setStrokeStyle(1, 0xff0000); Used for debugging
 
-    
-        //moving text 
-        let dressedTextConfig = {
-            fontSize: '9px',
-            align: 'center',
-            stroke: '#000000',
-            strokeThickness: 4
-        }
-
-        this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
-        this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
-        this.disguiseTimer.alpha = 0;
-        //Source ref: https://phaser.io/examples/v3/view/display/tint/tween-tint
-        this.disguiseTween = this.tweens.addCounter({
-            from: 255,
-            to: 0,
-            duration: this.plrSpy.disguiseDuration,
-            onUpdate: function (tween)
-            {
-                const value = Math.floor(tween.getValue());
-                this.parent.scene.disguiseTimer.setTint(Phaser.Display.Color.GetColor(255, value, value));
-            }
-        });
         
-        this.gameOver = false;
-        this.check = 0; // makes sure end screen doesnt apply more than once;
-
         this.addColliders();
 
 
@@ -68,63 +35,10 @@ class Play extends Phaser.Scene {
     
     }
     update(time, delta ) {
-        if(!this.gameOver){
-            this.plrSpy.update(time, delta); 
-        }
-        if(this.gameOver &&this.check == 1){
-            this.plrSpy.gameOverFunc();
-            this.sound.play('sfx_discovered');
-        }
-        //allows text to follow player while getting dressed 
-        if(this.plrSpy.gettingDressed || this.plrSpy.tempUI){
-            this.dressedText.x = this.plrSpy.x + 8;
-            this.dressedText.y = this.plrSpy.y - 50;
-            this.disguiseTimer.x = this.plrSpy.x + 8;
-            this.disguiseTimer.y = this.plrSpy.y - 30;
-        }
-        //game over selection 
-        if(this.gameOver){
-            if (Phaser.Input.Keyboard.JustDown(keyDown)) {
-                if(sceneSelect == 'playScene'){
-                    this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#FF994F');
-                    sceneSelect = 'menuScene';
-                }
-                else if(sceneSelect == 'menuScene'){
-                    this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#FF994F');
-                    sceneSelect = 'playScene';
-                }  
-              }
-            if (Phaser.Input.Keyboard.JustDown(keyInteract)) {
-                if(sceneSelect == 'playScene'){
-                    this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#FF994F');
-                    sceneSelect = 'menuScene';
-                }
-                else if(sceneSelect == 'menuScene'){
-                    this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#FF994F');
-                    sceneSelect = 'playScene';
-                }  
-            }  
-            //BUG: Despite calling JustDown, this can trigger if the button is held down
-            if (Phaser.Input.Keyboard.JustDown(keyJump)) {
-                //console.log('selecting');
-                this.scene.start(sceneSelect);    
-            }  
-        }
+        this.level.update(this,time,delta);
     }
 
-    defineKeys(){
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-    }
+
 
     createButtons(){
         //Create buttons
@@ -148,17 +62,17 @@ class Play extends Phaser.Scene {
     }
     addColliders(){
         //colliders
-        this.physics.add.collider(this.plrSpy, this.level.getSolidLayer());
-        this.platformCollision = this.physics.add.collider(this.plrSpy, this.level.getPlatformLayer());
+        this.physics.add.collider(this.level.plrSpy, this.level.getSolidLayer());
+        this.platformCollision = this.physics.add.collider(this.level.plrSpy, this.level.getPlatformLayer());
         //if player is caught in light 
-        this.physics.add.overlap(this.levelLOS.ray2, this.plrSpy, function(rayFoVCircle, target){
+        this.physics.add.overlap(this.levelLOS.ray2, this.level.plrSpy, function(rayFoVCircle, target){
             if(!target.disguiseActive){
                 //console.log("detected by 2");
                 target.detectedFunc();
             }
         }, this.levelLOS.ray2.processOverlap.bind(this.levelLOS.ray2));
         //if player is caught in light 
-        this.physics.add.overlap(this.levelLOS.ray, this.plrSpy, function(rayFoVCircle, target){
+        this.physics.add.overlap(this.levelLOS.ray, this.level.plrSpy, function(rayFoVCircle, target){
             if(!target.disguiseActive){
                 //console.log("detected by 2");
                 target.detectedFunc();

@@ -84,9 +84,9 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             console.log("its off");
             this.disguiseOff()
             this.tempUI = false;
-            this.scene.dressedText.x = this.y - 50; // remove later
-            this.scene.dressedText.text = "Getting Dressed..."; //remove later
-            this.scene.disguiseTimer.alpha = 0;
+            this.scene.level.dressedText.x = this.y - 50; // remove later
+            this.scene.level.dressedText.text = "Getting Dressed..."; //remove later
+            this.scene.level.disguiseTimer.alpha = 0;
         }
         else if(this.disguiseTimer > 0){
             //Display time remaining in seconds
@@ -103,7 +103,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.gettingDressed = true; // text follows player 
         }else if (!this.disguiseActive){
             this.gettingDressed = false;
-            this.scene.dressedText.x = game.config.width/2 + 600; 
+            this.scene.level.dressedText.x = game.config.width/2 + 600; 
         }
 
         //Dropping through platforms (while DOWN + JUMP is held down)
@@ -122,12 +122,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             //this.scene.dressedText.x = this.y - 300;
             this.tempUI = true; //remove later
 
-            this.scene.dressedText.text = "Disguised"; // remove later
-            this.scene.disguiseTimer.alpha = 1;
-            this.scene.disguiseTween.restart();
+            this.scene.level.dressedText.text = "Disguised"; // remove later
+            this.scene.level.disguiseTimer.alpha = 1;
+            this.scene.level.disguiseTween.restart();
 
             this.setTexture(this.texDisguise);
-            this.disguiseTimer = this.disguiseDuration;
+            this.scene.level.disguiseTimer = this.disguiseDuration;
 
     }
     disguiseOff(){
@@ -139,12 +139,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.gameOver = true;
             this.scene.check++;
             //big fixes
-            this.scene.dressedText.x = game.config.width/2 + 600; 
+            this.scene.level.dressedText.x = game.config.width/2 + 600; 
             this.setAccelerationX(0);
     }
     gameOverFunc(){
         this.scene.add.text(game.config.width/2, game.config.height/2-15, 'GAMEOVER' ).setOrigin(0.5);
-        this.scene.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
-        this.scene.MainMenubutton = this.scene.add.text(game.config.width/2, game.config.height/2 +64 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
+        this.scene.level.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
+        this.scene.level.MainMenubutton = this.scene.add.text(game.config.width/2, game.config.height/2 +64 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
 }
