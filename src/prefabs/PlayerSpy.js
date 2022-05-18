@@ -25,7 +25,9 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //needs to be tweaked 
         this.normalAccel = 500; //Horizontal acceleration
         this.slowedAccel = 500; //Slow (disguising) acceleration
-        this.setMaxVelocity(250,500); // max velocity (x, y)
+        this.normalVel = 250;
+        this.slowedVel = 100;
+        this.setMaxVelocity(this.normalVel, 500); // max velocity (x, y)
         this.setDragX(1000);
         this.jumpPower = -300;
         this.jumpTime = 1;
@@ -57,7 +59,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.setAccelerationX(0);
         }
         //while getting dressed max speed is slower
-        this.gettingDressed ? this.setMaxVelocity(100,500) : this.setMaxVelocity(250,500);
+        this.gettingDressed ? this.setMaxVelocity(this.slowedVel,500) : this.setMaxVelocity(this.normalVel,500);
 
         //jumping 
         // how to implement it was looked from here.
