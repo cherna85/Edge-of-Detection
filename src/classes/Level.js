@@ -1,13 +1,13 @@
 class Level{
     constructor(scene, tilemap, tilesetName, loadedImage){
         //Adding tilemap
-        this.mapProto = scene.make.tilemap({key: tilemap});
-        this.tilesCity = this.mapProto.addTilesetImage(tilesetName, loadedImage);
+        const mapProto = scene.make.tilemap({key: tilemap});
+        const tilesCity = mapProto.addTilesetImage(tilesetName, loadedImage);
         // 1st arg, the tileset name, needs to match the tileset name in the Tiled file (check the program)
 
         //Creates layers matching the layers we made in Tiled software
-        this.solidLayer = this.mapProto.createLayer('Solid', this.tilesCity, -16, -16);
-        this.platformLayer = this.mapProto.createLayer('Platform', this.tilesCity, -16, -16);
+        this.solidLayer = mapProto.createLayer('Solid', tilesCity, -16, -16);
+        this.platformLayer = mapProto.createLayer('Platform', tilesCity, -16, -16);
         //Caredful that all of the keys and stuff match what was defined in the Tiled file.
         
         //Makes all tiles that have property "collides" have collision
@@ -27,12 +27,6 @@ class Level{
                 tile.collideUp = true;
             }
         })
-    }
-    getMapProto(){
-        return this.mapProto;
-    }
-    getTiles(){
-        return this.tilesCity;
     }
     getSolidLayer(){
         return this.solidLayer;

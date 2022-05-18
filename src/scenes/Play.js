@@ -21,6 +21,7 @@ class Play extends Phaser.Scene {
         this.defineKeys();
         //creates level
         this.level = new Level(this,'lvlDigitalProto', 'PH_city_tiles', 'tilesCityPH' );
+        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         //create LOS for this Level
         this.levelLOS = new LOS(this, this.level.getSolidLayer());
 
@@ -59,10 +60,11 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
 
+        this.addColliders();
 
-        //colliders
-        this.physics.add.collider(this.plrSpy, this.level.getSolidLayer());
-        this.platformCollision = this.physics.add.collider(this.plrSpy, this.level.getPlatformLayer());
+
+
+
     
     }
     update(time, delta ) {
@@ -143,6 +145,25 @@ class Play extends Phaser.Scene {
         }
         /*With ability to establish events and listeners, we could theoretically add a locked door 
         (which I'll add later) - Santiago*/
+    }
+    addColliders(){
+        //colliders
+        this.physics.add.collider(this.plrSpy, this.level.getSolidLayer());
+        this.platformCollision = this.physics.add.collider(this.plrSpy, this.level.getPlatformLayer());
+        //if player is caught in light 
+        this.physics.add.overlap(this.levelLOS.ray2, this.plrSpy, function(rayFoVCircle, target){
+            if(!target.disguiseActive){
+                //console.log("detected by 2");
+                target.detectedFunc();
+            }
+        }, this.levelLOS.ray2.processOverlap.bind(this.levelLOS.ray2));
+        //if player is caught in light 
+        this.physics.add.overlap(this.levelLOS.ray, this.plrSpy, function(rayFoVCircle, target){
+            if(!target.disguiseActive){
+                //console.log("detected by 2");
+                target.detectedFunc();
+            }
+        }, this.levelLOS.ray.processOverlap.bind(this.levelLOS.ray));
     }
 
 }
