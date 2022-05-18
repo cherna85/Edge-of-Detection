@@ -61,12 +61,8 @@ class Play extends Phaser.Scene {
         this.check = 0; // makes sure end screen doesnt apply more than once;
 
         this.addColliders();
-
-
-
-
-    
     }
+    
     update(time, delta ) {
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 

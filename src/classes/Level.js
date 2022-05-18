@@ -9,6 +9,8 @@ class Level{
         this.solidLayer = mapProto.createLayer('Solid', tilesCity, -16, -16);
         this.platformLayer = mapProto.createLayer('Platform', tilesCity, -16, -16);
         //Caredful that all of the keys and stuff match what was defined in the Tiled file.
+        /*The -16, -16 on the tilemaps was because I used to put a 1-tile barrier around them, but now I realize
+        that was unnecessary because Phaser already has something for that - Santiago*/
         
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
