@@ -19,34 +19,8 @@ class Play extends Phaser.Scene {
     
     create() {
         this.defineKeys();
-
-        //Adding tilemap
-        const mapProto = this.make.tilemap({key: 'lvlDigitalProto'});
-        const tilesCity = mapProto.addTilesetImage('PH_city_tiles', 'tilesCityPH');
-        // 1st arg, the tileset name, needs to match the tileset name in the Tiled file (check the program)
-
-        //Creates layers matching the layers we made in Tiled software
-        let solidLayer = mapProto.createLayer('Solid', tilesCity, -16, -16);
-        let platformLayer = mapProto.createLayer('Platform', tilesCity, -16, -16);
-        //Caredful that all of the keys and stuff match what was defined in the Tiled file.
-        
-        //Makes all tiles that have property "collides" have collision
-        solidLayer.setCollisionByProperty( {collides: true} );
-        platformLayer.setCollisionByProperty( {collides: true} );
-        //Makes all the platform tiles only have 1-way collision
-        platformLayer.forEachTile(tile => {
-            if(tile.index == 16){
-                tile.collideLeft = false;
-                tile.collideRight = false;
-                tile.collideDown = false;
-            }
-            if(tile.index == 7){
-                tile.collideRight = true;
-                tile.collideLeft = false;
-                tile.collideDown = true;
-                tile.collideUp = true;
-            }
-        })
+        this.level = new Level(this,'lvlDigitalProto', 'PH_city_tiles', 'tilesCityPH' );
+    
 
 
         //Create player + objects
@@ -60,7 +34,7 @@ class Play extends Phaser.Scene {
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
         this.graphics;
         this.intersections;
-        this.createSpotlights([solidLayer]);
+        this.createSpotlights([this.level.getSolidLayer()]);
         
 
         //moving text 
@@ -91,8 +65,8 @@ class Play extends Phaser.Scene {
 
 
         //colliders
-        this.physics.add.collider(this.plrSpy, solidLayer);
-        this.platformCollision = this.physics.add.collider(this.plrSpy, platformLayer);
+        this.physics.add.collider(this.plrSpy, this.level.getSolidLayer());
+        this.platformCollision = this.physics.add.collider(this.plrSpy, this.level.getPlatformLayer());
     
         //Rotates the cone and re-fills the intersections list
         this.rotate = this.time.addEvent({ delay: 100, callback: () =>{
