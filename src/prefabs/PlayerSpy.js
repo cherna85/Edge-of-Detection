@@ -20,7 +20,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
 
         this.disguiseTimer = 0;
-        this.disguiseDuration = 10000;
+        this.disguiseDuration = 3000;
         
 
         //needs to be tweaked 
@@ -90,7 +90,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         else if(this.disguiseTimer > 0){
             //Display time remaining in seconds
-            this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
+            //this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
         }
 
         //applying disguise
@@ -98,8 +98,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.disguiseOn(); 
             // timer on how long the disguise is active
             this.scene.sound.play('sfx_disguise');
-            this.scene.disguiseTween.duration = this.disguiseDuration;
-            this.scene.disguiseTween.play();
+            //this.scene.disguiseTween.duration = this.disguiseDuration;
         }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000) && !this.disguiseActive){
             this.gettingDressed = true; // text follows player 
         }else if (!this.disguiseActive){
@@ -124,7 +123,10 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.tempUI = true; //remove later
 
             this.scene.dressedText.text = "Disguised"; // remove later
-            this.scene.disguiseTimer.alpha = 255;
+            this.scene.disguiseTimer.alpha = 1;
+            this.scene.disguiseTimer.text = "test";
+            this.scene.disguiseTween.restart();
+
             this.setTexture(this.texDisguise);
             this.disguiseTimer = this.disguiseDuration;
 

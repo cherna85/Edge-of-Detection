@@ -72,10 +72,16 @@ class Play extends Phaser.Scene {
         this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer.alpha = 0;
-        this.disguiseTween = this.tweens.add({
-            targets: this.disguiseTimer.style,
-            alpha: { from: 255, to: 0},
-            duration: 2000
+        //Source ref: https://phaser.io/examples/v3/view/display/tint/tween-tint
+        this.disguiseTween = this.tweens.addCounter({
+            from: 255,
+            to: 0,
+            duration: 3000,
+            onUpdate: function (tween)
+            {
+                const value = Math.floor(tween.getValue());
+                this.parent.scene.disguiseTimer.setTint(Phaser.Display.Color.GetColor(255, value, value));
+            }
         });
         
         this.gameOver = false;
