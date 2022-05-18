@@ -28,12 +28,8 @@ class Play extends Phaser.Scene {
 
         
         this.addColliders();
-
-
-
-
-    
     }
+    
     update(time, delta ) {
         this.level.update(this,time,delta);
     }
