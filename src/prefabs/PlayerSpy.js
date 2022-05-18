@@ -8,8 +8,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this); //Assigns this sprite a physics body
         
 
-        //needs to be tweaked when assets are loaded
-        this.scaleY = 0.75
+        this.scaleY = 0.75 //New body size is 16 x 24. Possibly smaller in future
         this.setBodySize(16, 32);
         this.tempUI = false; // remove later 
 
@@ -24,9 +23,9 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         
 
         //needs to be tweaked 
-        this.normalMoveSpeed = 500; //Horizontal acceleration
-        this.slowedMoveSpeed = 150; //Slow (disguising) acceleration
-        this.setMaxVelocity(250,500); // max velocity 
+        this.normalAccel = 500; //Horizontal acceleration
+        this.slowedAccel = 500; //Slow (disguising) acceleration
+        this.setMaxVelocity(250,500); // max velocity (x, y)
         this.setDragX(1000);
         this.jumpPower = -300;
         this.jumpTime = 1;
@@ -36,16 +35,19 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
     }
 
+    /*Can currently jump 6 tiles in the air
+    Gravity is also pretty high for the */
+
     update(time, delta){
         //Horizontal movement
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
-            this.gettingDressed ? this.setAccelerationX(-this.slowedMoveSpeed) : this.setAccelerationX(-this.normalMoveSpeed);
+            this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
         }
         else if(keyRight.isDown && this.x < config.width){
-            this.gettingDressed ? this.setAccelerationX(this.slowedMoveSpeed) : this.setAccelerationX(this.normalMoveSpeed);
+            this.gettingDressed ? this.setAccelerationX(this.slowedAccel) : this.setAccelerationX(this.normalAccel);
             if(this.body.velocity.x < 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
@@ -55,7 +57,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.setAccelerationX(0);
         }
         //while getting dressed max speed is slower
-        this.gettingDressed ? this.setMaxVelocity(150,1000) : this.setMaxVelocity(250,1000);
+        this.gettingDressed ? this.setMaxVelocity(100,500) : this.setMaxVelocity(250,500);
 
         //jumping 
         // how to implement it was looked from here.

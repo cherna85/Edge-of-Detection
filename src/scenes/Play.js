@@ -1,4 +1,7 @@
 class Play extends Phaser.Scene {
+    /*A class extension does not contain a copy of the base class right? It should simply contain all of the
+    same methods and values.*/
+
     constructor() {
         super('playScene');
     }
