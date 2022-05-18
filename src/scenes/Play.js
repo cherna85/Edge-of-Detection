@@ -31,8 +31,9 @@ class Play extends Phaser.Scene {
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain', 0, 'playerDisguise');
         this.createButtons();
         
-        //let rect = this.add.rectangle( 150, 250, 50, 50).setStrokeStyle(1, 0xff0000); Used for debugging
-
+        //Alternatively, maybe we'd want a 2nd camera that shows the entire level, as the 'zoomed out' camera?
+        this.cameras.main.zoom = 2;
+        //this.cameras.setBounds(0, 0, )
     
         //moving text 
         let dressedTextConfig = {
