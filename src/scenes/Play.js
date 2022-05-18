@@ -28,12 +28,14 @@ class Play extends Phaser.Scene {
 
 
         //Create player + objects
-        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain', 0, 'playerDisguise');
+        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
+         0, 'playerDisguise');
         this.createButtons();
         
         //Alternatively, maybe we'd want a 2nd camera that shows the entire level, as the 'zoomed out' camera?
         this.cameras.main.zoom = 2;
-        //this.cameras.setBounds(0, 0, )
+        this.cameras.main.setBounds(0, 0, this.level.tilemap.widthInPixels, this.level.tilemap.heightInPixels);
+        this.cameras.main.startFollow(this.plrSpy);
     
         //moving text 
         let dressedTextConfig = {

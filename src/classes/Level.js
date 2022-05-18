@@ -29,6 +29,8 @@ class Level{
                 tile.collideUp = true;
             }
         })
+
+        this.tilemap = mapProto;
     }
     getSolidLayer(){
         return this.solidLayer;
