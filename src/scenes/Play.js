@@ -66,7 +66,9 @@ class Play extends Phaser.Scene {
         //moving text 
         let dressedTextConfig = {
             fontSize: '9px',
-            align: 'center'
+            align: 'center',
+            stroke: '#000000',
+            strokeThickness: 4
         }
 
         this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
