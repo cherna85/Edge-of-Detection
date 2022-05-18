@@ -9,7 +9,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         
 
         //needs to be tweaked when assets are loaded
-        //this.scale = 0.5;
+        this.scaleY = 0.75
         this.setBodySize(16, 32);
         this.tempUI = false; // remove later 
 
