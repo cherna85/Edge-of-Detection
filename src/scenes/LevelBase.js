@@ -56,6 +56,12 @@ class LevelBase extends Phaser.Scene {
         this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
         
 
+        //Alternatively, maybe we'd want a 2nd camera that shows the entire level, as the 'zoomed out' camera?
+        this.cameras.main.zoom = 2;
+        this.cameras.main.setBounds(0, 0, this.tilemap.widthInPixels, this.tilemap.heightInPixels);
+        this.cameras.main.startFollow(this.plrSpy);
+
+
         //UI
         let dressedTextConfig = {
             fontSize: '9px',
@@ -84,7 +90,7 @@ class LevelBase extends Phaser.Scene {
     }
 
     create(){
-        //Create method gets overwritten when called in Level1
+        //Create method gets overwritten when called in LevelShipyard
         console.log("Create method from levelBase");
     }
 

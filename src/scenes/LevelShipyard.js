@@ -1,6 +1,6 @@
-class Level1 extends LevelBase {
+class LevelShipyard extends LevelBase {
     constructor() {
-        super('level1');
+        super('levelShipyard');
     }
 
     preload(){
@@ -10,7 +10,7 @@ class Level1 extends LevelBase {
 
     create(){
         this.createDefault();
-        
+
         this.plrSpy.x = 100;
         this.plrSpy.y = 332;
     }
