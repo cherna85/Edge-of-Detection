@@ -144,8 +144,10 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     detectedFunc(){
         this.detected = true;
         this.scene.gameOver = true;
-        this.scene.check++;
-        //big fixes
+        if(this.scene.check <3){
+            this.scene.check++;
+        }
+        //bug fixes
         this.scene.dressedText.x = game.config.width/2 + 600; 
         this.setAccelerationX(0);
     }

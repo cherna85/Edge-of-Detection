@@ -40,6 +40,8 @@ class LOS{
         //set collision (field of view) range
         ray.setCollisionRange(fov);
         ray.castCone();
+        //create collision
+        this.setPlayerCollision(scene,ray);
 
         return ray; 
     }
@@ -96,7 +98,7 @@ class LOS{
 
         //Draw ray LoS
         scene.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        this.drawLOS(scene);
+        
     }
 
     drawLOS(scene){
@@ -107,5 +109,13 @@ class LOS{
         scene.graphics.fillPoints(this.intersections);
         scene.graphics.fillPoints(this.intersections2);
         //this.path.draw(this.graphics);    
-    };
+    }
+    setPlayerCollision(scene,ray){
+        //Sets up collision with player and lights/cameras
+        scene.physics.add.overlap(ray, scene.plrSpy, function(rayFoVCircle, target){
+            if(!target.disguiseActive){
+                target.detectedFunc();
+            }
+        }, ray.processOverlap.bind(ray));
+    }
 }

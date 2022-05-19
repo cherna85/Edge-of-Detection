@@ -18,19 +18,6 @@ class LevelShipyard extends LevelBase {
         this.levelLOS = new LOS(this, this.solidLayer);
         this.createButtons();
 
-        //Sets up collision with player and lights/cameras
-        this.physics.add.overlap(this.levelLOS.ray2, this.plrSpy, function(rayFoVCircle, target){
-            if(!target.disguiseActive){
-                //console.log("detected by 2");
-                target.detectedFunc();
-            }
-        }, this.levelLOS.ray2.processOverlap.bind(this.levelLOS.ray2));
-        this.physics.add.overlap(this.levelLOS.ray, this.plrSpy, function(rayFoVCircle, target){
-            if(!target.disguiseActive){
-                //console.log("detected by 2");
-                target.detectedFunc();
-            }
-        }, this.levelLOS.ray.processOverlap.bind(this.levelLOS.ray));
         
     }
 
