@@ -23,17 +23,39 @@ class LevelBase extends Phaser.Scene {
     */
     createDefault(){
         this.defineKeys();
+        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
+         0, 'playerDisguise');
 
+        
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
         this.tileset = this.tilemap.addTilesetImage('PH_city_tiles', 'tilesCityPH');
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
 
-        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
-         0, 'playerDisguise');
 
+        /*Sets up collision between tilemap and player*/
+        //Makes all tiles that have property "collides" have collision
+        this.solidLayer.setCollisionByProperty( {collides: true} );
+        this.platformLayer.setCollisionByProperty( {collides: true} );
+        //Makes all the platform tiles only have 1-way collision
+        this.platformLayer.forEachTile(tile => {
+            if(tile.index == 16){
+                tile.collideLeft = false;
+                tile.collideRight = false;
+                tile.collideDown = false;
+            }
+            if(tile.index == 7){
+                tile.collideRight = true;
+                tile.collideLeft = false;
+                tile.collideDown = true;
+                tile.collideUp = true;
+            }
+        });
+        this.physics.add.collider(this.plrSpy, this.solidLayer);
+        this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
         
+
         //UI
         let dressedTextConfig = {
             fontSize: '9px',
