@@ -9,6 +9,7 @@ class LevelBase extends Phaser.Scene {
         this.load.path = 'assets/';
         this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
         this.load.image('tilesCityPH', tilesetPath);
+        //console.log(this.textures);
 
         this.load.image('objButton', 'PH_obj_button.png');
         this.load.image('playerDisguise', 'TempDisguise.png');

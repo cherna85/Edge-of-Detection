@@ -5,8 +5,8 @@ class LevelTutorialA extends LevelBase {
 
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
-        this.preloadDefault('level_digital_prototype.json',
-         'PH_city_tiles_small.png');
+        this.preloadDefault('level_tutorial_A.json',
+         'PH_tiles.png');
     }
 
     create(){
