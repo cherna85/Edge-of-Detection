@@ -3,6 +3,8 @@ class LevelBase extends Phaser.Scene {
         super(levelName);
     }
 
+    /*Loads all default assets
+    Tilemap and tileset must be passed in*/
     preloadDefault(tilemapPath, tilesetPath){
         this.load.path = 'assets/';
         this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
@@ -13,9 +15,16 @@ class LevelBase extends Phaser.Scene {
         this.load.image('playerMain', 'TempPlayer.png');
     }
 
+    /*
+    Default stuff created:
+        PlayerSpy and the text that follows them (The UI)
+        The tilemap, its layers, and their collision with the player
+        The gameOver check
+    */
     createDefault(){
         this.defineKeys();
 
+        /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
         this.tileset = this.tilemap.addTilesetImage('PH_city_tiles', 'tilesCityPH');
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
