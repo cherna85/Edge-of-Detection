@@ -94,6 +94,10 @@ class LevelBase extends Phaser.Scene {
         console.log("Create method from levelBase");
     }
 
+    update(time, delta){
+        this.updateDefault(time, delta);
+    }
+
     /*Calls update on PlayerSpy, the UI, and runs the gameOver function*/
     updateDefault(time, delta){
         if(!this.gameOver){
