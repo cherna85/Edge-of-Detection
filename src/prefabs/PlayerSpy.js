@@ -35,7 +35,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         // remove later, for testing
         //BUG: Causes player to collide with invisible wall if level is too big
         //Can we make the bounds match the tilemap instead of the screen?
-        //this.setCollideWorldBounds(true);
+        this.setCollideWorldBounds(true);
     }
 
     /*Can currently jump 6 tiles in the air
@@ -151,7 +151,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     }
 
     gameOverFunc(){
-        this.scene.add.text(game.config.width/2, game.config.height/2-15, 'GAMEOVER' ).setOrigin(0.5);
+        this.scene.add.text(this.scene.camera.main.x, this.scene.camera.main.y, 'GAMEOVER' ).setOrigin(0.5);
         this.scene.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.scene.MainMenubutton = this.scene.add.text(game.config.width/2, game.config.height/2 +64 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }

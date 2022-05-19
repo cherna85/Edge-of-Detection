@@ -31,17 +31,11 @@ class LevelShipyard extends LevelBase {
                 target.detectedFunc();
             }
         }, this.levelLOS.ray.processOverlap.bind(this.levelLOS.ray));
-
-        //remove later
-        this.enemy1 = new Enemy(this, 50, 355, 'playerDisguise');
-        this.enemy1.straightPath(this,50, 355,100,355, 4000);
         
     }
 
     update(time, delta){
         this.updateDefault(time, delta);
-        this.enemy1.update();
-        this.enemy1.path.draw(this.graphics);
     }
 
     createButtons(){

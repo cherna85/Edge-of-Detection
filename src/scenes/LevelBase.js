@@ -104,7 +104,7 @@ class LevelBase extends Phaser.Scene {
             this.plrSpy.update(time, delta); 
         }
         if(this.gameOver && this.check == 1){
-            this.plrSpy.gameOverFunc();
+            this.gameOverFunc();
             this.sound.play('sfx_discovered');
         }
         //allows text to follow player while getting dressed 
@@ -156,5 +156,11 @@ class LevelBase extends Phaser.Scene {
         keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
         keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+    }
+    gameOverFunc(){
+        console.log(this.cameras.main.midPoint.x);
+        this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
+        this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
+        this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
 }
