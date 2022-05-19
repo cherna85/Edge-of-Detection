@@ -65,7 +65,7 @@ class LOS{
         
         // path to rotate along 
         this.path = new Phaser.Curves.Path();
-        this.path.add(new Phaser.Curves.Ellipse(game.config.width/2, game.config.height/2-15, 25));
+        this.path.add(new Phaser.Curves.Ellipse(scene.tilemap.widthInPixels/2, scene.tilemap.heightInPixels/2 - 16, 25));
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
         scene.tweens.add({
             targets: this.follower,
@@ -97,8 +97,6 @@ class LOS{
         //Draw ray LoS
         scene.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.drawLOS(scene);
-
-
     }
 
     drawLOS(scene){

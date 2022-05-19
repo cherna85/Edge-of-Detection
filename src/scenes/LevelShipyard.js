@@ -12,7 +12,7 @@ class LevelShipyard extends LevelBase {
         this.createDefault();
 
         /*Adjust player starting position */
-        this.plrSpy.x = 100;
+        this.plrSpy.x = 50;
         this.plrSpy.y = 332;
 
         this.levelLOS = new LOS(this, this.solidLayer);
