@@ -89,6 +89,7 @@ class LevelBase extends Phaser.Scene {
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
+        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
     }
 
     create(){
@@ -105,8 +106,8 @@ class LevelBase extends Phaser.Scene {
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
         }
-        if(this.gameOver && this.check == 1){
-            this.plrSpy.gameOverFunc();
+        if(this.gameOver && this.check  ==3){
+            this.gameOverFunc();
             this.sound.play('sfx_discovered');
         }
         //allows text to follow player while getting dressed 
@@ -157,5 +158,10 @@ class LevelBase extends Phaser.Scene {
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+    }
+    gameOverFunc(){
+        this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
+        this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
+        this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
 }
