@@ -14,13 +14,15 @@ class LevelTutorialA extends LevelBase {
 
         /*Adjust player starting position */
         this.plrSpy.x = 256;
-        this.plrSpy.y = 432;
+        this.plrSpy.y = 332;
 
         this.enemy1 = new Enemy(this, 608, 432, 'playerDisguise', 0, true, 200);
-        this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, 180);
+        //this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, 180);
+        this.enemy1.straightPath(this, 432, 432, 4000);
     }
 
     update(time, delta){
         this.updateDefault(time, delta);
+        this.enemy1.update();
     }
 }

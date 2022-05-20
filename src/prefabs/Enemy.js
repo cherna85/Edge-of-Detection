@@ -14,10 +14,10 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scaleY = 0.75 //New body size is 16 x 24. Possibly smaller in future
         this.setBodySize(16, 32);
         //create a detection frame
-        this.startLosAngle = losAngle;
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.enemyLOS = new LOS(scene, scene.solidLayer);
-        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 6, losAngle, losWidth, losRange);
+        
+        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 8, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);
 
 
@@ -34,7 +34,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.path.getPoint(this.follower.t, this.follower.vec);
             this.x = this.follower.vec.x;
             this.y = this.follower.vec.y;
-            this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y);
+            //The -8 for the ray puts it roughly where the enemy's eyes are - Santiago
+            this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y - 8);
             //once you reach the end of the path flip
             if((this.path.getPoint(1).x == this.x) && (this.path.getPoint(1).y ==  this.y)){
                 this.flip(true);
@@ -54,7 +55,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     
     straightPath(scene, endX ,endY, duration){
-        let line = new Phaser.Curves.Line([this.x,this.y, endX, endY]);
+        let line = new Phaser.Curves.Line([this.x,this.y, endX, endY + 4]);
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
         this.path.add(line);
         scene.tweens.add({
