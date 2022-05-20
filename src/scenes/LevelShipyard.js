@@ -26,7 +26,7 @@ class LevelShipyard extends LevelBase {
 
     update(time, delta){
         this.updateDefault(time, delta);
-        this.enemy.update(time,delta,this);
+        //this.enemy.update(time,delta,this);
     }
 
     createButtons(){
