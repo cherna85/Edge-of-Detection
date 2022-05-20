@@ -42,7 +42,7 @@ class LevelBase extends Phaser.Scene {
         this.platformLayer.setCollisionByProperty( {collides: true} );
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
-            if(tile.index == 16){
+            if(tile.index == 6){
                 tile.collideLeft = false;
                 tile.collideRight = false;
                 tile.collideDown = false;
