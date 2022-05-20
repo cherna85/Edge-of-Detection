@@ -1,6 +1,6 @@
 class Enemy extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame, losAngle = 0, losWidth = 45, losRange = 100) {
-        super(scene, x, y, texture, frame);
+    constructor(scene, x, y, texture, frame, flipped = false, losRange = 100, losAngle = 0, losWidth = 45) {
+        super(scene, x, y + 4, texture, frame); //The +4 is to make them standing on the ground when they are spawned
        
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
@@ -14,9 +14,10 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scaleY = 0.75 //New body size is 16 x 24. Possibly smaller in future
         this.setBodySize(16, 32);
         //create a detection frame
+        this.startLosAngle = losAngle;
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.enemyLOS = new LOS(scene, scene.solidLayer);
-        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y, losAngle, losWidth, losRange);
+        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 6, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);
 
 
@@ -24,6 +25,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.collider(this, scene.solidLayer);
         scene.platformCollision = scene.physics.add.collider(this, scene.platformLayer);
 
+        this.flip(flipped);
     }
 
     update(time,delta, scene){
@@ -40,7 +42,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
                 this.flip(false);
-                this.enemyLOS.setAngleDegRay(this.detection,0);
+                this.enemyLOS.setAngleDegRay(this.detection, 0);
             }
         }
         this.drawEnemyLOS(scene,this.detection);
