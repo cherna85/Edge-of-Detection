@@ -24,7 +24,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         //creating collider 
         scene.physics.add.collider(this, scene.solidLayer);
         scene.platformCollision = scene.physics.add.collider(this, scene.platformLayer);
-
+        this.flipSetting = flipped;
         this.flip(flipped);
     }
 
@@ -38,12 +38,10 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y - 8);
             //once you reach the end of the path flip
             if((this.path.getPoint(1).x == this.x) && (this.path.getPoint(1).y ==  this.y)){
-                this.flip(true);
-                this.enemyLOS.setAngleDegRay(this.detection,180);
+                this.flip(!this.flipSetting);
             }
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
-                this.flip(false);
-                this.enemyLOS.setAngleDegRay(this.detection, 0);
+                this.flip(this.flipSetting);
             }
         }
         this.drawEnemyLOS(scene,this.detection);
@@ -51,6 +49,12 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     flip(toggle){
         this.flipX=toggle;
+        if(toggle){ //when player is flipped
+            this.enemyLOS.setAngleDegRay(this.detection,180);
+        }else{ //when they are not
+            this.enemyLOS.setAngleDegRay(this.detection, 0);
+        }
+       
     }
 
     
@@ -67,6 +71,12 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1
         });
         this.moving = true;
+    }
+    standingTurn(scene, speed ){
+        this.turn = scene.time.addEvent({ delay: speed, callback: () =>{
+            this.flipSetting  =  !this.flipSetting    
+            this.flip(this.flipSetting)
+            }, loop: true });
     }
     
     drawPath(toggle){
