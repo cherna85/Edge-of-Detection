@@ -5,7 +5,7 @@ class LOS{
             this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [6, 11]});                     
     }
 
-    createConeRay(scene, originX,originY, angleDeg, coneDeg, fov,){ 
+    createConeRay(scene, originX, originY, angleDeg, coneDeg, fov,){ 
         let ray = this.raycaster.createRay();
         ray.setOrigin(originX,originY);
         ray.setAngleDeg(angleDeg);

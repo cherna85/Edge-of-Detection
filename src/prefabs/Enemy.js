@@ -1,5 +1,5 @@
 class Enemy extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, losAngle = 0, losWidth = 45, losRange = 100) {
         super(scene, x, y, texture, frame);
        
         scene.add.existing(this);
@@ -16,9 +16,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         //create a detection frame
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.enemyLOS = new LOS(scene, scene.solidLayer);
-        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y, 0, 45, 100);
+        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);
-
 
 
         //creating collider 
@@ -26,6 +25,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.platformCollision = scene.physics.add.collider(this, scene.platformLayer);
 
     }
+
     update(time,delta, scene){
         //moves enemy along a path 
         if(this.moving){
@@ -49,7 +49,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     flip(toggle){
         this.flipX=toggle;
     }
-    straightPath(scene,endX,endY, duration){
+
+    
+    straightPath(scene, endX ,endY, duration){
         let line = new Phaser.Curves.Line([this.x,this.y, endX, endY]);
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
         this.path.add(line);
@@ -63,6 +65,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         });
         this.moving = true;
     }
+    
     drawPath(toggle){
         this.draw = toggle;
     }
@@ -76,7 +79,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.graphics.clear();
         this.graphics.fillStyle(0xffffff, 0.3);
         this.graphics.fillPoints(intersections);
-        //this.path.draw(this.graphics);    
+
         if(this.draw){
             this.path.draw(this.graphics);
         }
