@@ -10,7 +10,7 @@ class LevelTutorialA extends LevelBase {
     }
 
     create(){
-        this.createDefault('PHtiles');
+        this.createDefault('PH_tiles');
 
         /*Adjust player starting position */
         this.plrSpy.x = 300;

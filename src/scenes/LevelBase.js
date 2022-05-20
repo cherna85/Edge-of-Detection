@@ -31,6 +31,7 @@ class LevelBase extends Phaser.Scene {
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
         this.tileset = this.tilemap.addTilesetImage(tilesetImgName, 'tilesCityPH');
+        //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
 
