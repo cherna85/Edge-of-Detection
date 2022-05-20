@@ -4,12 +4,12 @@ class LevelShipyard extends LevelBase {
     }
 
     preload(){
-        this.preloadDefault('level_digital_prototype.json',
-         'PH_city_tiles_small.png');
+        this.preloadDefault('level_shipyard.json',
+         'PH_tiles.png');
     }
 
     create(){
-        this.createDefault();
+        this.createDefault('PH_tiles');
 
         /*Adjust player starting position */
         this.plrSpy.x = 50;
