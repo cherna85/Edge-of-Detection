@@ -87,6 +87,7 @@ class LevelBase extends Phaser.Scene {
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
+        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
     }
 
     create(){

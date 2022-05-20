@@ -2,11 +2,10 @@ class LOS{
     constructor(scene, mappedObjects){
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
             //Maps objects to the ray so it can collide with them
-            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [6, 11]}); 
-                       
+            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [6, 11]});                     
     }
 
-    createConeArray(scene, originX,originY, angleDeg, coneDeg, fov,){ 
+    createConeRay(scene, originX,originY, angleDeg, coneDeg, fov,){ 
         let ray = this.raycaster.createRay();
         ray.setOrigin(originX,originY);
         ray.setAngleDeg(angleDeg);
@@ -18,7 +17,6 @@ class LOS{
         ray.castCone();
         //create collision
         this.setPlayerCollision(scene,ray);
-
         return ray; 
     }
     getIntersectionsCone(ray){
