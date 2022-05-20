@@ -159,7 +159,6 @@ class LevelBase extends Phaser.Scene {
         keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
     }
     gameOverFunc(){
-        console.log("hey");
         this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
