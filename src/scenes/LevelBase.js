@@ -9,6 +9,7 @@ class LevelBase extends Phaser.Scene {
         this.load.path = 'assets/';
         this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
         this.load.image('tilesCityPH', tilesetPath);
+        //console.log(this.textures);
 
         this.load.image('objButton', 'PH_obj_button.png');
         this.load.image('playerDisguise', 'TempDisguise.png');
@@ -21,7 +22,7 @@ class LevelBase extends Phaser.Scene {
         The tilemap, its layers, and their collision with the player
         The gameOver check
     */
-    createDefault(){
+    createDefault(tilesetImgName){
         this.defineKeys();
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');
@@ -29,7 +30,8 @@ class LevelBase extends Phaser.Scene {
         
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
-        this.tileset = this.tilemap.addTilesetImage('PH_city_tiles', 'tilesCityPH');
+        this.tileset = this.tilemap.addTilesetImage(tilesetImgName, 'tilesCityPH');
+        //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
 
@@ -40,7 +42,7 @@ class LevelBase extends Phaser.Scene {
         this.platformLayer.setCollisionByProperty( {collides: true} );
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
-            if(tile.index == 16){
+            if(tile.index == 6){
                 tile.collideLeft = false;
                 tile.collideRight = false;
                 tile.collideDown = false;

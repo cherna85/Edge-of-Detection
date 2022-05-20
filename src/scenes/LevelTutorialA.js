@@ -5,16 +5,16 @@ class LevelTutorialA extends LevelBase {
 
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
-        this.preloadDefault('level_digital_prototype.json',
-         'PH_city_tiles_small.png');
+        this.preloadDefault('level_tutorial_A.json',
+         'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
     }
 
     create(){
-        this.createDefault();
+        this.createDefault('PH_tiles');
 
         /*Adjust player starting position */
-        this.plrSpy.x = 300;
-        this.plrSpy.y = 332;
+        this.plrSpy.x = 256;
+        this.plrSpy.y = 432;
     }
 
     update(time, delta){
