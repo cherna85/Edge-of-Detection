@@ -22,7 +22,7 @@ class LevelBase extends Phaser.Scene {
         The tilemap, its layers, and their collision with the player
         The gameOver check
     */
-    createDefault(){
+    createDefault(tilesetImgName){
         this.defineKeys();
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');
@@ -30,7 +30,7 @@ class LevelBase extends Phaser.Scene {
         
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
-        this.tileset = this.tilemap.addTilesetImage('PH_city_tiles', 'tilesCityPH');
+        this.tileset = this.tilemap.addTilesetImage(tilesetImgName, 'tilesCityPH');
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
 
