@@ -24,7 +24,7 @@ class LOS{
                 this.path.getPoint(this.follower.t - 0.5, this.follower.vec);
             }
             this.ray2.setOrigin(this.follower.vec.x, this.follower.vec.y);
-            this.drawLOS(scene);
+            this.drawLOS(scene,[this.ray,this.ray2]);
             
     
          }, loop: true });
@@ -98,16 +98,18 @@ class LOS{
 
         //Draw ray LoS
         scene.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        
+        this.drawLOS(scene,[this.ray,this.ray2]);
     }
 
-    drawLOS(scene){
-        this.intersections.push(this.ray.origin);
-        //console.log(this.intersections);
+    drawLOS(scene,rays){
+        for(let r in rays){
+            this.getIntersectionsCone(rays[r]).push(rays[r].origin);
+        }  
         scene.graphics.clear();
         scene.graphics.fillStyle(0xffffff, 0.3);
-        scene.graphics.fillPoints(this.intersections);
-        scene.graphics.fillPoints(this.intersections2);
+        for(let r in rays){
+            scene.graphics.fillPoints(this.getIntersectionsCone(rays[r]));
+        }
         //this.path.draw(this.graphics);    
     }
     setPlayerCollision(scene,ray){
