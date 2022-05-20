@@ -29,9 +29,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.slowedVel = 64;
         this.setMaxVelocity(this.normalVel, 500); // max velocity (x, y)
         this.setDragX(1000);
-        this.jumpPower = -128;
-        this.jumpTimer = 1;
-        this.jumpTimeMax = 300; //How long a jump can be extended in ticks (hopefully not frames...)
+        this.jumpPower = -240;
+        this.jumpPowerMin = -64;
 
         // remove later, for testing
         //BUG: Causes player to collide with invisible wall if level is too big
@@ -68,23 +67,19 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //http://floss.booktype.pro/learn-javascript-with-phaser/game-mechanic-longer-jumps-if-holding-jump-down/
 
         //Maybe if holding down jump button, reduce the effect that gravity is having on it
-        
-        if(!this.gettingDressed){ // player can only jump when not gettig dressed
-            if(keyJump.isDown){
-                if(this.body.onFloor() && this.jumpTimer == 0){
-                    this.scene.sound.play('sfx_jump');
-                    // starts the jump
-                    this.jumpTimer = 1;
-                    this.setVelocityY(this.jumpPower);
-                }else if (this.jumpTimer > 0 && this.jumpTimer < this.jumpTimeMax){ // can shorten jump time 
-                    // this lets the player jump higher
-                    this.jumpTimer++;
-                    this.setVelocityY(this.jumpPower+(this.jumpTimer * 5)); // how much higher you jump
-                }
+        /*New jump method references this video: 
+        https://www.youtube.com/watch?v=rVfR14UNNDo
+        */
+        if(!this.gettingDressed) { // player can only jump when not gettig dressed
+            if(Phaser.Input.Keyboard.JustDown(keyJump) && this.body.onFloor()) {
+                this.scene.sound.play('sfx_jump');
+                // starts the jump
+                this.setVelocityY(this.jumpPower);
             }
-            else{
-                //reset jump timer when it's not being pressed
-                this.jumpTimer = 0;
+        }
+        if(Phaser.Input.Keyboard.JustUp(keyJump)) {
+            if(this.body.velocity.y < this.jumpPowerMin) {
+                this.body.velocity.y = this.jumpPowerMin;
             }
         }
 
