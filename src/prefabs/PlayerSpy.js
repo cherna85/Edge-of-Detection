@@ -112,6 +112,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
         //Dropping through platforms (while DOWN + JUMP is held down)
         if(keyDown.isDown){
+            console.log("Key is down")
             this.scene.platformCollision.active = false;
         }
         else{
