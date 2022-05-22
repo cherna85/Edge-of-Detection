@@ -2,7 +2,9 @@ class LOS{
     constructor(scene, mappedObjects){
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:true}); //when debugging is true, we get an error when we restart a level
             //Maps objects to the ray so it can collide with them
-            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});                     
+            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});    
+            this.raycaster.mapGameObjects(scene.objectLayer, false, {collisionTiles: [ 9, 13]})  
+            this.scene = scene;               
     }
 
     createConeRay(scene, originX, originY, angleDeg, coneDeg, fov,){ 
@@ -55,6 +57,7 @@ class LOS{
         }, ray.processOverlap.bind(ray));
     }
     updateObjects(){
-        this.map()
+        this.raycaster.mapGameObjects(this.scene.objectLayer, false, {collisionTiles: [ 9, 13]})  
     }
+
 }

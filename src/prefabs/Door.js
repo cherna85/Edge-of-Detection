@@ -32,18 +32,19 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         if(this.open){
             this.open = false;
             console.log("closed door");
-            this.scene.solidLayer.putTileAt(9,this.tileX, this.tileY-1);
-            this.scene.solidLayer.putTileAt(13,this.tileX, this.tileY);
+            this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1);
+            this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY);
             
 
         }else{
             this.open = true;
             console.log("open door");
-            this.scene.solidLayer.putTileAt(0,this.tileX, this.tileY-1);
-            this.scene.solidLayer.putTileAt(0,this.tileX, this.tileY);
+            this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY-1);
+            this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY);
         }
         this.emit('objactivated');
-        this.scene.enemy1.detection.updateObjects();
+        // so the tile gets updated the the raycaster needs to updat
+        this.scene.enemy1.enemyLOS.updateObjects();
     }
 }
 

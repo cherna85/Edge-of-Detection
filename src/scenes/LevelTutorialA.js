@@ -37,7 +37,7 @@ class LevelTutorialA extends LevelBase {
     }
     placeDoors(){
         this.doorsObjs = this.add.group();
-        this.solidLayer.forEachTile(tile => {
+        this.objectLayer.forEachTile(tile => {
             if(tile.index == 13){
                 console.log('Hey?')
                this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y));               
