@@ -131,7 +131,7 @@ class LevelBase extends Phaser.Scene {
                     sceneSelect = 'playScene';
                 }  
               }
-            if (Phaser.Input.Keyboard.JustDown(keyInteract)) {
+            if (Phaser.Input.Keyboard.JustDown(keyJump)) {
                 if(sceneSelect == 'playScene'){
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#FF994F');
@@ -144,7 +144,7 @@ class LevelBase extends Phaser.Scene {
                 }  
             }  
             //BUG: Despite calling JustDown, this can trigger if the button is held down
-            if (Phaser.Input.Keyboard.JustDown(keyJump)) {
+            if (Phaser.Input.Keyboard.JustDown(keyDisguise)) {
                 //console.log('selecting');
                 this.scene.start(sceneSelect);    
             }  
@@ -152,13 +152,12 @@ class LevelBase extends Phaser.Scene {
     }
 
     defineKeys(){
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
         keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
     }
     gameOverFunc(){
         this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;

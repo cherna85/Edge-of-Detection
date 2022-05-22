@@ -9,11 +9,11 @@ let config = {
       physics: {
           default: 'arcade',
           arcade: {
-                gravity: { y: 1000 },
+                gravity: { y: 500 },
                 debug: true
           }
       },
-      scene: [ Menu, Option, Credit, LevelSelect, LevelTutorialA, LevelShipyard],
+      scene: [ Menu, Option, Credit, LevelSelect, LevelTutorialA, LevelTutorialB, LevelShipyard],
       plugins:{
         scene: [
           {

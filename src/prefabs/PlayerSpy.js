@@ -19,18 +19,18 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
 
         this.disguiseTimer = 0;
-        this.disguiseDuration = 10000;
+        this.disguiseDuration = 3000;
         
 
         //needs to be tweaked 
-        this.normalAccel = 500; //Horizontal acceleration
-        this.slowedAccel = 500; //Slow (disguising) acceleration
-        this.normalVel = 250;
-        this.slowedVel = 100;
+        this.normalAccel = 384; //Horizontal acceleration
+        this.slowedAccel = 256; //Slow (disguising) acceleration
+        this.normalVel = 128; //
+        this.slowedVel = 64;
         this.setMaxVelocity(this.normalVel, 500); // max velocity (x, y)
         this.setDragX(1000);
-        this.jumpPower = -300;
-        this.jumpTime = 1;
+        this.jumpPower = -240;
+        this.jumpPowerMin = -64;
 
         // remove later, for testing
         //BUG: Causes player to collide with invisible wall if level is too big
@@ -65,22 +65,21 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //jumping 
         // how to implement it was looked from here.
         //http://floss.booktype.pro/learn-javascript-with-phaser/game-mechanic-longer-jumps-if-holding-jump-down/
-        if(!this.gettingDressed){ // player can only jump when not gettig dressed
-            if(keyJump.isDown && !keyDown.isDown){
-                if(this.body.onFloor() && this.jumpTime == 0){
-                    this.scene.sound.play('sfx_jump');
-                    // starts the jump
-                    this.jumpTime = 1;
-                    this.setVelocityY(this.jumpPower);
-                }else if (this.jumpTime > 0 && this.jumpTime < 20){ // can shorten jump time 
-                    // this lets the player jump higher
-                    this.jumpTime++;
-                    this.setVelocityY(this.jumpPower+(this.jumpTime * 5)); // how much higher you jump
-                }
+
+        //Maybe if holding down jump button, reduce the effect that gravity is having on it
+        /*New jump method references this video: 
+        https://www.youtube.com/watch?v=rVfR14UNNDo
+        */
+        if(!this.gettingDressed) { // player can only jump when not gettig dressed
+            if(Phaser.Input.Keyboard.JustDown(keyJump) && this.body.onFloor()) {
+                this.scene.sound.play('sfx_jump');
+                // starts the jump
+                this.setVelocityY(this.jumpPower);
             }
-            else{
-                //reset jump timer when it's not being pressed
-                this.jumpTime = 0;
+        }
+        if(Phaser.Input.Keyboard.JustUp(keyJump)) {
+            if(this.body.velocity.y < this.jumpPowerMin) {
+                this.body.velocity.y = this.jumpPowerMin;
             }
         }
 
@@ -99,7 +98,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        if( (keyDisguise.getDuration() >= 3*1000) && !this.disguiseActive){
+        if( (keyDisguise.getDuration() >= 0.5*1000) && !this.disguiseActive){
             this.disguiseOn(); 
             // timer on how long the disguise is active
             this.scene.sound.play('sfx_disguise');
@@ -112,7 +111,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //Dropping through platforms (while DOWN + JUMP is held down)
-        if(keyDown.isDown && keyJump.isDown){
+        if(keyDown.isDown){
+            console.log("Key is down")
             this.scene.platformCollision.active = false;
         }
         else{
