@@ -23,6 +23,8 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(time, delta){
+        this.instructions.x = this.x;
+        this.instructions.y = this.y + 24;
         //Can be interacted with if either not activated, or can be activated multiple times
         if(this.scene.physics.overlap(this, this.playerRef) && (!this.activated || this.repeatable)){
             this.instructions.alpha = 1;
