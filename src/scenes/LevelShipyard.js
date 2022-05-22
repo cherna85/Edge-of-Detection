@@ -31,9 +31,13 @@ class LevelShipyard extends LevelBase {
 
     createButtons(){
         //Create buttons
-        this.groupButtonObjs = this.add.group([new ObjInteract(this, 272, 32, 'objButton'),
-        new ObjInteract(this, 16, 208, 'objButton'), new ObjInteract(this, 528, 208, 'objButton'),
-        new ObjInteract(this, 272, 432, 'objButton')]);
+        this.buttons = this.tilemap.createFromObjects("Objects", {
+            name: "button",
+            key: "objButton",
+            frame: 0,
+            classType: ObjInteract
+        })
+        this.groupButtonObjs = this.add.group(this.buttons);
         this.groupButtonObjs.runChildUpdate = true;
         //Create objective tracker
         this.buttonTracker = new Checklist(this, "buttonTracker", this.groupButtonObjs.countActive());

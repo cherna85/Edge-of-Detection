@@ -24,11 +24,7 @@ class LevelTutorialA extends LevelBase {
         this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
         this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
 
-        this.button = new ObjInteract(this, 136, 336, 'objButton', 0);
-        //Add later: function that unlocks level exit when button is activated
-        this.button.on('objactivated', () => {
-            console.log("Button was activated");
-        });
+        this.createButtons();
     }
 
     update(time, delta){
@@ -38,6 +34,31 @@ class LevelTutorialA extends LevelBase {
         this.enemy1.update();
         this.enemy2.update();
         this.enemy3.update();
-        this.button.update();
+    }
+
+    createButtons(){
+        //Create buttons
+        /*Works well, but now the text isn't positioned correctly*/
+        this.buttons = this.tilemap.createFromObjects("Objects", {
+            name: "button",
+            key: "objButton",
+            frame: 0,
+            classType: ObjInteract
+        })
+        this.groupButtonObjs = this.add.group(this.buttons);
+        this.groupButtonObjs.runChildUpdate = true;
+        //Create objective tracker
+        this.buttonTracker = new Checklist(this, "buttonTracker", this.groupButtonObjs.countActive());
+
+        //Add event for each button when they are pressed, listening for the signal 'objactivated'
+        let buttons = this.groupButtonObjs.getChildren(); //More like a dict than an array...
+        for(let i = 0; i < buttons.length; i++){
+        let button = buttons[i];
+        button.on('objactivated', () => {
+            this.buttonTracker.addObjective();
+        });
+        }
+        /*With ability to establish events and listeners, we could theoretically add a locked door 
+        (which I'll add later) - Santiago*/
     }
 }
