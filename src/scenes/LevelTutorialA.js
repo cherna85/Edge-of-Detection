@@ -23,6 +23,12 @@ class LevelTutorialA extends LevelBase {
 
         this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
         this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
+
+        this.button = new ObjInteract(this, 136, 336, 'objButton', 0);
+        //Add later: function that unlocks level exit when button is activated
+        this.button.on('objactivated', () => {
+            console.log("Button was activated");
+        });
     }
 
     update(time, delta){
@@ -32,5 +38,6 @@ class LevelTutorialA extends LevelBase {
         this.enemy1.update();
         this.enemy2.update();
         this.enemy3.update();
+        this.button.update();
     }
 }
