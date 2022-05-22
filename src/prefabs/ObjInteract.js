@@ -10,6 +10,7 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
         this.activated = false;
         this.repeatable = false; //Allows being activated more than once
         this.body.allowGravity = false;
+        this.activeTint = 0x444444;
     }
 
     update(time, delta){
@@ -24,6 +25,7 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
 
     activate(){
         this.activated = true;
+        this.setTint(this.activeTint);
         this.emit('objactivated');
     }
 }
