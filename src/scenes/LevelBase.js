@@ -34,6 +34,7 @@ class LevelBase extends Phaser.Scene {
         //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
+        //this.objectLayer = this.tilemap.createLayer('ObjectGuide', this.tileset);
 
 
         /*Sets up collision between tilemap and player*/

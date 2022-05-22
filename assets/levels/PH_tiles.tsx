@@ -41,9 +41,9 @@
    <property name="collides" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="8">
+ <tile id="8" type="Door">
   <properties>
-   <property name="collides" type="bool" value="false"/>
+   <property name="collides" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="9">
@@ -61,9 +61,9 @@
    <property name="collides" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="12">
+ <tile id="12" type="Door_Handle">
   <properties>
-   <property name="collides" type="bool" value="false"/>
+   <property name="collides" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="13">
