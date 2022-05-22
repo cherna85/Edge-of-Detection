@@ -26,10 +26,25 @@ class LevelTutorialA extends LevelBase {
         this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
         this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
         this.enemy3.enemyLOS.setAngleDegRay(this.enemy3.detection, 180);
+
+        this.placeDoors();
     }
 
     update(time, delta){
         this.updateDefault(time, delta);
         this.enemy1.update();
+
     }
-}
+    placeDoors(){
+        this.doorsObjs = this.add.group();
+        this.solidLayer.forEachTile(tile => {
+            if(tile.index == 13){
+                console.log('Hey?')
+               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y));               
+            }
+
+        });
+        this.doorsObjs.runChildUpdate = true;
+    };
+    
+}   
