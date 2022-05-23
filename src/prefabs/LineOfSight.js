@@ -2,8 +2,9 @@ class LOS{
     constructor(scene, mappedObjects){
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:true}); //when debugging is true, we get an error when we restart a level
             //Maps objects to the ray so it can collide with them
-            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});    
-            this.raycaster.mapGameObjects(scene.objectLayer, false, {collisionTiles: [ 9, 13]})  
+            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});   
+            // true sets dynamic updating
+            this.raycaster.mapGameObjects(scene.objectLayer, true, {collisionTiles: [ 9, 13]})  
             this.scene = scene;               
     }
 
@@ -55,9 +56,6 @@ class LOS{
                 target.detectedFunc();
             }
         }, ray.processOverlap.bind(ray));
-    }
-    updateObjects(){
-        this.raycaster.mapGameObjects(this.scene.objectLayer, false, {collisionTiles: [ 9, 13]})  
     }
 
 }

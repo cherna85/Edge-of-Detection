@@ -44,7 +44,9 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         }
         this.emit('objactivated');
         // so the tile gets updated the the raycaster needs to updat
-        this.scene.enemy1.enemyLOS.updateObjects();
+        console.log(this.scene.enemy1.enemyLOS)
+        //this.scene.enemy1.enemyLOS.clearObstacle();
+        //this.scene.enemy1.enemyLOS.updateObjects();
     }
 }
 
