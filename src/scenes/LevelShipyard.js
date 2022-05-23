@@ -18,10 +18,6 @@ class LevelShipyard extends LevelBase {
         this.levelLOS = new LOS(this, this.solidLayer);
         this.createButtons();
         this.createSpotlights(this.solidLayer);
-        //this.enemy = new Enemy(this,60,332, 'playerDisguise');
-        //this.enemy.straightPath(this, 100,332, 4000); 
-        //this.enemy.drawPath(true); 
-        
     }
 
     update(time, delta){
@@ -31,9 +27,13 @@ class LevelShipyard extends LevelBase {
 
     createButtons(){
         //Create buttons
-        this.groupButtonObjs = this.add.group([new ObjInteract(this, 272, 32, 'objButton'),
-        new ObjInteract(this, 16, 208, 'objButton'), new ObjInteract(this, 528, 208, 'objButton'),
-        new ObjInteract(this, 272, 432, 'objButton')]);
+        this.buttons = this.tilemap.createFromObjects("Objects", {
+            name: "button",
+            key: "objButton",
+            frame: 0,
+            classType: ObjInteract
+        })
+        this.groupButtonObjs = this.add.group(this.buttons);
         this.groupButtonObjs.runChildUpdate = true;
         //Create objective tracker
         this.buttonTracker = new Checklist(this, "buttonTracker", this.groupButtonObjs.countActive());

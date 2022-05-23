@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="34" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="1">
  <editorsettings>
-  <export target="level_digital_prototype.json" format="json"/>
+  <export target="../../../Untitled-Spy-Game/assets/levels/level_digital_prototype.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="PH_tiles" tilewidth="16" tileheight="16" tilecount="16" columns="4">
-  <image source="../PH_tiles.png" width="64" height="64"/>
+  <image source="PH_tiles.png" width="64" height="64"/>
   <tile id="0">
    <properties>
     <property name="collides" type="bool" value="true"/>

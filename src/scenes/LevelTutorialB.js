@@ -1,29 +1,24 @@
-class LevelTutorialA extends LevelBase {
+class LevelTutorialB extends LevelBase {
     constructor() {
-        super('levelTutorialA');
+        super('levelTutorialB');
     }
 
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
-        this.preloadDefault('level_tutorial_A.json',
-         'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
+        this.preloadDefault('level_tutorial_B.json',
+        'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
     }
 
     create(){
         this.createDefault('PH_tiles');
+        //this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
 
         /*Adjust player starting position */
-        this.plrSpy.x = 256;
-        this.plrSpy.y = 432;
+        this.plrSpy.x = 160;
+        this.plrSpy.y = 304;
 
-        /*Creates 3 enemies, two of whom face left*/
-        this.enemy1 = new Enemy(this, 608, 432, 'playerDisguise', 0, true, 200);
-        //this.enemy1.standingTurn(this, 4000);
-        //this.enemy1.straightPath(this, 432, 432, 4000);
-
-        this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
-        this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
-
+        this.enemy1 = new Enemy(this, 320, 304, 'playerDisguise', 0, false, 200);
+        this.enemy1.straightPath(this, 592, 304, 4000);
         this.createButtons();
     }
 
@@ -32,8 +27,6 @@ class LevelTutorialA extends LevelBase {
 
         //Make sure all enemies are updated (possibly use a group)
         this.enemy1.update();
-        this.enemy2.update();
-        this.enemy3.update();
     }
 
     createButtons(){
@@ -61,5 +54,4 @@ class LevelTutorialA extends LevelBase {
         /*With ability to establish events and listeners, we could theoretically add a locked door 
         (which I'll add later) - Santiago*/
     }
-    
-}   
+}
