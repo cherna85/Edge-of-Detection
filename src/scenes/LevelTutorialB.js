@@ -6,12 +6,11 @@ class LevelTutorialB extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_B.json',
-        'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
+        'PH_tiles.png');
     }
 
     create(){
         this.createDefault('PH_tiles');
-        //this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
 
         /*Adjust player starting position */
         this.plrSpy.x = 160;

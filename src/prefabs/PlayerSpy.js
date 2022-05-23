@@ -35,7 +35,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         // remove later, for testing
         //BUG: Causes player to collide with invisible wall if level is too big
         //Can we make the bounds match the tilemap instead of the screen?
-        this.setCollideWorldBounds(true);
+        //this.setCollideWorldBounds(true);
     }
 
     /*Can currently jump 6 tiles in the air
