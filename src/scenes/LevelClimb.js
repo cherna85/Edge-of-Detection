@@ -19,6 +19,21 @@ class LevelClimb extends LevelBase {
         this.enemy1 = new Enemy(this, 13 * 16, 16 * 37, 'playerDisguise', 0, false, 1000, 90, 30);
         this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, -90);
         this.createButtons();
+
+        this.rayTween = this.tweens.addCounter({
+            from: -110,
+            to: -70,
+            duration: 4000,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut',
+            onUpdate: function (tween)
+            {
+                const value = tween.getValue();
+                let scene = this.parent.scene;
+                scene.enemy1.enemyLOS.setAngleDegRay(scene.enemy1.detection, value);
+            }
+        });
     }
 
     update(time, delta){
