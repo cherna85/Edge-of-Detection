@@ -25,6 +25,7 @@ class LevelTutorialA extends LevelBase {
         this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
 
         this.createButtons();
+        this.placeDoors([this.plrSpy,this.enemy1, this.enemy2, this.enemy3]);
     }
 
     update(time, delta){

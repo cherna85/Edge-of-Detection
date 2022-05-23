@@ -122,7 +122,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         - Somehow the enemy is taking the place of the playerspy in the collider
         */
         if(keyDown.isDown){
-            console.log(this.scene.platformCollision);
+           // console.log(this.scene.platformCollision);
             this.scene.platformCollision.active = false;
         }
         else{

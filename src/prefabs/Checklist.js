@@ -8,6 +8,7 @@ class Checklist extends Phaser.GameObjects.GameObject {
         super(scene, type);
         this.objectivesNeeded = objectives; //Number of 'things' before this calls a function
         this.objectives = 0;
+        this.completed = false;
     }
 
     addObjective(amount = 1){
@@ -26,5 +27,6 @@ class Checklist extends Phaser.GameObjects.GameObject {
     allComplete(){
         console.log("All objectives complete for a checklist");
         this.emit('allcomplete'); //Really gotta use 'this' for everything huh? - Santiago
+        this.completed = true;
     }
 }

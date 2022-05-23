@@ -41,6 +41,7 @@ class LevelBase extends Phaser.Scene {
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
         this.platformLayer.setCollisionByProperty( {collides: true} );
+        this.objectLayer.setCollisionByProperty( {collides: true} );
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
             if(tile.index == 6){
@@ -57,6 +58,7 @@ class LevelBase extends Phaser.Scene {
         });
         this.physics.add.collider(this.plrSpy, this.solidLayer);
         this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
+        this.physics.add.collider(this.plrSpy, this.objectLayer);
         
 
         //Alternatively, maybe we'd want a 2nd camera that shows the entire level, as the 'zoomed out' camera?
@@ -165,11 +167,11 @@ class LevelBase extends Phaser.Scene {
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
-    placeDoors(interactables){
+    placeDoors(interactables, checklist){
         this.doorsObjs = this.add.group();
         this.objectLayer.forEachTile(tile => {
             if(tile.index == 13){
-               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y, interactables));               
+               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y, interactables));             
             }
 
         });
