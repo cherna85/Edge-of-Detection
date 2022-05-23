@@ -20,6 +20,19 @@ class LOS{
         this.setPlayerCollision(scene,ray);
         return ray; 
     }
+    createCircleRay(scene, originX, originY, fov){
+        let ray = this.raycaster.createRay();
+        ray.setOrigin(originX,originY);
+        ray.autoSlice = true; 
+        ray.enablePhysics();
+        //set collision (field of view) range
+        ray.setCollisionRange(fov);
+        ray.castCircle();
+        //create collision
+        this.setPlayerCollision(scene,ray);
+        return ray; 
+    }
+
     getIntersectionsCone(ray){
         return ray.castCone();
     }
