@@ -1,6 +1,7 @@
 class LOS{
     constructor(scene, mappedObjects){
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
+            this.raycaster.setBoundingBox(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels)
             //Maps objects to the ray so it can collide with them
             this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});                     
     }
