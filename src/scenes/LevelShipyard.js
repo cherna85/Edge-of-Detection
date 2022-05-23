@@ -18,10 +18,6 @@ class LevelShipyard extends LevelBase {
         this.levelLOS = new LOS(this, this.solidLayer);
         this.createButtons();
         this.createSpotlights(this.solidLayer);
-        //this.enemy = new Enemy(this,60,332, 'playerDisguise');
-        //this.enemy.straightPath(this, 100,332, 4000); 
-        //this.enemy.drawPath(true); 
-        
     }
 
     update(time, delta){

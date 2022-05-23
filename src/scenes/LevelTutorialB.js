@@ -11,6 +11,7 @@ class LevelTutorialB extends LevelBase {
 
     create(){
         this.createDefault('PH_tiles');
+        //this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
 
         /*Adjust player starting position */
         this.plrSpy.x = 160;

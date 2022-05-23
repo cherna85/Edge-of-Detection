@@ -111,8 +111,18 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //Dropping through platforms (while DOWN + JUMP is held down)
+        /*
+        What could be causing the bug?
+        - Console is logging so it can't be anything related to input
+        - Works on shipyard, but not the tutorial levels, so most likely it's a
+        difference in level json or js files
+        - No differences in js files, so must have something to do with the json files
+        - Collider exists, and is becoming false while key is held down
+        - ...it's the enemy...
+        - Somehow the enemy is taking the place of the playerspy in the collider
+        */
         if(keyDown.isDown){
-            console.log("Key is down")
+            console.log(this.scene.platformCollision);
             this.scene.platformCollision.active = false;
         }
         else{
@@ -150,7 +160,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.setAccelerationX(0);
     }
 
-    gameOverFunc(){
+    gameOverFunc(){23
         this.scene.add.text(this.scene.camera.main.x, this.scene.camera.main.y, 'GAMEOVER' ).setOrigin(0.5);
         this.scene.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.scene.MainMenubutton = this.scene.add.text(game.config.width/2, game.config.height/2 +64 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
