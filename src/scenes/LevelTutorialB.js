@@ -23,22 +23,44 @@ class LevelTutorialB extends LevelBase {
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.spotlightCaster = new LOS(this, this.solidLayer);
         this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
+        this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
+
+        //Affects both tweens
+        let holdTime = 1000;
+        let tweenDuration = 2500;
 
         this.tweens.addCounter({
             from: 11 * 16,
-            to: 3 * 16,
+            to: 6 * 16,
             ease: 'Sine.easeInOut',
-            duration: 5000,
+            duration: tweenDuration,
             repeat: -1,
             yoyo: true,
-            hold: 1000, //Hold doesn't apply to yoyo
+            hold: holdTime, //Hold only applys to yoyo
+            repeatDelay: holdTime,
             onUpdate: function(tween)
             {
                 const value = tween.getValue();
                 let scene = this.parent.scene;
                 scene.spotlight1.setOrigin(value, 4 * 16);
             }
-        })
+        });
+        this.tweens.addCounter({
+            from: 19 * 16,
+            to: 24 * 16,
+            ease: 'Sine.easeInOut',
+            duration: tweenDuration,
+            repeat: -1,
+            yoyo: true,
+            hold: holdTime,
+            repeatDelay: holdTime,
+            onUpdate: function(tween)
+            {
+                const value = tween.getValue();
+                let scene = this.parent.scene;
+                scene.spotlight2.setOrigin(value, 4 * 16);
+            }
+        });
     }
 
     update(time, delta){
@@ -47,6 +69,7 @@ class LevelTutorialB extends LevelBase {
         //Make sure all enemies are updated (possibly use a group)
         this.enemy1.update();
         this.drawSpotlight(this.spotlight1)
+        this.drawSpotlight(this.spotlight2)
     }
 
     createButtons(){
