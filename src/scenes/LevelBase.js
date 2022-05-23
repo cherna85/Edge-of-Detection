@@ -165,4 +165,14 @@ class LevelBase extends Phaser.Scene {
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
+    placeDoors(interactables){
+        this.doorsObjs = this.add.group();
+        this.objectLayer.forEachTile(tile => {
+            if(tile.index == 13){
+               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y, interactables));               
+            }
+
+        });
+        this.doorsObjs.runChildUpdate = true;
+    };
 }

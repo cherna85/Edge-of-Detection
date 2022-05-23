@@ -18,16 +18,18 @@ class LevelTutorialA extends LevelBase {
 
         //this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, 180);
         //this.enemy1.straightPath(this, 432, 432, 4000);
-        this.enemy1 = new Enemy(this, 608, 432, 'playerDisguise', 0, true, 200);
+        this.enemy1 = new Enemy(this, 608, 432, 'playerDisguise', 0, false, 200);
         this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, 180);
-        this.enemy1.standingTurn(this, 4000);
-        //this.enemy1.straightPath(this, 432, 432, 4000);
+        //this.enemy1.standingTurn(this, 4000);
+        this.enemy1.straightPath(this, 700, 432, 4000);
 
         this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
         this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
         this.enemy3.enemyLOS.setAngleDegRay(this.enemy3.detection, 180);
 
-        this.placeDoors();
+        //function in base level
+        //sets up door placement based on object layer
+        this.placeDoors([this.plrSpy, this.enemy1, this.enemy2,this.enemy3]);
     }
 
     update(time, delta){
@@ -35,16 +37,5 @@ class LevelTutorialA extends LevelBase {
         this.enemy1.update();
 
     }
-    placeDoors(){
-        this.doorsObjs = this.add.group();
-        this.objectLayer.forEachTile(tile => {
-            if(tile.index == 13){
-                console.log('Hey?')
-               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y));               
-            }
-
-        });
-        this.doorsObjs.runChildUpdate = true;
-    };
     
 }   

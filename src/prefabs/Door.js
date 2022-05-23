@@ -1,12 +1,11 @@
 /* An object the player can interact with to activate (such as a button) - Santiago*/
 class Door extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, tileX, tileY,sizeW=10 ,sizeH=30, texture, frame) {
+    constructor(scene, x, y, tileX, tileY, interactables,sizeW=10 ,sizeH=30, texture, frame) {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.playerRef = this.scene.plrSpy
         this.open = false;
          //Allows being activated more than once
         this.body.allowGravity = false;
@@ -15,38 +14,37 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         this.tileX = tileX;
         this.tileY = tileY;
 
+        this.check = 0;
+
+        this.interactables = interactables
+
+        scene.physics.add.overlap(this, this.interactables, this.activate, null, this);
         
     }
 
     update(time, delta){
-        //Can be interacted with if either not activated, or can be activated multiple times
-        if(this.scene.physics.overlap(this, this.playerRef)){
-            if(Phaser.Input.Keyboard.JustDown(keyInteract)){
-                this.scene.sound.play('sfx_select');
-                this.activate();
-            }
+        
+        if(!this.scene.physics.overlap(this, this.interactables) && this.check != 0){
+            this.open = false;
+            this.check = 0;
+            this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1); //top of door
+            this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY); // handle 
+              
         }
     }
 
     activate(){
-        if(this.open){
-            this.open = false;
-            console.log("closed door");
-            this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1);
-            this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY);
-            
-
-        }else{
-            this.open = true;
-            console.log("open door");
-            this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY-1);
-            this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY);
+        //insert door opening noise 
+        this.check++;
+        if(this.check == 1){
+            if(!this.open){
+                this.open = true;
+                //to set open door tile, replace the 0 with the proper index
+                this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY-1); // top of door
+                this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY); // handle 
+            }
+            this.emit('objactivated');
         }
-        this.emit('objactivated');
-        // so the tile gets updated the the raycaster needs to updat
-        console.log(this.scene.enemy1.enemyLOS)
-        //this.scene.enemy1.enemyLOS.clearObstacle();
-        //this.scene.enemy1.enemyLOS.updateObjects();
     }
 }
 
