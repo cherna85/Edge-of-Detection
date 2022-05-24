@@ -1,4 +1,3 @@
-/* An object the player can interact with to activate (such as a button) - Santiago*/
 class Door extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y,texture, frame) {
         super(scene, x, y, texture, frame);

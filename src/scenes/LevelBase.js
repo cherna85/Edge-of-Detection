@@ -106,6 +106,9 @@ class LevelBase extends Phaser.Scene {
 
     /*Calls update on PlayerSpy, the UI, and runs the gameOver function*/
     updateDefault(time, delta){
+        if(this.Exit[0].switch == true){
+            this.scene.start(sceneSelect);
+        }
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
         }
@@ -199,6 +202,21 @@ class LevelBase extends Phaser.Scene {
         for(let door in children ){
             children[door].setCollision(interactables,true,this.buttonTracker );
         }
+    }
+    placeExit(nextLevel){
+        this.Exit = this.tilemap.createFromObjects("Objects",[
+        {
+            name: "exit",
+            key: "tilesSheet",
+            frame: 11,
+            classType: Exit
+        },{ // sets the bottom half but does put the sprite in the group
+            name: "exitB",
+            key: "tilesSheet",
+            frame: 15, 
+        }]);
+        this.Exit[0].setNextLevel(nextLevel);
+        //locked doors  
     }
     
     
