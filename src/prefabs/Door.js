@@ -10,18 +10,15 @@ class Door extends Phaser.Physics.Arcade.Sprite {
 
         this.open = false;
          //Allows being activated more than once
-        this.setBodySize(6, 17).setOffset(5,0);
+        this.setBodySize(20, 17).setOffset(-1.8,0);
         this.interactable;
         this.lights;
-        console.log(this.x)
+        this.checklist = scene.buttonTracker //if there are no checklist then this will create an error
+        this.locked = false;
   
         this.scene = scene;
 
         this.check = 0;
-
-
-        
-        //this.locked = locked;
 
     }
 
@@ -33,35 +30,39 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             console.log('close');
             this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y-10); //top of door
             this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y+10); //bottom
+            //visual
             this.alpha= 1;
               
         }
-        // //checks if checklist has been completed// then door is open and
-        // if(this.checklist.completed){
-        //     this.locked = false;
-
-        //}
+        //checks if checklist has been completed// then door is open and
+        if(this.locked){
+            if(this.checklist.completed){
+                this.locked = false;
+            }
+        }
     }
 
     activate(){
-        // if(!this.locked){
-        this.check++;
-        if(this.check == 1){
-           if(!this.open){
-                this.open = true;
-                console.log("open")
-                this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
-                this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom
-                // just to see some change
-                this.alpha= 0.0;
+        if(!this.locked){
+            this.check++;
+            if(this.check == 1){
+            if(!this.open){
+                    this.open = true;
+                    console.log("open")
+                    this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
+                    this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom
+                    // just to see some change
+                    this.alpha= 0.0;
 
-            }
-        }   
-        // }
+                }
+            }   
+        }
     }
-    setCollision(interactables){
+    setCollision(interactables, toggle, checklist){
         this.interactable = interactables;
         this.scene.physics.add.overlap(this, this.interactable, this.activate, null, this);
+        this.locked = toggle;
+        this.checklist = checklist;
     }
 }
 

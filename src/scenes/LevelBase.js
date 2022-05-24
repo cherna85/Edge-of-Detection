@@ -175,14 +175,31 @@ class LevelBase extends Phaser.Scene {
             classType: Door
         })
         this.groupDoors = this.add.group(this.doors);
-        this.groupDoors.runChildUpdate = true;        
+        this.groupDoors.runChildUpdate = true;  
+        //locked doors 
+        this.lockedDoors = this.tilemap.createFromObjects("Objects", {
+            name: "lockedDoor",
+            key: "tilesSheet",
+            frame: 9,
+            classType: Door
+        })
+        this.groupLockedDoors = this.add.group(this.lockedDoors);
+        this.groupLockedDoors.runChildUpdate = true;  
+        //locked doors 
+              
     }
     doorCollision(interactables){
         //iterates through all the members and updates collision
         // so that enemies and players can move through doors
         let children = this.groupDoors.getChildren();
         for(let door in children ){
-            children[door].setCollision(interactables)
+            children[door].setCollision(interactables, false,this.buttonTracker)
+        }
+        children = this.groupLockedDoors.getChildren();
+        for(let door in children ){
+            children[door].setCollision(interactables,true,this.buttonTracker );
         }
     }
+    
+    
 }
