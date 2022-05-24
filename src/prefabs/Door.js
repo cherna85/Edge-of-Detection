@@ -26,7 +26,7 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
-            console.log('close');
+            //console.log('close');
             this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y-10); //top of door
             this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y);
             this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y+10); //bottom
@@ -48,7 +48,7 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(this.check == 1){
             if(!this.open){
                     this.open = true;
-                    console.log("open")
+                    //console.log("open")
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom

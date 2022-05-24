@@ -38,14 +38,14 @@ class Menu extends Phaser.Scene {
             this.lsbutton = this.add.text(game.config.width/2, game.config.height/2 +32 , 'Level Select', MenuConfig).setOrigin(0.5);
             this.optionsbutton = this.add.text(game.config.width/2, game.config.height/2 +64 , 'Options', MenuConfig).setOrigin(0.5);
             this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Credits', MenuConfig).setOrigin(0.5);
-            sceneSelect = 'levelClimb'; //reinitalize menu
+            sceneSelect = 'levelTutorialA'; //reinitalize menu
 
         }
 
         update(time, delta){
             // to select a scene 
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
-                if(sceneSelect == 'levelClimb'){
+                if(sceneSelect == 'levelTutorialA'){
                     this.updateMenu(this.playbutton,this.lsbutton, 'levelselectScene');
                 }
                 else if(sceneSelect == 'levelselectScene'){
@@ -55,15 +55,15 @@ class Menu extends Phaser.Scene {
                     this.updateMenu(this.optionsbutton, this.creditsbutton, 'creditScene');
                 }
                 else if (sceneSelect == "creditScene"){
-                    this.updateMenu(this.creditsbutton, this.playbutton, "levelClimb");
+                    this.updateMenu(this.creditsbutton, this.playbutton, "levelTutorialA");
                 }
                 }
             if (Phaser.Input.Keyboard.JustDown(keyUp)) {
-                if(sceneSelect == 'levelClimb'){
+                if(sceneSelect == 'levelTutorialA'){
                     this.updateMenu(this.playbutton,this.creditsbutton, 'creditScene');
                 }
                 else if(sceneSelect == 'levelselectScene'){
-                    this.updateMenu(this.lsbutton, this.playbutton, 'levelClimb');
+                    this.updateMenu(this.lsbutton, this.playbutton, 'levelTutorialA');
                 }  
                 else if(sceneSelect == "optionsScene"){
                     this.updateMenu(this.optionsbutton, this.lsbutton, "levelselectScene");
