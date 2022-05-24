@@ -105,6 +105,10 @@ class LevelBase extends Phaser.Scene {
 
     /*Calls update on PlayerSpy, the UI, and runs the gameOver function*/
     updateDefault(time, delta){
+        //If the exit door has been switched to 'true', load the next scene
+        //sceneSelect is a global variable in main.js
+        //Noteworthy that this probably comes a frame later when switch is made true,
+        //but at the same time it doesn't matter because door.switch doesn't reset
         if(this.Exit[0].switch == true){
             this.scene.start(sceneSelect);
         }

@@ -28,7 +28,7 @@ class LevelTutorialA extends LevelBase {
 
         this.createButtons();
         this.doorCollision([this.plrSpy,this.enemy1, this.enemy2, this.enemy3]);
-        this.placeExit('levelTutorialA', true, this.buttonTracker);
+        this.placeExit('levelTutorialB', true, this.buttonTracker);
     }
 
     update(time, delta){

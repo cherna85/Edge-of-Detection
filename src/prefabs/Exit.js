@@ -12,6 +12,7 @@ class Exit extends Phaser.Physics.Arcade.Sprite {
 
          //Allows being activated more than once
         this.setBodySize(20, 30).setOffset(-1.8,0);
+        //Sets up overlap between this and player. Changes this.switch to True
         scene.physics.add.overlap(this, scene.plrSpy, this.progress, null, this);
         this.switch = false;
 
