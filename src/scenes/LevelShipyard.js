@@ -14,10 +14,15 @@ class LevelShipyard extends LevelBase {
         /*Adjust player starting position */
         this.plrSpy.x = 50;
         this.plrSpy.y = 332;
+        this.placeDoors(); //Makesure to load doors before any raycasting
 
-        this.levelLOS = new LOS(this, this.solidLayer);
+        this.levelLOS = new LOS(this, 'spotlight',this.solidLayer);
         this.createButtons();
         this.createSpotlights(this.solidLayer);
+
+        this.doorCollision([this.plrSpy])
+        this.placeExit('levelShipyard', true, this.buttonTracker);
+        
     }
 
     update(time, delta){
