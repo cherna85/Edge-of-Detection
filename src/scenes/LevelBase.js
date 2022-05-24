@@ -110,6 +110,7 @@ class LevelBase extends Phaser.Scene {
         }
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
+            this.Exit[0].update(time,delta);
         }
         if(this.gameOver && this.check  ==3){
             this.gameOverFunc();
@@ -202,7 +203,7 @@ class LevelBase extends Phaser.Scene {
             children[door].setCollision(interactables,true,this.buttonTracker );
         }
     }
-    placeExit(nextLevel){
+    placeExit(nextLevel, locked, checklist){
         this.Exit = this.tilemap.createFromObjects("Objects",[
         {
             name: "exit",
@@ -214,7 +215,7 @@ class LevelBase extends Phaser.Scene {
             key: "tilesSheet",
             frame: 15, 
         }]);
-        this.Exit[0].setNextLevel(nextLevel);
+        this.Exit[0].setNextLevel(nextLevel, locked, checklist);
         //locked doors  
     }
     

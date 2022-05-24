@@ -27,6 +27,8 @@ class LevelTutorialB extends LevelBase {
         this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
         this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
 
+        this.placeDoors([this.plrSpy, this.enemy1])
+        this.placeExit('levelTutorialB')
         //Affects both tweens
         let holdTime = 1000;
         let tweenDuration = 2500;

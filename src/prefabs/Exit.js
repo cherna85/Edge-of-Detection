@@ -7,22 +7,34 @@ class Exit extends Phaser.Physics.Arcade.Sprite {
         this.body.immovable = true;
         this.body.allowGravity = false;
 
-        this.open = false;
+        this.lock = false;
+        this.checklist = scene.buttonTracker //if there are no checklist then this will create an error
+
          //Allows being activated more than once
         this.setBodySize(20, 30).setOffset(-1.8,0);
         scene.physics.add.overlap(this, scene.plrSpy, this.progress, null, this);
         this.switch = false;
 
     }
-    setNextLevel(nextLevel){
+
+    setNextLevel(nextLevel, locked, checklist){
         sceneSelect = nextLevel;
+        this.lock = locked;
+        this.checklist = checklist
     }
 
     update(time, delta){
-        
+        if(this.lock){
+            if(this.checklist.completed){
+                console.log(this.lock);
+                this.lock = false;
+            }
+        }
     }
     progress(){
-        this.switch = true;
+        if(!this.lock){
+            this.switch = true;
+        }
     }
 
  
