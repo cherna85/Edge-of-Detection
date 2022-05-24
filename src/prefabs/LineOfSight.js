@@ -2,6 +2,7 @@ class LOS extends Phaser.GameObjects.GameObject {
     constructor(scene, type = 'LoS', mappedObject){
             super(scene,type);
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
+            this.raycaster.setBoundingBox(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels)
             //Maps objects to the ray so it can collide with them
             this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: [1, 9, 13]});   
             // true sets dynamic updating
@@ -27,6 +28,19 @@ class LOS extends Phaser.GameObjects.GameObject {
         this.setPlayerCollision(scene,ray);
         return ray; 
     }
+    createCircleRay(scene, originX, originY, fov){
+        let ray = this.raycaster.createRay();
+        ray.setOrigin(originX,originY);
+        ray.autoSlice = true; 
+        ray.enablePhysics();
+        //set collision (field of view) range
+        ray.setCollisionRange(fov);
+        ray.castCircle();
+        //create collision
+        this.setPlayerCollision(scene,ray);
+        return ray; 
+    }
+
     getIntersectionsCone(ray){
         return ray.castCone();
     }

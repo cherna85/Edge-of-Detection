@@ -6,12 +6,11 @@ class LevelTutorialB extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_B.json',
-        'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
+        'PH_tiles.png');
     }
 
     create(){
         this.createDefault('PH_tiles');
-        //this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
 
         /*Adjust player starting position */
         this.plrSpy.x = 160;
@@ -22,9 +21,48 @@ class LevelTutorialB extends LevelBase {
         this.enemy1 = new Enemy(this, 320, 304, 'playerDisguise', 0, false, 200);
         this.enemy1.straightPath(this, 592, 304, 4000);
         this.createButtons();
-        this.doorCollision([this.plrSpy,this.enemy1]);
-        this.placeExit('levelTutorialB');
-        
+
+        this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        this.spotlightCaster = new LOS(this, this.solidLayer);
+        this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
+        this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
+
+        //Affects both tweens
+        let holdTime = 1000;
+        let tweenDuration = 2500;
+
+        this.tweens.addCounter({
+            from: 11 * 16,
+            to: 6 * 16,
+            ease: 'Sine.easeInOut',
+            duration: tweenDuration,
+            repeat: -1,
+            yoyo: true,
+            hold: holdTime, //Hold only applys to yoyo
+            repeatDelay: holdTime,
+            onUpdate: function(tween)
+            {
+                const value = tween.getValue();
+                let scene = this.parent.scene;
+                scene.spotlight1.setOrigin(value, 4 * 16);
+            }
+        });
+        this.tweens.addCounter({
+            from: 19 * 16,
+            to: 24 * 16,
+            ease: 'Sine.easeInOut',
+            duration: tweenDuration,
+            repeat: -1,
+            yoyo: true,
+            hold: holdTime,
+            repeatDelay: holdTime,
+            onUpdate: function(tween)
+            {
+                const value = tween.getValue();
+                let scene = this.parent.scene;
+                scene.spotlight2.setOrigin(value, 4 * 16);
+            }
+        });
     }
 
     update(time, delta){
@@ -32,6 +70,8 @@ class LevelTutorialB extends LevelBase {
 
         //Make sure all enemies are updated (possibly use a group)
         this.enemy1.update();
+        this.drawSpotlight(this.spotlight1)
+        this.drawSpotlight(this.spotlight2)
     }
 
     createButtons(){
@@ -58,5 +98,14 @@ class LevelTutorialB extends LevelBase {
         }
         /*With ability to establish events and listeners, we could theoretically add a locked door 
         (which I'll add later) - Santiago*/
+    }
+
+    //Takes in a ray as parameter, which can cast a circle or cone
+    drawSpotlight(spotlight){
+        let intersections = spotlight.castCircle();
+        //intersections.push(spotlight.origin);
+        this.graphics.clear();
+        this.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.fillPoints(intersections);
     }
 }

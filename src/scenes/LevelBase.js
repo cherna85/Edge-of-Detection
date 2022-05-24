@@ -28,9 +28,6 @@ class LevelBase extends Phaser.Scene {
     */
     createDefault(tilesetImgName){
         this.defineKeys();
-        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
-         0, 'playerDisguise');
-
         
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
@@ -39,6 +36,8 @@ class LevelBase extends Phaser.Scene {
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
 
+        this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
+         0, 'playerDisguise');
 
         /*Sets up collision between tilemap and player*/
         //Makes all tiles that have property "collides" have collision

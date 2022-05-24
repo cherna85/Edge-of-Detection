@@ -19,7 +19,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
 
         this.disguiseTimer = 0;
-        this.disguiseDuration = 30000;
+        this.disguiseDuration = 3000;
         
 
         //needs to be tweaked 
@@ -36,6 +36,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //BUG: Causes player to collide with invisible wall if level is too big
         //Can we make the bounds match the tilemap instead of the screen?
         this.setCollideWorldBounds(true);
+        this.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels))
     }
 
     /*Can currently jump 6 tiles in the air
@@ -122,7 +123,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         - Somehow the enemy is taking the place of the playerspy in the collider
         */
         if(keyDown.isDown){
-           // console.log(this.scene.platformCollision);
+            //console.log(this.scene.platformCollision);
             this.scene.platformCollision.active = false;
         }
         else{
