@@ -16,9 +16,14 @@ class LevelClimb extends LevelBase {
         this.plrSpy.x = 4 * 16;
         this.plrSpy.y = 37 * 16;
 
+        this.placeDoors(); //Makesure to load doors before any raycasting
+
         this.enemy1 = new Enemy(this, 13 * 16, 16 * 37, 'playerDisguise', 0, false, 1000, 90, 30);
         this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, -90);
         this.createButtons();
+
+        this.doorCollision([this.plrSpy,this.enemy1]);
+        this.placeExit('levelClimb', true, this.buttonTracker);
 
         this.rayTween = this.tweens.addCounter({
             from: -110,
