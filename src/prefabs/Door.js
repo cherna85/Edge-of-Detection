@@ -1,6 +1,6 @@
 /* An object the player can interact with to activate (such as a button) - Santiago*/
 class Door extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, tileX, tileY, interactables, locked = false, texture, frame) {
+    constructor(scene, x, y,texture, frame) {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
@@ -10,52 +10,51 @@ class Door extends Phaser.Physics.Arcade.Sprite {
 
         this.open = false;
          //Allows being activated more than once
-        this.body.allowGravity = false;
-        this.setBodySize(18, 30);
+        this.setBodySize(6, 17).setOffset(5,0);
+        this.interactable;
+  
         this.scene = scene;
-        this.tileX = tileX;
-        this.tileY = tileY;
 
         this.check = 0;
 
-        this.interactables = interactables
-
-        scene.physics.add.overlap(this, this.interactables, this.activate, null, this);
-        this.locked = locked;
-        this.checklist = scene.buttonTracker;
+        
+        //this.locked = locked;
 
     }
 
     update(time, delta){
         
-        if(!this.scene.physics.overlap(this, this.interactables) && this.check != 0){
+        if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
-            this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1); //top of door
-            this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY); // handle 
+            //this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1); //top of door
+            //this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY); // handle 
+            console.log('close');
               
         }
-        //checks if checklist has been completed// then door is open and
-        if(this.checklist.completed){
-            this.locked = false;
+        // //checks if checklist has been completed// then door is open and
+        // if(this.checklist.completed){
+        //     this.locked = false;
 
-        }
+        //}
     }
 
     activate(){
-        //insert door opening noise 
-        if(!this.locked){
-            this.check++;
-            if(this.check == 1){
-                if(!this.open){
-                    this.open = true;
-                    //to set open door tile, replace the 0 with the proper index
-                    this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY-1); // top of door
-                    this.scene.objectLayer.putTileAt(0,this.tileX, this.tileY); // handle 
-                }
-                this.emit('objactivated');
+        // if(!this.locked){
+        this.check++;
+        if(this.check == 1){
+           if(!this.open){
+                this.open = true;
+                console.log("open")
+                //heres where you put the open door sprite
             }
-        }
+        }   
+        // }
+    }
+    setCollision(interactables){
+        this.interactable = interactables;
+        this.scene.physics.add.overlap(this, this.interactable, this.activate, null, this);
+        console.log("hey");
     }
 }
 

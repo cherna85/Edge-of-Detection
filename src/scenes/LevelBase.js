@@ -9,6 +9,10 @@ class LevelBase extends Phaser.Scene {
         this.load.path = 'assets/';
         this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
         this.load.image('tilesCityPH', tilesetPath);
+        this.load.spritesheet("tilesSheet", tilesetPath, {
+            frameWidth: 16,
+            frameHeight: 16
+        });
         //console.log(this.textures);
 
         this.load.image('objButton', 'PH_obj_button.png');
@@ -34,14 +38,12 @@ class LevelBase extends Phaser.Scene {
         //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
-        this.objectLayer = this.tilemap.createLayer('ObjectGuide', this.tileset);
 
 
         /*Sets up collision between tilemap and player*/
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
         this.platformLayer.setCollisionByProperty( {collides: true} );
-        this.objectLayer.setCollisionByProperty( {collides: true} );
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
             if(tile.index == 6){
@@ -58,8 +60,6 @@ class LevelBase extends Phaser.Scene {
         });
         this.physics.add.collider(this.plrSpy, this.solidLayer);
         this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);
-        this.physics.add.collider(this.plrSpy, this.objectLayer);
-        
 
         //Alternatively, maybe we'd want a 2nd camera that shows the entire level, as the 'zoomed out' camera?
         this.cameras.main.zoom = 2;
@@ -167,14 +167,22 @@ class LevelBase extends Phaser.Scene {
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
-    placeDoors(interactables){
-        this.doorsObjs = this.add.group();
-        this.objectLayer.forEachTile(tile => {
-            if(tile.index == 13){
-               this.doorsObjs.add(new Door(this, tile.pixelX+8, tile.pixelY, tile.x,tile.y, interactables));             
-            }
-
-        });
-        this.doorsObjs.runChildUpdate = true;
-    };
+    placeDoors(){
+        this.doors = this.tilemap.createFromObjects("Objects", {
+            name: "door",
+            key: "tilesSheet",
+            frame: 13,
+            classType: Door
+        })
+        this.groupDoors = this.add.group(this.doors);
+        this.groupDoors.runChildUpdate = true;        
+    }
+    doorCollision(interactables){
+        //iterates through all the members and updates collision
+        // so that enemies and players can move through doors
+        let children = this.groupDoors.getChildren();
+        for(let door in children ){
+            children[door].setCollision(interactables)
+        }
+    }
 }
