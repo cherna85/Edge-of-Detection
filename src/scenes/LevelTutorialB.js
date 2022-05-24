@@ -23,12 +23,12 @@ class LevelTutorialB extends LevelBase {
         this.createButtons();
 
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        this.spotlightCaster = new LOS(this, this.solidLayer);
+        this.spotlightCaster = new LOS(this, 'spotlight' ,this.solidLayer);
         this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
         this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
 
-        this.placeDoors([this.plrSpy, this.enemy1])
-        this.placeExit('levelTutorialB')
+        this.doorCollision([this.plrSpy, this.enemy1])
+        this.placeExit('levelTutorialB', true, this.buttonTracker);
         //Affects both tweens
         let holdTime = 1000;
         let tweenDuration = 2500;

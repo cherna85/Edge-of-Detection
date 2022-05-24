@@ -19,7 +19,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
 
         this.disguiseTimer = 0;
-        this.disguiseDuration = 3000;
+        this.disguiseDuration = 10*3000;
         
 
         //needs to be tweaked 
