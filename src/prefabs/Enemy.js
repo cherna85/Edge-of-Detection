@@ -15,7 +15,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setBodySize(16, 32);
         //create a detection frame
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        this.enemyLOS = new LOS(scene, scene.solidLayer);
+        this.enemyLOS = new LOS(scene, "EnemyLOS",scene.solidLayer);
         
         this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 8, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);

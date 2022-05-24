@@ -23,6 +23,7 @@ class LevelTutorialB extends LevelBase {
         this.enemy1.straightPath(this, 592, 304, 4000);
         this.createButtons();
         this.doorCollision([this.plrSpy,this.enemy1]);
+        
     }
 
     update(time, delta){

@@ -1,11 +1,16 @@
-class LOS{
-    constructor(scene, mappedObjects){
+class LOS extends Phaser.GameObjects.GameObject {
+    constructor(scene, type = 'LoS', mappedObject){
+            super(scene,type);
             this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
             //Maps objects to the ray so it can collide with them
-            this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [1, 9, 13]});   
+            this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: [1, 9, 13]});   
             // true sets dynamic updating
-            this.raycaster.mapGameObjects(scene.groupDoors.getChildren());// true, {collisionTiles: [13]})  
+
             this.scene = scene;               
+    }
+
+    update(){
+
     }
 
     createConeRay(scene, originX, originY, angleDeg, coneDeg, fov,){ 

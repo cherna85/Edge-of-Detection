@@ -12,10 +12,13 @@ class Door extends Phaser.Physics.Arcade.Sprite {
          //Allows being activated more than once
         this.setBodySize(6, 17).setOffset(5,0);
         this.interactable;
+        this.lights;
+        console.log(this.x)
   
         this.scene = scene;
 
         this.check = 0;
+
 
         
         //this.locked = locked;
@@ -27,9 +30,10 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
-            //this.scene.objectLayer.putTileAt(9,this.tileX, this.tileY-1); //top of door
-            //this.scene.objectLayer.putTileAt(13,this.tileX, this.tileY); // handle 
             console.log('close');
+            this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y-10); //top of door
+            this.scene.solidLayer.putTileAtWorldXY(9,this.x, this.y+10); //bottom
+            this.alpha= 1;
               
         }
         // //checks if checklist has been completed// then door is open and
@@ -46,7 +50,11 @@ class Door extends Phaser.Physics.Arcade.Sprite {
            if(!this.open){
                 this.open = true;
                 console.log("open")
-                //heres where you put the open door sprite
+                this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
+                this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom
+                // just to see some change
+                this.alpha= 0.0;
+
             }
         }   
         // }
@@ -54,7 +62,6 @@ class Door extends Phaser.Physics.Arcade.Sprite {
     setCollision(interactables){
         this.interactable = interactables;
         this.scene.physics.add.overlap(this, this.interactable, this.activate, null, this);
-        console.log("hey");
     }
 }
 
