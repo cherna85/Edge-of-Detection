@@ -18,6 +18,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.gettingDressed = false;
         this.detected = false;
         this.inLOS = false;
+        this.graceTimer=0;
 
         this.disguiseTimer = 0;
         this.disguiseDuration = 3000;
@@ -141,8 +142,10 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         if(this.inLOS){
             this.detected = true;
+            this.graceTimer+=delta;
         }else{
             this.detected = false;
+            this.graceTimer=0;
             this.scene.warningText.x = this.scene.plrSpy.x + 1000;
         }  
         this.inLOS = false;
@@ -171,9 +174,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
     detectedFunc(){
         this.inLOS = true
-        //change delay to change grace period timmer
-        
-        this.graceTimer = this.scene.time.addEvent({ delay:2000, callback: () =>{
+        //change val to change grace period
+        if(this.graceTimer >= 1000){
             if(!this.disguiseActive && this.detected){
                 console.log("woops");
                 this.scene.gameOver = true;
@@ -181,8 +183,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.dressedText.x = game.config.width/2 + 600; 
                 this.setAccelerationX(0);
             }
-        } });
-        console.log(this.graceTimer);
+        }
+        
     }
 
     gameOverFunc(){23
