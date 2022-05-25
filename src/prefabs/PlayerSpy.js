@@ -51,7 +51,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     update(time, delta){
         //Horizontal movement
         //check if player is in LOS
-        if(this.inLOS){
+        if(this.inLOS && !this.disguiseActive){
             this.detected = true;
             this.graceTimer+=delta;
         }else{
@@ -115,9 +115,9 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        console.log(this.inLOS)
+        console.log(keyDisguise.getDuration());
         if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait && !this.inLOS ){
-            if(keyDisguise.getDuration() <= 0.6*1000){ //player needs to release key before they can reapply disguise
+            if(keyDisguise.getDuration() <= 0.53*1000){ //player needs to release key before they can reapply disguise
                 this.disguiseOn(); 
                 this.detected=false; 
                 this.scene.warningText.x = this.scene.plrSpy.x + 1000;
