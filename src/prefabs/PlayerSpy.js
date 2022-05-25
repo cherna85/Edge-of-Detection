@@ -50,6 +50,15 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
     update(time, delta){
         //Horizontal movement
+        //check if player is in LOS
+        if(this.inLOS){
+            this.detected = true;
+            this.graceTimer+=delta;
+        }else{
+            this.detected = false;
+            this.graceTimer=0;
+            this.scene.warningText.x = this.scene.plrSpy.x + 1000;
+        }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
@@ -106,8 +115,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-
-        if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait ){
+        console.log(this.inLOS)
+        if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait && !this.inLOS ){
             if(keyDisguise.getDuration() <= 0.6*1000){ //player needs to release key before they can reapply disguise
                 this.disguiseOn(); 
                 this.detected=false; 
@@ -116,7 +125,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.sound.play('sfx_disguise');
                 //this.scene.disguiseTween.duration = this.disguiseDuration;
             }
-        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= this.disguiseWait){
+        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= this.disguiseWait && !this.inLOS){
             this.gettingDressed = true; // text follows player 
             this.scene.dressedText.text = "Getting Dressed..."; 
         }else if (!this.disguiseActive){
@@ -142,16 +151,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         else{
             this.scene.platformCollision.active = true;
         }
-        //check if player is in LOS
-        if(this.inLOS){
-            this.detected = true;
-            this.graceTimer+=delta;
-        }else{
-            this.detected = false;
-            this.graceTimer=0;
-            this.scene.warningText.x = this.scene.plrSpy.x + 1000;
-        }  
-        this.inLOS = false;
+        this.inLOS = false; // unless overlapping it will be off.
     }
 
     disguiseOn(){

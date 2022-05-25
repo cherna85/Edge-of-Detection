@@ -71,6 +71,7 @@ class LOS extends Phaser.GameObjects.GameObject {
     setPlayerCollision(scene,ray){
         //Sets up collision with player and lights/cameras
         scene.physics.add.overlap(ray, scene.plrSpy, function(rayFoVCircle, target){
+            target.inLOS = true;
             if(!target.disguiseActive){
                 target.detectedFunc();
             }
