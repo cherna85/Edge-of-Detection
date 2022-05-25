@@ -79,6 +79,7 @@ class LevelBase extends Phaser.Scene {
             stroke: '#000000',
             strokeThickness: 4
         }
+        this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5);
         this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer.alpha = 0;
@@ -131,9 +132,13 @@ class LevelBase extends Phaser.Scene {
         //allows text to follow player while getting dressed 
         if(this.plrSpy.gettingDressed || this.plrSpy.tempUI){
             this.dressedText.x = this.plrSpy.x + 8;
-            this.dressedText.y = this.plrSpy.y - 50;
+            this.dressedText.y = this.plrSpy.y - 40;
             this.disguiseTimer.x = this.plrSpy.x + 8;
             this.disguiseTimer.y = this.plrSpy.y - 30;
+        }
+        if(this.plrSpy.detected){
+            this.warningText.x = this.plrSpy.x + 8;
+            this.warningText.y = this.plrSpy.y - 50;
         }
         //game over selection 
         if(this.gameOver){

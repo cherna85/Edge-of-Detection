@@ -106,6 +106,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= 3000 ){
             if(keyDisguise.getDuration() <= 0.6*1000){ //player needs to release key before they can reapply disguise
                 this.disguiseOn(); 
+                this.detected=false; 
+                this.scene.warningText.x = this.scene.plrSpy.x + 1000;
                 // timer on how long the disguise is active
                 this.scene.sound.play('sfx_disguise');
                 //this.scene.disguiseTween.duration = this.disguiseDuration;
@@ -161,11 +163,15 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
 
     detectedFunc(){
         this.detected = true;
-        this.scene.gameOver = true;
-        this.scene.check++;
-        //bug fixes
-        this.scene.dressedText.x = game.config.width/2 + 600; 
-        this.setAccelerationX(0);
+        //change delay to change grace period timmer
+        this.graceTimer = this.scene.time.addEvent({ delay:2000, callback: () =>{
+            if(!this.disguiseActive){
+                this.scene.gameOver = true;
+                this.scene.check++;
+                this.scene.dressedText.x = game.config.width/2 + 600; 
+                this.setAccelerationX(0);
+            }
+        } });
     }
 
     gameOverFunc(){23
