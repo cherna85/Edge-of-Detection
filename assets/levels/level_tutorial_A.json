@@ -176,7 +176,7 @@
                 {
                  "height":84,
                  "id":10,
-                 "name":"message1",
+                 "name":"message",
                  "properties":[
                         {
                          "name":"message",
@@ -193,7 +193,7 @@
                 {
                  "height":84,
                  "id":11,
-                 "name":"message2",
+                 "name":"message",
                  "properties":[
                         {
                          "name":"message",
@@ -210,7 +210,7 @@
                 {
                  "height":92,
                  "id":12,
-                 "name":"message3",
+                 "name":"message",
                  "properties":[
                         {
                          "name":"message",

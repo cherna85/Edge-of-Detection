@@ -101,11 +101,21 @@ class LevelBase extends Phaser.Scene {
         //So if text is initially outside the camera's view, it will always stay out of view
         //We can't make it be inside the camera because it spawns at 0, 0, then is moved at some point and begins moving text...I think
         //Also keep in mind camera is zoomed in
+        //this.createMessageBoxes();
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
         this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+    
+        this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
+            if(object.name == "message"){
+                console.log(object.properties[0]["value"]);
+                return true;
+            }
+            console.log("Not a message object")
+            return false;
+        });
     }
 
     create(){
@@ -242,5 +252,10 @@ class LevelBase extends Phaser.Scene {
         //locked doors  
     }
     
-    
+    createMessageBoxes(){
+        this.messages = this.tilemap.createFromObjects("Objects", {
+            name: "message",
+            key: "objMessageBox"
+        });
+    }
 }
