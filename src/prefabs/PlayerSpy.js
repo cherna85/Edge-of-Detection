@@ -95,17 +95,20 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         else if(this.disguiseTimer > 0){
             //Display time remaining in seconds
+            this.scene.dressedText.text = "Disguised";
             this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
         }
 
         //applying disguise
-        if( (keyDisguise.getDuration() >= 0.5*1000) && !this.disguiseActive){
+        if( (keyDisguise.getDuration() >= 0.5*1000) ){
             this.disguiseOn(); 
             // timer on how long the disguise is active
             this.scene.sound.play('sfx_disguise');
             //this.scene.disguiseTween.duration = this.disguiseDuration;
         }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000) && !this.disguiseActive){
             this.gettingDressed = true; // text follows player 
+        }else if(keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000)){
+            this.scene.dressedText.text = "Getting Dressed..."; 
         }else if (!this.disguiseActive){
             this.gettingDressed = false;
             this.scene.dressedText.x = game.config.width/2 + 600; 
