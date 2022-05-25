@@ -52,12 +52,17 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //Horizontal movement
         //check if player is in LOS
         if(this.inLOS && !this.disguiseActive){
+            if(this.graceTimer < 30){
+                this.scene.warningText.alpha = 1;
+                this.scene.warningTween.restart();
+            }
             this.detected = true;
             this.graceTimer+=delta;
         }else{
             this.detected = false;
             this.graceTimer=0;
             this.scene.warningText.x = this.scene.plrSpy.x + 1000;
+            this.scene.warningText.alpha = 0;
         }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
@@ -115,7 +120,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        console.log(keyDisguise.getDuration());
         if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait && !this.inLOS ){
             if(keyDisguise.getDuration() <= 0.53*1000){ //player needs to release key before they can reapply disguise
                 this.disguiseOn(); 
@@ -131,6 +135,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }else if (!this.disguiseActive){
             this.gettingDressed = false;
             this.scene.dressedText.x = game.config.width/2 + 600; 
+        }else{
+            this.gettingDressed = false;
         }
 
         //Dropping through platforms (while DOWN + JUMP is held down)

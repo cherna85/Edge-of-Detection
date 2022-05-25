@@ -80,6 +80,7 @@ class LevelBase extends Phaser.Scene {
             strokeThickness: 4
         }
         this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5);
+        this.warningText.alpha = 0;
         this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer.alpha = 0;
@@ -94,7 +95,16 @@ class LevelBase extends Phaser.Scene {
                 this.parent.scene.disguiseTimer.setTint(Phaser.Display.Color.GetColor(255, value, value));
             }
         });
- 
+        this.warningTween = this.tweens.addCounter({
+            from: 255,
+            to: 0,
+            duration: this.plrSpy.graceDuration,
+            onUpdate: function (tween)
+            {
+                const value = Math.floor(tween.getValue());
+                this.parent.scene.warningText.setTint(Phaser.Display.Color.GetColor(255, value, value));
+            }
+        }); 
         
 
         this.gameOver = false;
