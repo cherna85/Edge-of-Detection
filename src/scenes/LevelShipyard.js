@@ -5,7 +5,7 @@ class LevelShipyard extends LevelBase {
 
     preload(){
         this.preloadDefault('level_shipyard.json',
-         'PH_tiles.png');
+         'PH_tiles.png', 'tilemapShipyard');
     }
 
     create(){
@@ -21,7 +21,7 @@ class LevelShipyard extends LevelBase {
         this.createSpotlights(this.solidLayer);
 
         this.doorCollision([this.plrSpy])
-        this.placeExit('levelShipyard', true, this.buttonTracker);
+        this.placeExit('levelTutorialA', true, this.buttonTracker);
         
     }
 

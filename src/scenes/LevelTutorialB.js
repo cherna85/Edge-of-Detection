@@ -36,7 +36,7 @@ class LevelTutorialB extends LevelBase {
         this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
 
         this.doorCollision([this.plrSpy, this.enemy1])
-        this.placeExit('levelTutorialB', true, this.buttonTracker);
+        this.placeExit('levelClimb', true, this.buttonTracker);
         //Affects both tweens
         let holdTime = 1000;
         let tweenDuration = 2500;

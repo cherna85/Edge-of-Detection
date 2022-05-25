@@ -6,7 +6,7 @@ class LevelClimb extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_climb.json',
-        'PH_tiles.png');
+        'PH_tiles.png', 'tilemapClimb');
     }
 
     create(){
@@ -23,7 +23,7 @@ class LevelClimb extends LevelBase {
         this.createButtons();
 
         this.doorCollision([this.plrSpy,this.enemy1]);
-        this.placeExit('levelClimb', true, this.buttonTracker);
+        this.placeExit('levelShipyard', true, this.buttonTracker);
 
         this.rayTween = this.tweens.addCounter({
             from: -110,
