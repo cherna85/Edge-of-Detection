@@ -27,7 +27,6 @@ class Exit extends Phaser.Physics.Arcade.Sprite {
     update(time, delta){
         if(this.lock){
             if(this.checklist.completed){
-                console.log(this.lock);
                 this.lock = false;
             }
         }

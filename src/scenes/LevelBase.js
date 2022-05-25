@@ -97,6 +97,7 @@ class LevelBase extends Phaser.Scene {
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
+        this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
     }
 
@@ -112,7 +113,7 @@ class LevelBase extends Phaser.Scene {
     /*Calls update on PlayerSpy, the UI, and runs the gameOver function*/
     updateDefault(time, delta){
         //If the exit door has been switched to 'true', load the next scene
-        //sceneSelect is a global variable in main.js
+        //this.endScene is a global variable in main.js
         //Noteworthy that this probably comes a frame later when switch is made true,
         //but at the same time it doesn't matter because door.switch doesn't reset
         if(this.Exit[0].switch == true){
@@ -137,33 +138,33 @@ class LevelBase extends Phaser.Scene {
         //game over selection 
         if(this.gameOver){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
-                if(sceneSelect == 'playScene'){
+                if(this.endScene == this.scene.key){
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#FF994F');
-                    sceneSelect = 'menuScene';
+                    this.endScene = 'menuScene';
                 }
-                else if(sceneSelect == 'menuScene'){
+                else if(this.endScene == 'menuScene'){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#FF994F');
-                    sceneSelect = 'playScene';
+                    this.endScene = this.scene.key;
                 }  
               }
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
-                if(sceneSelect == 'playScene'){
+                if(this.endScene == this.scene.key){
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#FF994F');
-                    sceneSelect = 'menuScene';
+                    this.endScene = 'menuScene';
                 }
-                else if(sceneSelect == 'menuScene'){
+                else if(this.endScene == 'menuScene'){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#FF994F');
-                    sceneSelect = 'playScene';
+                    this.endScene = this.scene.key;
                 }  
             }  
             //BUG: Despite calling JustDown, this can trigger if the button is held down
             if (Phaser.Input.Keyboard.JustDown(keyDisguise)) {
                 //console.log('selecting');
-                this.scene.start(sceneSelect);    
+                this.scene.start(this.endScene);    
             }  
         }
     }
