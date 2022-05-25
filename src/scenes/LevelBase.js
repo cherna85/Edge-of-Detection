@@ -94,6 +94,7 @@ class LevelBase extends Phaser.Scene {
                 this.parent.scene.disguiseTimer.setTint(Phaser.Display.Color.GetColor(255, value, value));
             }
         });
+ 
         
 
         this.gameOver = false;

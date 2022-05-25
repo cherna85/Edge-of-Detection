@@ -19,10 +19,14 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.detected = false;
         this.inLOS = false;
         this.graceTimer=0;
+        this.graceDuration = 2000
 
         this.disguiseTimer = 0;
         this.disguiseDuration = 3000;
-        
+        // *NOTE*: the second condition will let us limit how often the player can reapply disguises
+        // if we have a 3sec disguise and only want to let them reapply after 1 second has passed
+        // this.disguiseWait = 2000   .... 
+        this.disguiseWait = 3000;
 
         //needs to be tweaked 
         this.normalAccel = 384; //Horizontal acceleration
@@ -102,10 +106,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        // *NOTE*: the second condition will let us limit how often the player can reapply disguises
-        // if we have a 3sec disguise and only want to let them reapply after 1 second has passed
-        // this.disguiseTimer <= 2000   .... 
-        if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= 3000 ){
+
+        if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait ){
             if(keyDisguise.getDuration() <= 0.6*1000){ //player needs to release key before they can reapply disguise
                 this.disguiseOn(); 
                 this.detected=false; 
@@ -114,7 +116,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.sound.play('sfx_disguise');
                 //this.scene.disguiseTween.duration = this.disguiseDuration;
             }
-        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= 3000){ // be sure to update here
+        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= this.disguiseWait){
             this.gettingDressed = true; // text follows player 
             this.scene.dressedText.text = "Getting Dressed..."; 
         }else if (!this.disguiseActive){
@@ -140,6 +142,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         else{
             this.scene.platformCollision.active = true;
         }
+        //check if player is in LOS
         if(this.inLOS){
             this.detected = true;
             this.graceTimer+=delta;
@@ -175,9 +178,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     detectedFunc(){
         this.inLOS = true
         //change val to change grace period
-        if(this.graceTimer >= 1000){
+        if(this.graceTimer >= this.graceDuration){
             if(!this.disguiseActive && this.detected){
-                console.log("woops");
                 this.scene.gameOver = true;
                 this.scene.check++;
                 this.scene.dressedText.x = game.config.width/2 + 600; 
