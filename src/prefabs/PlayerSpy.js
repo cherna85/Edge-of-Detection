@@ -89,7 +89,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             console.log("its off");
             this.disguiseOff();
             this.tempUI = false;
-            this.scene.dressedText.x = this.y - 50; // remove later
+            this.scene.dressedText.x = this.y - 1000; // remove later
             this.scene.dressedText.text = "Getting Dressed..."; //remove later
             this.scene.disguiseTimer.alpha = 0;
         }
@@ -100,14 +100,18 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
 
         //applying disguise
-        if( (keyDisguise.getDuration() >= 0.5*1000) ){
-            this.disguiseOn(); 
-            // timer on how long the disguise is active
-            this.scene.sound.play('sfx_disguise');
-            //this.scene.disguiseTween.duration = this.disguiseDuration;
-        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000) && !this.disguiseActive){
+        // *NOTE*: the second condition will let us limit how often the player can reapply disguises
+        // if we have a 3sec disguise and only want to let them reapply after 1 second has passed
+        // this.disguiseTimer <= 2000   .... 
+        if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= 3000 ){
+            if(keyDisguise.getDuration() <= 0.6*1000){ //player needs to release key before they can reapply disguise
+                this.disguiseOn(); 
+                // timer on how long the disguise is active
+                this.scene.sound.play('sfx_disguise');
+                //this.scene.disguiseTween.duration = this.disguiseDuration;
+            }
+        }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= 3000){ // be sure to update here
             this.gettingDressed = true; // text follows player 
-        }else if(keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000)){
             this.scene.dressedText.text = "Getting Dressed..."; 
         }else if (!this.disguiseActive){
             this.gettingDressed = false;
