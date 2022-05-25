@@ -5,20 +5,25 @@ class LevelBase extends Phaser.Scene {
 
     /*Loads all default assets
     Tilemap and tileset must be passed in*/
-    preloadDefault(tilemapPath, tilesetPath){
+    preloadDefault(tilemapPath, tilesetPath, tilemapName, tilesetName = 'tilesCityPH', tilesSheetName = 'tilesSheet'){
+        this.tilemapName = tilemapName;
+        this.tilesetName = tilesetName;
+        this.tilesSheetName = tilesSheetName;
+        //If all level tilemaps use the same name, it can cause problems when trying to
+        //load new tileset data if there is old data present. - Santiago
+
         this.load.path = 'assets/';
-        this.load.tilemapTiledJSON('lvlDigitalProto', 'levels/' + tilemapPath);
-        this.load.image('tilesCityPH', tilesetPath);
-        this.load.spritesheet("tilesSheet", tilesetPath, {
+        this.load.tilemapTiledJSON(tilemapName, 'levels/' + tilemapPath);
+        this.load.image(tilesetName, tilesetPath);
+        this.load.spritesheet(tilesSheetName, tilesetPath, {
             frameWidth: 16,
             frameHeight: 16
         });
-        //console.log(this.textures);
 
         this.load.image('objButton', 'PH_obj_button.png');
         this.load.image('playerDisguise', 'TempDisguise.png');
         this.load.image('playerMain', 'TempPlayer.png');
-        console.log("preload defaults");
+        
     }
 
     /*
@@ -31,8 +36,8 @@ class LevelBase extends Phaser.Scene {
         this.defineKeys();
         
         /*Creates tilemap and default layers*/
-        this.tilemap = this.make.tilemap({key: 'lvlDigitalProto'});
-        this.tileset = this.tilemap.addTilesetImage(tilesetImgName, 'tilesCityPH');
+        this.tilemap = this.make.tilemap({key: this.tilemapName});
+        this.tileset = this.tilemap.addTilesetImage(tilesetImgName, this.tilesetName);
         //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
@@ -93,7 +98,6 @@ class LevelBase extends Phaser.Scene {
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
-        console.log("created defaults");
     }
 
     create(){
@@ -180,7 +184,7 @@ class LevelBase extends Phaser.Scene {
     placeDoors(){
         this.doors = this.tilemap.createFromObjects("Objects", {
             name: "door",
-            key: "tilesSheet",
+            key: this.tilesSheetName,
             frame: 13,
             classType: Door
         })
@@ -189,7 +193,7 @@ class LevelBase extends Phaser.Scene {
         //locked doors 
         this.lockedDoors = this.tilemap.createFromObjects("Objects", {
             name: "lockedDoor",
-            key: "tilesSheet",
+            key: this.tilesSheetName,
             frame: 9,
             classType: Door
         })
@@ -214,12 +218,12 @@ class LevelBase extends Phaser.Scene {
         this.Exit = this.tilemap.createFromObjects("Objects",[
         {
             name: "exit",
-            key: "tilesSheet",
+            key: this.tilesSheetName,
             frame: 11,
             classType: Exit
         },{ // sets the bottom half but does put the sprite in the group
             name: "exitB",
-            key: "tilesSheet",
+            key: this.tilesSheetName,
             frame: 15, 
         }]);
         this.Exit[0].setNextLevel(nextLevel, locked, checklist);

@@ -7,7 +7,7 @@ class LevelTutorialB extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_B.json',
-        'PH_tiles.png');
+        'PH_tiles.png', 'tilemapTutorialB');
         console.log("preload LVL 2");
         //Each of these methods are called
         /*Problem on my end is that unique objects are loaded by the tilemap stays the same

@@ -7,12 +7,13 @@ class LevelTutorialA extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_A.json',
-         'PH_tiles.png'); //Gotta be something wrong with the way the tileset is set up...
-        console.log("preload");
+         'PH_tiles.png', 'tilemapTutorialA'); //Gotta be something wrong with the way the tileset is set up...
     }
 
     create(){
         this.createDefault('PH_tiles');
+
+        //this.cache.tilemap.exists('')
 
         /*Adjust player starting position */
         this.plrSpy.x = 256;
@@ -31,7 +32,6 @@ class LevelTutorialA extends LevelBase {
         this.createButtons();
         this.doorCollision([this.plrSpy,this.enemy1, this.enemy2, this.enemy3]);
         this.placeExit('levelTutorialB', false, this.buttonTracker);
-        console.log("created unique objects");
     }
 
     update(time, delta){
