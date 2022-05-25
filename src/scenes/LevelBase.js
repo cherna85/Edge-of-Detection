@@ -108,18 +108,18 @@ class LevelBase extends Phaser.Scene {
         this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
     
-        this.messageBoxGroup = [];
+        this.messageBoxGroup = this.physics.add.staticGroup();
         this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
             if(object.name == "message"){
-                let newRect = this.add.rectangle(object["x"], object["y"], object["width"], object["height"], 0xff0000, 1).setOrigin(0, 0);
-                this.messageBoxGroup.push(newRect);
-                console.log(object);
+                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true);
+                newBody.setOrigin(0, 0);
                 console.log(object.properties[0]["value"]);
                 return true;
             }
-            console.log("Not a message object")
+            console.log("Not a message object");
             return false;
         });
+        console.log(this.messageBoxGroup);
     }
 
     create(){
