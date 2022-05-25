@@ -95,7 +95,12 @@ class LevelBase extends Phaser.Scene {
             }
         });
  
-        
+        dressedTextConfig.fontSize = '12px';
+        this.uiMessage = this.add.text(game.config.width/2, game.config.height/4 + 50, "Tutorial", dressedTextConfig).setOrigin(0.5, 0.5).setScrollFactor(0);
+        //Initial text position is within the level, where it will then always follow the camera.
+        //So if text is initially outside the camera's view, it will always stay out of view
+        //We can't make it be inside the camera because it spawns at 0, 0, then is moved at some point and begins moving text...I think
+        //Also keep in mind camera is zoomed in
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
