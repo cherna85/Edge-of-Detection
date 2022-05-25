@@ -215,7 +215,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Gather clues from the terminals to unlock the exit"
+                         "value":"Gather clues from the tables to unlock the exit"
                         }],
                  "rotation":0,
                  "type":"",
