@@ -18,6 +18,7 @@ class LevelBase extends Phaser.Scene {
         this.load.image('objButton', 'PH_obj_button.png');
         this.load.image('playerDisguise', 'TempDisguise.png');
         this.load.image('playerMain', 'TempPlayer.png');
+        console.log("preload defaults");
     }
 
     /*
@@ -92,6 +93,7 @@ class LevelBase extends Phaser.Scene {
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        console.log("created defaults");
     }
 
     create(){
@@ -110,6 +112,7 @@ class LevelBase extends Phaser.Scene {
         //Noteworthy that this probably comes a frame later when switch is made true,
         //but at the same time it doesn't matter because door.switch doesn't reset
         if(this.Exit[0].switch == true){
+            //This happens at the next scene manager update, meaning the delay is actually 2 frames
             this.scene.start(sceneSelect);
         }
         if(!this.gameOver){

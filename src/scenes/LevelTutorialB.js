@@ -1,12 +1,20 @@
 class LevelTutorialB extends LevelBase {
     constructor() {
         super('levelTutorialB');
+        console.log("constructor LVL 2");
     }
 
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_B.json',
         'PH_tiles.png');
+        console.log("preload LVL 2");
+        //Each of these methods are called
+        /*Problem on my end is that unique objects are loaded by the tilemap stays the same
+        which makes me think it is calling the same default methods gain
+        (Desptite the fact that these default methods are supposed to be overwritten by 
+        preloads of extended scenes
+        */
     }
 
     create(){
@@ -65,6 +73,7 @@ class LevelTutorialB extends LevelBase {
                 scene.spotlight2.setOrigin(value, 4 * 16);
             }
         });
+        console.log("created unique objects LVL 2");
     }
 
     update(time, delta){
