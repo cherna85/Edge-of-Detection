@@ -111,8 +111,10 @@ class LevelBase extends Phaser.Scene {
         this.messageBoxGroup = this.physics.add.staticGroup();
         this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
             if(object.name == "message"){
-                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true);
+                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true).setOrigin(0, 0);
                 newBody.setOrigin(0, 0);
+                newBody.x = object.x;
+                newBody.y = object.y;
                 console.log(object.properties[0]["value"]);
                 return true;
             }
@@ -144,6 +146,13 @@ class LevelBase extends Phaser.Scene {
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
             this.Exit[0].update(time,delta);
+
+            for(let box in this.messageBoxGroup.getChildren()){
+                //console.log("Static group child: " + box);
+                if(this.physics.overlap(this.plrSpy, box)){
+                    console.log("Overlapping a message box");
+                }
+            }
         }
         if(this.gameOver && this.check  ==3){
             this.gameOverFunc();
