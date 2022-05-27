@@ -111,17 +111,19 @@ class LevelBase extends Phaser.Scene {
         this.messageBoxGroup = this.physics.add.staticGroup();
         this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
             if(object.name == "message"){
-                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true).setOrigin(0, 0);
-                newBody.setOrigin(0, 0);
-                newBody.x = object.x;
-                newBody.y = object.y;
+                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, true, true);
+                //This is actually a sprite; not a static body
+                newBody.setOrigin(0, 0); //Changes origin and position of the sprite, but not the body
+                newBody.refreshBody(); //Syncs the body to the sprite object
+                newBody.body.setSize(object.width, object.height, false); //Grows out the body from its top-left position
+                
                 console.log(object.properties[0]["value"]);
                 return true;
             }
             console.log("Not a message object");
             return false;
         });
-        console.log(this.messageBoxGroup);
+        console.log(this.messageBoxGroup.getChildren());
     }
 
     create(){
@@ -147,9 +149,10 @@ class LevelBase extends Phaser.Scene {
             this.plrSpy.update(time, delta); 
             this.Exit[0].update(time,delta);
 
-            for(let box in this.messageBoxGroup.getChildren()){
-                //console.log("Static group child: " + box);
-                if(this.physics.overlap(this.plrSpy, box)){
+            let messageBoxes = this.messageBoxGroup.getChildren();
+            for(let boxIndex = 0; boxIndex < messageBoxes.length; boxIndex++){
+                //console.log("Static group child: " + messageBoxes[boxIndex]);
+                if(this.physics.overlap(this.plrSpy, messageBoxes[boxIndex])){
                     console.log("Overlapping a message box");
                 }
             }
