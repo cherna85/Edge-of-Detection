@@ -180,6 +180,11 @@ class LevelBase extends Phaser.Scene {
             if(!overlappingMessage){
                 this.uiMessage.visible = false;
             }
+
+            if(this.buttonTracker.completed){
+                this.uiMessage.visible = true;
+                this.uiMessage.text = "Objectives complete. Head for the exit!"
+            }
         }
         if(this.gameOver && this.check  ==3){
             this.gameOverFunc();
