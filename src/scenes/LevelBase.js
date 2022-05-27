@@ -123,7 +123,6 @@ class LevelBase extends Phaser.Scene {
             console.log("Not a message object");
             return false;
         });
-        console.log(this.messageBoxGroup.getChildren());
     }
 
     create(){
@@ -149,12 +148,22 @@ class LevelBase extends Phaser.Scene {
             this.plrSpy.update(time, delta); 
             this.Exit[0].update(time,delta);
 
+            //Check if overlapping tutorial box; adjust tutorial message accordingly
             let messageBoxes = this.messageBoxGroup.getChildren();
-            for(let boxIndex = 0; boxIndex < messageBoxes.length; boxIndex++){
-                //console.log("Static group child: " + messageBoxes[boxIndex]);
-                if(this.physics.overlap(this.plrSpy, messageBoxes[boxIndex])){
-                    console.log("Overlapping a message box");
+            let overlappingMessage = false;
+            for(let index = 0; index < messageBoxes.length; index++){
+                let boxBody = messageBoxes[index].body
+                if(this.plrSpy.x > boxBody.x && this.plrSpy.x < boxBody.x + boxBody.width){
+                    if(this.plrSpy.y > boxBody.y && this.plrSpy.y < boxBody.y + boxBody.height){
+                        this.uiMessage.visible = true;
+                        this.uiMessage.text = this.tutorialMessages[index].properties[0]["value"];
+                        overlappingMessage = true;
+                    }
                 }
+            }
+
+            if(!overlappingMessage){
+                this.uiMessage.visible = false;
             }
         }
         if(this.gameOver && this.check  ==3){
