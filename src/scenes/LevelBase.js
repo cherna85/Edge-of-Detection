@@ -33,6 +33,7 @@ class LevelBase extends Phaser.Scene {
         The gameOver check
     */
     createDefault(tilesetImgName){
+
         this.defineKeys();
         
         /*Creates tilemap and default layers*/
@@ -197,6 +198,14 @@ class LevelBase extends Phaser.Scene {
         this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
+        //im setting up levels based off numbers, 
+        furthestLevel = this.scene.key;
+        smokeBombsHeld++;
+        plotUnlocked++;
+        localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
+        localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
+        localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
+        
     }
     placeDoors(){
         this.doors = this.tilemap.createFromObjects("Objects", {
