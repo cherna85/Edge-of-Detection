@@ -79,6 +79,8 @@ class Play extends Phaser.Scene {
             this.intersections = this.ray.castCone();
             this.path.getPoint(this.follower.t, this.follower.vec);
             this.ray.setOrigin(this.follower.vec.x, this.follower.vec.y);
+            this.rayContainer.x = this.ray.origin.x;
+            this.rayContainer.y = this.ray.origin.y;
             //second light 
             this.ray2.setAngleDeg(this.degree+180);
             this.intersections2 = this.ray2.castCone();
@@ -171,27 +173,29 @@ class Play extends Phaser.Scene {
         this.ray2.autoSlice = true; 
         this.ray2.enablePhysics();
 
-        
+        /*Could potentially limit the LOS range visually by surrounding it with a circle it colldies with,
+        matching the radius of the ray's collision range.*/
+        console.log(this.ray.origin);
+        this.rayContainer = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize).setStrokeStyle(1, 0xff0000);
+        //this.rayContainer2 = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize).setStrokeStyle(1, 0xff0000);
+        mappedObjects.push(this.rayContainer);
 
         //Maps objects to the ray so it can collide with them
-        this.raycaster.mapGameObjects(mappedObjects, false, {collisionTiles: [6, 11]}); 
+        this.raycaster.mapGameObjects(mappedObjects, true, {collisionTiles: [6, 11]}); 
         
         //set collision (field of view) range radius
         this.ray.setCollisionRange(losSize);
         //this.ray.setRayRange(losSize);
         this.ray2.setCollisionRange(losSize);
 
+        
+
+
         //cast ray
         this.intersections = this.ray.castCone();
         this.intersections2 = this.ray2.castCone();
         
-        /*Could potentially limit the LOS range visually by surrounding it with a circle it colldies with,
-        matching the radius of the ray's collision range.*/
-        console.log(this.ray.origin);
-        this.rayContainer = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize);
-        this.ray
-        this.rayContainer2 = this.add.circle(this.ray.origin.x, this.ray.origin.y, losSize);
-        mappedObjects.push(this.rayContainer2);
+        
 
         //Draw ray LoS
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
