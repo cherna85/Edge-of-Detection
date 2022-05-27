@@ -208,15 +208,15 @@ class LevelBase extends Phaser.Scene {
         
     }
     checkGameProgress(){
-        console.log(furthestLevel);
+        //console.log(furthestLevel);
         if(furthestLevel == 0 && this.scene.key == 'levelTutorialA' ){
-            furthestLevel++;
+            furthestLevel = 1;
         }else if(furthestLevel == 1 && this.scene.key == 'levelTutorialB'){
-            furthestLevel++;
+            furthestLevel = 2;
         }else if(furthestLevel == 2 && this.scene.key == 'levelClimb'){
-            furthestLevel++;
+            furthestLevel = 3;
         }else if(furthestLevel == 3 && this.scene.key =='levelShipyard'){
-            furthestLevel++;
+            furthestLevel= 4;
         }
     }
     placeDoors(){

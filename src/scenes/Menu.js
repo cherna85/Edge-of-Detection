@@ -63,7 +63,7 @@ class Menu extends Phaser.Scene {
             // console.log(loadlevel);
             // console.log(smokeBombsHeld);
             //console.log(plotUnlocked);
-            console.log(furthestLevel+'HI');
+            //console.log(furthestLevel+'HI');
             //localStorage.removeItem(localStorageName+'_furthestLevel');
             // localStorage.removeItem(localStorageName+'_loadlevel');
             // localStorage.removeItem(localStorageName+'_smokeBombsHeld');
