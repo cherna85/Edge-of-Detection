@@ -156,6 +156,23 @@
                  "width":16,
                  "x":288,
                  "y":320
+                }, 
+                {
+                 "height":140,
+                 "id":24,
+                 "name":"message",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Hold DOWN to drop\n through platforms"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":208,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -164,7 +181,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":19,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
