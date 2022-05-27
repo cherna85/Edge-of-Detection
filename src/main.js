@@ -28,9 +28,10 @@ let config = {
   let game = new Phaser.Game(config);
   //things to save 
   let localStorageName = "Edge_of_Sight";
-  let furthestLevel;
-  let smokeBombsHeld = 5;
-  let plotUnlocked = 0;
+  let furthestLevel = 0;
+  let loadlevel;
+  let smokeBombsHeld = 6;
+  let plotUnlocked = 7;
 
   // initializing variables 
   let sceneSelect = 'playScene'; // for selecting between scenes 

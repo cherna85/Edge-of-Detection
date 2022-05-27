@@ -35,7 +35,7 @@ class LevelBase extends Phaser.Scene {
     createDefault(tilesetImgName){
 
         this.defineKeys();
-        furthestLevel = this.scene.key;
+        loadlevel = this.scene.key;
         
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: this.tilemapName});
@@ -113,6 +113,7 @@ class LevelBase extends Phaser.Scene {
         this.check = 0; // makes sure end screen doesnt apply more than once;
         this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        this.checkGameProgress();
     }
 
     create(){
@@ -201,9 +202,22 @@ class LevelBase extends Phaser.Scene {
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
         //im setting up levels based off numbers, 
         localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
+        localStorage.setItem(localStorageName+'_loadlevel', loadlevel);
         localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
         localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
         
+    }
+    checkGameProgress(){
+        console.log(furthestLevel);
+        if(furthestLevel == 0 && this.scene.key == 'levelTutorialA' ){
+            furthestLevel++;
+        }else if(furthestLevel == 1 && this.scene.key == 'levelTutorialB'){
+            furthestLevel++;
+        }else if(furthestLevel == 2 && this.scene.key == 'levelClimb'){
+            furthestLevel++;
+        }else if(furthestLevel == 3 && this.scene.key =='levelShipyard'){
+            furthestLevel++;
+        }
     }
     placeDoors(){
         this.doors = this.tilemap.createFromObjects("Objects", {

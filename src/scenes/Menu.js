@@ -30,6 +30,8 @@ class Menu extends Phaser.Scene {
             keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
             keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
             //load data
+            loadlevel = localStorage.getItem(localStorageName+'_loadlevel') == null ? 0 :
+                localStorage.getItem(localStorageName+'_loadlevel');
             furthestLevel = localStorage.getItem(localStorageName+'_furthestLevel') == null ? 0 :
                 localStorage.getItem(localStorageName+'_furthestLevel');
             smokeBombsHeld = localStorage.getItem(localStorageName+'_smokeBombsHeld') == null ? 0 :
@@ -37,8 +39,8 @@ class Menu extends Phaser.Scene {
             plotUnlocked = localStorage.getItem(localStorageName+'_plotUnlocked') == null ? 0 :
                 localStorage.getItem(localStorageName+'_plotUnlocked');
 
-            if(furthestLevel == 'levelTutorialA'){
-                furthestLevel = 0;
+            if(loadlevel == 'levelTutorialA'){
+                loadlevel = 0;
             }
 
             //setting up "buttons" for scene selecting 
@@ -46,7 +48,7 @@ class Menu extends Phaser.Scene {
             this.playbutton = this.add.text(game.config.width/2, game.config.height/2 - 32 , 'New Game', MenuConfig).setOrigin(0.5);
             MenuConfig.color =  '#FF994F';
            
-            if(furthestLevel == 0){
+            if(loadlevel == 0){
                 MenuConfig.color =  '#808080';
            }
             this.loadgamebutton = this.add.text(game.config.width/2, game.config.height/2, 'Load Game', MenuConfig).setOrigin(0.5); //not set up, will do when we save data
@@ -58,17 +60,19 @@ class Menu extends Phaser.Scene {
             sceneSelect = 'levelTutorialA'; //reinitalize menu
 
             // just making sure its saving 
-            // console.log(furthestLevel);
+            // console.log(loadlevel);
             // console.log(smokeBombsHeld);
-            // console.log(plotUnlocked);
-            // localStorage.removeItem(localStorageName+'_furthestLevel');
+            //console.log(plotUnlocked);
+            console.log(furthestLevel+'HI');
+            //localStorage.removeItem(localStorageName+'_furthestLevel');
+            // localStorage.removeItem(localStorageName+'_loadlevel');
             // localStorage.removeItem(localStorageName+'_smokeBombsHeld');
             // localStorage.removeItem(localStorageName+'_plotUnlocked');
 
         }
 
         update(time, delta){
-           if(furthestLevel ==0){
+           if(loadlevel ==0){
                 this.menuWithoutSave();
            }else{
                this.menuWithSave();
@@ -83,9 +87,9 @@ class Menu extends Phaser.Scene {
         menuWithSave(){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
                 if(sceneSelect == 'levelTutorialA'){
-                    this.updateMenu(this.playbutton,this.loadgamebutton, furthestLevel);
+                    this.updateMenu(this.playbutton,this.loadgamebutton, loadlevel);
                 }
-                else if(sceneSelect == furthestLevel){
+                else if(sceneSelect == loadlevel){
                     this.updateMenu(this.loadgamebutton, this.lsbutton, 'levelselectScene');
                 }  
                 else if(sceneSelect == 'levelselectScene'){
@@ -102,11 +106,11 @@ class Menu extends Phaser.Scene {
                 if(sceneSelect == 'levelTutorialA'){
                     this.updateMenu(this.playbutton,this.creditsbutton, 'creditScene');
                 }
-                else if(sceneSelect == furthestLevel){
+                else if(sceneSelect == loadlevel){
                     this.updateMenu(this.loadgamebutton, this.playbutton, 'levelTutorialA' );
                 }  
                 else if(sceneSelect == 'levelselectScene'){
-                    this.updateMenu(this.lsbutton, this.loadgamebutton, furthestLevel);
+                    this.updateMenu(this.lsbutton, this.loadgamebutton, loadlevel);
                 }  
                 else if(sceneSelect == "optionsScene"){
                     this.updateMenu(this.optionsbutton, this.lsbutton, "levelselectScene");
