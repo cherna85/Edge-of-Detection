@@ -106,11 +106,35 @@ class LevelBase extends Phaser.Scene {
             }
         }); 
         
+ 
+        dressedTextConfig.fontSize = '12px';
+        this.uiMessage = this.add.text(game.config.width/2, game.config.height/4 + 50, "Tutorial", dressedTextConfig).setOrigin(0.5, 0.5).setScrollFactor(0);
+        //Initial text position is within the level, where it will then always follow the camera.
+        //So if text is initially outside the camera's view, it will always stay out of view
+        //We can't make it be inside the camera because it spawns at 0, 0, then is moved at some point and begins moving text...I think
+        //Also keep in mind camera is zoomed in
+        //this.createMessageBoxes();
 
         this.gameOver = false;
         this.check = 0; // makes sure end screen doesnt apply more than once;
         this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+    
+        this.messageBoxGroup = this.physics.add.staticGroup();
+        this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
+            if(object.name == "message"){
+                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, true, true);
+                //This is actually a sprite; not a static body
+                newBody.setOrigin(0, 0); //Changes origin and position of the sprite, but not the body
+                newBody.refreshBody(); //Syncs the body to the sprite object
+                newBody.body.setSize(object.width, object.height, false); //Grows out the body from its top-left position
+                
+                console.log(object.properties[0]["value"]);
+                return true;
+            }
+            console.log("Not a message object");
+            return false;
+        });
     }
 
     create(){
@@ -135,6 +159,24 @@ class LevelBase extends Phaser.Scene {
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
             this.Exit[0].update(time,delta);
+
+            //Check if overlapping tutorial box; adjust tutorial message accordingly
+            let messageBoxes = this.messageBoxGroup.getChildren();
+            let overlappingMessage = false;
+            for(let index = 0; index < messageBoxes.length; index++){
+                let boxBody = messageBoxes[index].body
+                if(this.plrSpy.x > boxBody.x && this.plrSpy.x < boxBody.x + boxBody.width){
+                    if(this.plrSpy.y > boxBody.y && this.plrSpy.y < boxBody.y + boxBody.height){
+                        this.uiMessage.visible = true;
+                        this.uiMessage.text = this.tutorialMessages[index].properties[0]["value"];
+                        overlappingMessage = true;
+                    }
+                }
+            }
+
+            if(!overlappingMessage){
+                this.uiMessage.visible = false;
+            }
         }
         if(this.gameOver && this.check  ==3){
             this.gameOverFunc();
@@ -247,5 +289,10 @@ class LevelBase extends Phaser.Scene {
         //locked doors  
     }
     
-    
+    createMessageBoxes(){
+        this.messages = this.tilemap.createFromObjects("Objects", {
+            name: "message",
+            key: "objMessageBox"
+        });
+    }
 }

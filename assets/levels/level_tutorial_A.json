@@ -172,6 +172,57 @@
                  "width":16,
                  "x":704,
                  "y":448
+                }, 
+                {
+                 "height":84,
+                 "id":10,
+                 "name":"message",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Don't be seen without your disguise."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":184,
+                 "y":372
+                }, 
+                {
+                 "height":84,
+                 "id":11,
+                 "name":"message",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Hold [Z] to apply disguise"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":284,
+                 "y":372
+                }, 
+                {
+                 "height":92,
+                 "id":12,
+                 "name":"message",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Gather clues from the tables\n to unlock the exit"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":656,
+                 "y":368
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -179,8 +230,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":8,
+ "nextlayerid":8,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
