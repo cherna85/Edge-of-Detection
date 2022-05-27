@@ -16,7 +16,7 @@ class LevelTutorialA extends LevelBase {
         //this.cache.tilemap.exists('')
 
         /*Adjust player starting position */
-        this.plrSpy.x = 256;
+        this.plrSpy.x = 128;
         this.plrSpy.y = 432;
 
         this.placeDoors(); //Makesure to load doors before any raycasting

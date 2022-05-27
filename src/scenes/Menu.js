@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
             }
 
             this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press Z to Select', MenuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press Z to Select, X to go back', MenuConfig).setOrigin(0.5);
 
             //setting up keys
             keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
