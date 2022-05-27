@@ -72,12 +72,7 @@ class Menu extends Phaser.Scene {
                 this.menuWithoutSave();
            }else{
                this.menuWithSave();
-           }
-           console.log(sceneSelect)
-           
-
-            
-
+           }                  
         }
 
         updateMenu(current, next, scene){

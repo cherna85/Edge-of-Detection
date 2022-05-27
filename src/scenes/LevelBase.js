@@ -35,6 +35,7 @@ class LevelBase extends Phaser.Scene {
     createDefault(tilesetImgName){
 
         this.defineKeys();
+        furthestLevel = this.scene.key;
         
         /*Creates tilemap and default layers*/
         this.tilemap = this.make.tilemap({key: this.tilemapName});
@@ -199,9 +200,6 @@ class LevelBase extends Phaser.Scene {
         this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
         this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
         //im setting up levels based off numbers, 
-        furthestLevel = this.scene.key;
-        smokeBombsHeld++;
-        plotUnlocked++;
         localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
         localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
         localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
