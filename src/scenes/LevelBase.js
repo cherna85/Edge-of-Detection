@@ -123,7 +123,7 @@ class LevelBase extends Phaser.Scene {
         this.messageBoxGroup = this.physics.add.staticGroup();
         this.tutorialMessages = this.tilemap.filterObjects("Objects", object => {
             if(object.name == "message"){
-                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, true, true);
+                let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true);
                 //This is actually a sprite; not a static body
                 newBody.setOrigin(0, 0); //Changes origin and position of the sprite, but not the body
                 newBody.refreshBody(); //Syncs the body to the sprite object
