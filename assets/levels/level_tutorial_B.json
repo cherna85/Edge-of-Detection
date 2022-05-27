@@ -165,7 +165,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Hold DOWN to drop\n through platforms"
+                         "value":"Hold [DOWN] to drop\n through platforms"
                         }],
                  "rotation":0,
                  "type":"",
