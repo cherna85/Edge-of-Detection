@@ -47,6 +47,8 @@ class LevelBase extends Phaser.Scene {
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');
 
+        this.plrSpy.setDepth(1);
+
         /*Sets up collision between tilemap and player*/
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
@@ -83,9 +85,12 @@ class LevelBase extends Phaser.Scene {
         }
         this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5);
         this.warningText.alpha = 0;
+        this.warningText.setDepth(99);
         this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
+        this.dressedText.setDepth(99);
         this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer.alpha = 0;
+        this.disguiseTimer.setDepth(99);
         //Source ref: https://phaser.io/examples/v3/view/display/tint/tween-tint
         this.disguiseTween = this.tweens.addCounter({
             from: 255,
@@ -111,6 +116,7 @@ class LevelBase extends Phaser.Scene {
  
         dressedTextConfig.fontSize = '12px';
         this.uiMessage = this.add.text(game.config.width/2, game.config.height/4 + 50, "Tutorial", dressedTextConfig).setOrigin(0.5, 0.5).setScrollFactor(0);
+        this.uiMessage.setDepth(99);
         //Initial text position is within the level, where it will then always follow the camera.
         //So if text is initially outside the camera's view, it will always stay out of view
         //We can't make it be inside the camera because it spawns at 0, 0, then is moved at some point and begins moving text...I think
