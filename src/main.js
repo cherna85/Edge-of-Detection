@@ -10,7 +10,7 @@ let config = {
           default: 'arcade',
           arcade: {
                 gravity: { y: 500 },
-                debug: true
+                debug: false
           }
       },
       scene: [ Menu, Option, Credit, LevelSelect, LevelTutorialA, LevelTutorialB, LevelShipyard, LevelClimb],
