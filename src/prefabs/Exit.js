@@ -15,7 +15,7 @@ class Exit extends Phaser.Physics.Arcade.Sprite {
         //Sets up overlap between this and player. Changes this.switch to True
         scene.physics.add.overlap(this, scene.plrSpy, this.progress, null, this);
         this.switch = false;
-
+        this.setDepth(-4); //Affects render order
     }
 
     setNextLevel(nextLevel, locked, checklist){

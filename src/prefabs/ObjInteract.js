@@ -20,6 +20,8 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
         this.repeatable = false; //Allows being activated more than once
         this.body.allowGravity = false;
         this.activeTint = 0x444444;
+        this.setDepth(-4);
+        this.instructions.setDepth(98);
     }
 
     update(time, delta){

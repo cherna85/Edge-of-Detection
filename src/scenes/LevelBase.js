@@ -54,6 +54,7 @@ class LevelBase extends Phaser.Scene {
         this.solidLayer.setCollisionByProperty( {collides: true} );
         this.platformLayer.setCollisionByProperty( {collides: true} );
         this.solidLayer.setDepth(10);
+        this.platformLayer.setDepth(-3);
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
             if(tile.index == 6){
@@ -287,10 +288,12 @@ class LevelBase extends Phaser.Scene {
             frame: 9,
             classType: Door
         })
+        
+        
+
         this.groupLockedDoors = this.add.group(this.lockedDoors);
         this.groupLockedDoors.runChildUpdate = true;  
         //locked doors 
-              
     }
     doorCollision(interactables){
         //iterates through all the members and updates collision
@@ -314,9 +317,10 @@ class LevelBase extends Phaser.Scene {
         },{ // sets the bottom half but does put the sprite in the group
             name: "exitB",
             key: this.tilesSheetName,
-            frame: 15, 
+            frame: 15,
         }]);
         this.Exit[0].setNextLevel(nextLevel, locked, checklist);
+        this.Exit[1].setDepth(-4);
         //locked doors  
     }
     

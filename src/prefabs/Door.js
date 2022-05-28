@@ -64,6 +64,10 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.overlap(this, this.interactable, this.activate, null, this);
         this.locked = toggle;
         this.checklist = checklist;
+
+        if(this.locked){
+            this.setDepth(10);
+        }
     }
 }
 
