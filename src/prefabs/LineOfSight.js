@@ -1,7 +1,7 @@
 class LOS extends Phaser.GameObjects.GameObject {
     constructor(scene, type = 'LoS', mappedObject){
             super(scene,type);
-            this.raycaster = scene.raycasterPlugin.createRaycaster({debug:true}); //when debugging is true, we get an error when we restart a level
+            this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
             this.raycaster.setBoundingBox(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels)
             //Maps objects to the ray so it can collide with them
             this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: [1, 9, 13]});   
@@ -27,7 +27,6 @@ class LOS extends Phaser.GameObjects.GameObject {
         //create collision
         this.setPlayerCollision(scene,ray);
         this.range  =  scene.add.circle( originX, originY, fov);
-        //this.range = new LoSRange(scene, originX,originY);
         this.raycaster.mapGameObjects(this.range, true); 
         return ray; 
     }
