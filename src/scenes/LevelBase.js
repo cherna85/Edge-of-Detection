@@ -47,12 +47,13 @@ class LevelBase extends Phaser.Scene {
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'playerMain',
          0, 'playerDisguise');
 
-        this.plrSpy.setDepth(1);
+        this.plrSpy.setDepth(-1);
 
         /*Sets up collision between tilemap and player*/
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
         this.platformLayer.setCollisionByProperty( {collides: true} );
+        this.solidLayer.setDepth(10);
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
             if(tile.index == 6){
@@ -83,14 +84,12 @@ class LevelBase extends Phaser.Scene {
             stroke: '#000000',
             strokeThickness: 4
         }
-        this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5);
+        this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5).setDepth(99);
         this.warningText.alpha = 0;
-        this.warningText.setDepth(99);
-        this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5);
-        this.dressedText.setDepth(99);
+        this.dressedText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'Getting dressed...', dressedTextConfig).setOrigin(0.5).setDepth(97);
         this.disguiseTimer = this.add.text(game.config.width/2 + 600, game.config.height/2, '0', dressedTextConfig).setOrigin(0.5);
         this.disguiseTimer.alpha = 0;
-        this.disguiseTimer.setDepth(99);
+        this.disguiseTimer.setDepth(97);
         //Source ref: https://phaser.io/examples/v3/view/display/tint/tween-tint
         this.disguiseTween = this.tweens.addCounter({
             from: 255,
@@ -116,7 +115,7 @@ class LevelBase extends Phaser.Scene {
  
         dressedTextConfig.fontSize = '12px';
         this.uiMessage = this.add.text(game.config.width/2, game.config.height/4 + 50, "Tutorial", dressedTextConfig).setOrigin(0.5, 0.5).setScrollFactor(0);
-        this.uiMessage.setDepth(99);
+        this.uiMessage.setDepth(98);
         //Initial text position is within the level, where it will then always follow the camera.
         //So if text is initially outside the camera's view, it will always stay out of view
         //We can't make it be inside the camera because it spawns at 0, 0, then is moved at some point and begins moving text...I think
@@ -251,8 +250,8 @@ class LevelBase extends Phaser.Scene {
     }
     gameOverFunc(){
         this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
-        this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
-        this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
+        this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5).setDepth(100);
+        this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5).setDepth(100);
         //im setting up levels based off numbers, 
         localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
         localStorage.setItem(localStorageName+'_loadlevel', loadlevel);

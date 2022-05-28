@@ -43,6 +43,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.collider(this, scene.platformLayer);
         this.flipSetting = flipped;
         this.flip(flipped);
+        this.setDepth(-2);
     }
 
     update(time,delta, scene){

@@ -18,7 +18,7 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         this.scene = scene;
 
         this.check = 0;
-
+        this.setDepth(9); //Affects render order
     }
 
     update(time, delta){
