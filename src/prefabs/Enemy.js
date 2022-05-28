@@ -14,11 +14,27 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scaleY = 0.75 //New body size is 16 x 24. Possibly smaller in future
         this.setBodySize(16, 32);
         //create a detection frame
+        this.rangeLayer = scene.add.layer();  
+            
+        this.rangeGraphics = scene.make.graphics();
+
+        this.rangeGraphics.fillStyle(0xffffff);
+        this.rangeGraphics.fillCircle(x, y, losRange);
+        console.log(this.rangeGraphics);
+    
+        const mask = this.rangeGraphics.createGeometryMask();
+
+        this.rangeLayer.setMask(mask); 
+
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.enemyLOS = new LOS(scene, "EnemyLOS",scene.solidLayer);
+        this.rangeLayer.add([this,this.graphics]);
+        
+       
         
         this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 8, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);
+
 
 
         //creating collider 
@@ -43,7 +59,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
                 this.flip(this.flipSetting);
             }
-            this.enemyLOS.setRangeXY(this.x,this.y);
+            this.setEnemyRangeXY(this.x,this.y);
         }
         this.drawEnemyLOS(scene,this.detection);
     }
@@ -98,5 +114,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.path.draw(this.graphics);
         }
     }
-    
+    setEnemyRangeXY(X,Y){
+        
+        this.rangeGraphics.x = X-320;
+        console.log("hey?")
+    }
 }

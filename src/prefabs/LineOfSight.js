@@ -7,7 +7,9 @@ class LOS extends Phaser.GameObjects.GameObject {
             this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: [1, 9, 13]});   
             // true sets dynamic updating
 
-            this.scene = scene;             
+            this.scene = scene; 
+
+                     
     }
 
     update(){
@@ -15,6 +17,7 @@ class LOS extends Phaser.GameObjects.GameObject {
     }
 
     createConeRay(scene, originX, originY, angleDeg, coneDeg, fov,){ 
+        this.fov = fov;
         let ray = this.raycaster.createRay();
         ray.setOrigin(originX,originY);
         ray.setAngleDeg(angleDeg);
@@ -26,11 +29,10 @@ class LOS extends Phaser.GameObjects.GameObject {
         ray.castCone();
         //create collision
         this.setPlayerCollision(scene,ray);
-        this.range  =  scene.add.circle( originX, originY, fov);
-        this.raycaster.mapGameObjects(this.range, true); 
         return ray; 
     }
     createCircleRay(scene, originX, originY, fov){
+        this.fov = fov;
         let ray = this.raycaster.createRay();
         ray.setOrigin(originX,originY);
         ray.autoSlice = true; 
@@ -39,8 +41,8 @@ class LOS extends Phaser.GameObjects.GameObject {
         ray.setCollisionRange(fov);
         ray.castCircle();
         //create collision
-        this.range  =  scene.add.circle( originX, originY, fov);
-        this.raycaster.mapGameObjects(this.range, true); 
+       // this.range  =  scene.add.circle( originX, originY, fov);
+       // this.raycaster.mapGameObjects(this.range, true); 
         this.setPlayerCollision(scene,ray);
         return ray; 
     }
@@ -76,6 +78,7 @@ class LOS extends Phaser.GameObjects.GameObject {
         //this.path.draw(this.graphics);    
     }
     drawLOSCircle(scene,rays){
+        
         for(let r in rays){
             this.getIntersectionsCircle(rays[r]).push(rays[r].origin);
         }  
@@ -95,9 +98,6 @@ class LOS extends Phaser.GameObjects.GameObject {
             }
         }, ray.processOverlap.bind(ray));
     }
-    setRangeXY(X,Y){
-        this.range.x = X;
-        this.range.y = Y;
-    }
+
 
 }
