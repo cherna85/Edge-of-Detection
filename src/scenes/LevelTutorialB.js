@@ -32,8 +32,9 @@ class LevelTutorialB extends LevelBase {
 
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.spotlightCaster = new LOS(this, 'spotlight' ,this.solidLayer);
+        this.spotlightCaster2 = new LOS(this, 'spotlight' ,this.solidLayer);
         this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
-        this.spotlight2 = this.spotlightCaster.createCircleRay(this, 19 * 16, 4 * 16, 128);
+        this.spotlight2 = this.spotlightCaster2.createCircleRay(this, 19 * 16, 4 * 16, 128);
 
         this.doorCollision([this.plrSpy, this.enemy1])
         this.placeExit('levelClimb', true, this.buttonTracker);
@@ -55,6 +56,7 @@ class LevelTutorialB extends LevelBase {
                 const value = tween.getValue();
                 let scene = this.parent.scene;
                 scene.spotlight1.setOrigin(value, 4 * 16);
+                scene.spotlightCaster.setRangeXY(value, 4 * 16)
             }
         });
         this.tweens.addCounter({
@@ -71,6 +73,7 @@ class LevelTutorialB extends LevelBase {
                 const value = tween.getValue();
                 let scene = this.parent.scene;
                 scene.spotlight2.setOrigin(value, 4 * 16);
+                scene.spotlightCaster2.setRangeXY(value, 4 * 16)
             }
         });
         console.log("created unique objects LVL 2");
@@ -81,8 +84,7 @@ class LevelTutorialB extends LevelBase {
 
         //Make sure all enemies are updated (possibly use a group)
         this.enemy1.update();
-        this.drawSpotlight(this.spotlight1)
-        this.drawSpotlight(this.spotlight2)
+        this.spotlightCaster.drawLOSCircle(this, [this.spotlight2, this.spotlight1 ] );
     }
 
     createButtons(){
@@ -112,11 +114,4 @@ class LevelTutorialB extends LevelBase {
     }
 
     //Takes in a ray as parameter, which can cast a circle or cone
-    drawSpotlight(spotlight){
-        let intersections = spotlight.castCircle();
-        //intersections.push(spotlight.origin);
-        this.graphics.clear();
-        this.graphics.fillStyle(0xffffff, 0.3);
-        this.graphics.fillPoints(intersections);
-    }
 }

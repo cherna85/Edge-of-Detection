@@ -17,6 +17,7 @@ class LevelShipyard extends LevelBase {
         this.placeDoors(); //Makesure to load doors before any raycasting
 
         this.levelLOS = new LOS(this, 'spotlight',this.solidLayer);
+        this.levelLOS2 = new LOS(this, 'spotlight',this.solidLayer);
         this.createButtons();
         this.createSpotlights(this.solidLayer);
 
@@ -69,7 +70,7 @@ class LevelShipyard extends LevelBase {
         });   
         let degree = 0; 
         let ray = this.levelLOS.createConeRay(this, this.follower.vec.x, this.follower.vec.y, degree, 180, 200);
-        let ray2 = this.levelLOS.createConeRay(this, this.follower.vec.x, this.follower.vec.y, degree+180, 180, 200);
+        let ray2 = this.levelLOS2.createConeRay(this, this.follower.vec.x, this.follower.vec.y, degree+180, 180, 200);
         /*Could potentially limit the LOS range visually by surrounding it with a circle it colldies with,
         matching the radius of the ray's collision range.*/
         //this.rayContainer = this.add.circle(this.ray.origin.x, this.ray.origin.y, 200);
@@ -79,6 +80,7 @@ class LevelShipyard extends LevelBase {
             ray.setAngleDeg(degree++);
             this.path.getPoint(this.follower.t, this.follower.vec);
             ray.setOrigin(this.follower.vec.x, this.follower.vec.y);
+            this.levelLOS.setRangeXY(this.follower.vec.x, this.follower.vec.y);
             //second light 
             ray2.setAngleDeg(degree+180);
             // fixes bug where send ray jumps onto the 
@@ -87,7 +89,8 @@ class LevelShipyard extends LevelBase {
                 this.path.getPoint(this.follower.t - 0.5, this.follower.vec);
             }
             ray2.setOrigin(this.follower.vec.x, this.follower.vec.y);
-            this.levelLOS.drawLOS(this,[ray,ray2]);    
+            this.levelLOS2.setRangeXY(this.follower.vec.x, this.follower.vec.y);
+            this.levelLOS2.drawLOS(this,[ray,ray2]);    
             }, loop: true });
     }
 }

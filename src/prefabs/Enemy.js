@@ -43,6 +43,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
                 this.flip(this.flipSetting);
             }
+            this.enemyLOS.setRangeXY(this.x,this.y);
         }
         this.drawEnemyLOS(scene,this.detection);
     }
