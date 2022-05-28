@@ -8,6 +8,11 @@ class LOS extends Phaser.GameObjects.GameObject {
             // true sets dynamic updating
 
             this.scene = scene; 
+            this.rangeLayer = scene.add.layer();  
+            
+            this.rangeGraphics = scene.make.graphics();
+            this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+
 
                      
     }
@@ -29,6 +34,7 @@ class LOS extends Phaser.GameObjects.GameObject {
         ray.castCone();
         //create collision
         this.setPlayerCollision(scene,ray);
+        this.setRange(originX, originY,fov);
         return ray; 
     }
     createCircleRay(scene, originX, originY, fov){
@@ -44,6 +50,7 @@ class LOS extends Phaser.GameObjects.GameObject {
        // this.range  =  scene.add.circle( originX, originY, fov);
        // this.raycaster.mapGameObjects(this.range, true); 
         this.setPlayerCollision(scene,ray);
+        this.setRange(originX, originY,fov);
         return ray; 
     }
 
@@ -70,10 +77,10 @@ class LOS extends Phaser.GameObjects.GameObject {
         for(let r in rays){
             this.getIntersectionsCone(rays[r]).push(rays[r].origin);
         }  
-        scene.graphics.clear();
-        scene.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.clear();
+        this.graphics.fillStyle(0xffffff, 0.3);
         for(let r in rays){
-            scene.graphics.fillPoints(this.getIntersectionsCone(rays[r]));
+            this.graphics.fillPoints(this.getIntersectionsCone(rays[r]));
         }
         //this.path.draw(this.graphics);    
     }
@@ -82,10 +89,10 @@ class LOS extends Phaser.GameObjects.GameObject {
         for(let r in rays){
             this.getIntersectionsCircle(rays[r]).push(rays[r].origin);
         }  
-        scene.graphics.clear();
-        scene.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.clear();
+        this.graphics.fillStyle(0xffffff, 0.3);
         for(let r in rays){
-            scene.graphics.fillPoints(this.getIntersectionsCircle(rays[r]));
+            this.graphics.fillPoints(this.getIntersectionsCircle(rays[r]));
         }
         //this.path.draw(this.graphics);    
     }
@@ -98,6 +105,28 @@ class LOS extends Phaser.GameObjects.GameObject {
             }
         }, ray.processOverlap.bind(ray));
     }
+    setRange(x,y,fov){
 
+
+        this.rangeGraphics.fillStyle(0xffffff);
+        this.rangeGraphics.fillCircle(x,y, fov);
+    
+        const mask = this.rangeGraphics.createGeometryMask();
+
+        this.rangeLayer.setMask(mask); 
+
+        
+        this.rangeLayer.add([this.graphics]);
+        
+    }
+    setRangeXY(X,step, Y ,stepY){
+      
+        this.rangeGraphics.x = X + step;
+        if(stepY != 'undefined'){
+          
+            this.rangeGraphics.y = Y + stepY;
+        }
+    
+    }
 
 }

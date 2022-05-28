@@ -35,7 +35,7 @@ class LevelTutorialB extends LevelBase {
         this.spotlightCaster2 = new LOS(this, 'spotlight' ,this.solidLayer);
         this.spotlight1 = this.spotlightCaster.createCircleRay(this, 11 * 16, 4 * 16, 128);
         this.spotlight2 = this.spotlightCaster2.createCircleRay(this, 19 * 16, 4 * 16, 128);
-        //this.setRange(this.spotlightCaster);
+        
 
         this.doorCollision([this.plrSpy, this.enemy1])
         this.placeExit('levelClimb', true, this.buttonTracker);
@@ -58,7 +58,7 @@ class LevelTutorialB extends LevelBase {
                 const value = tween.getValue();
                 let scene = this.parent.scene;
                 scene.spotlight1.setOrigin(value, 4 * 16);
-                //scene.spotlightCaster.setRangeXY(value, 4 * 16)
+                scene.spotlightCaster.setRangeXY(value, -176, 0 , 'undefined');
             }
         });
         this.tweens.addCounter({
@@ -75,7 +75,7 @@ class LevelTutorialB extends LevelBase {
                 const value = tween.getValue();
                 let scene = this.parent.scene;
                 scene.spotlight2.setOrigin(value, 4 * 16);
-                //scene.spotlightCaster2.setRangeXY(value, 4 * 16)
+                scene.spotlightCaster2.setRangeXY(value, -304, 0 , 'undefined');
             }
         });
         console.log("created unique objects LVL 2");
@@ -86,7 +86,8 @@ class LevelTutorialB extends LevelBase {
 
         //Make sure all enemies are updated (possibly use a group)
         this.enemy1.update();
-        this.spotlightCaster.drawLOSCircle(this, [this.spotlight2, this.spotlight1 ] );
+        this.spotlightCaster.drawLOSCircle(this,  [this.spotlight1 ] );
+        this.spotlightCaster2.drawLOSCircle(this,  [this.spotlight2 ] );
     }
 
     createButtons(){

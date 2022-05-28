@@ -20,7 +20,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.rangeGraphics.fillStyle(0xffffff);
         this.rangeGraphics.fillCircle(x, y, losRange);
-        console.log(this.rangeGraphics);
+        //console.log(this.rangeGraphics );
     
         const mask = this.rangeGraphics.createGeometryMask();
 
@@ -29,6 +29,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.enemyLOS = new LOS(scene, "EnemyLOS",scene.solidLayer);
         this.rangeLayer.add([this,this.graphics]);
+        //console.log(this.rangeLayer );
         
        
         
@@ -117,6 +118,5 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     setEnemyRangeXY(X,Y){
         
         this.rangeGraphics.x = X-320;
-        console.log("hey?")
     }
 }

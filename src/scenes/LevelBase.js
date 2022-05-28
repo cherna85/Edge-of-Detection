@@ -327,21 +327,6 @@ class LevelBase extends Phaser.Scene {
             key: "objMessageBox"
         });
     }
-    setRange(object){
-        this.rangeLayer = this.add.layer();  
-            
-        this.rangeGraphics = this.make.graphics();
-
-        this.rangeGraphics.fillStyle(0xffffff);
-        this.rangeGraphics.fillCircle(object.x, object.y, object.fov);
-        console.log(this.rangeGraphics);
     
-        const mask = this.rangeGraphics.createGeometryMask();
 
-        this.rangeLayer.setMask(mask); 
-
-        
-        this.rangeLayer.add([object,object.graphics]);
-        
-    }
 }

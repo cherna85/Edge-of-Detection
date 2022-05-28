@@ -80,7 +80,7 @@ class LevelShipyard extends LevelBase {
             ray.setAngleDeg(degree++);
             this.path.getPoint(this.follower.t, this.follower.vec);
             ray.setOrigin(this.follower.vec.x, this.follower.vec.y);
-            this.levelLOS.setRangeXY(this.follower.vec.x, this.follower.vec.y);
+            this.levelLOS.setRangeXY(this.follower.vec.x, 0, this.follower.vec.y, 0);
             //second light 
             ray2.setAngleDeg(degree+180);
             // fixes bug where send ray jumps onto the 
@@ -89,8 +89,10 @@ class LevelShipyard extends LevelBase {
                 this.path.getPoint(this.follower.t - 0.5, this.follower.vec);
             }
             ray2.setOrigin(this.follower.vec.x, this.follower.vec.y);
-            this.levelLOS2.setRangeXY(this.follower.vec.x, this.follower.vec.y);
-            this.levelLOS2.drawLOS(this,[ray,ray2]);    
+            this.levelLOS2.setRangeXY(this.follower.vec.x,0,this.follower.vec.y,0 );
+            this.levelLOS2.drawLOS(this,[ray2]); 
+            this.levelLOS.drawLOS(this,[ray]);  
+             
             }, loop: true });
     }
 }
