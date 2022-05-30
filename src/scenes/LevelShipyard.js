@@ -22,7 +22,7 @@ class LevelShipyard extends LevelBase {
         this.createSpotlights(this.solidLayer);
 
         this.doorCollision([this.plrSpy])
-        this.placeExit('levelTutorialA', true, this.buttonTracker);
+        this.placeExit('endscreenScene', true, this.buttonTracker);
         
     }
 

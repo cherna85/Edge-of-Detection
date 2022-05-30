@@ -124,7 +124,6 @@ class LevelBase extends Phaser.Scene {
         //this.createMessageBoxes();
 
         this.gameOver = false;
-        this.check = 0; // makes sure end screen doesnt apply more than once;
         this.endScene = this.scene.key ;
         this.graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
         this.checkGameProgress();
@@ -135,15 +134,28 @@ class LevelBase extends Phaser.Scene {
                 let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true);
                 //This is actually a sprite; not a static body
                 newBody.setOrigin(0, 0); //Changes origin and position of the sprite, but not the body
-                newBody.refreshBody(); //Syncs the body to the sprite object
+                newBody.refreshBody(); //Syncs the body to the sprite ob  ject
                 newBody.body.setSize(object.width, object.height, false); //Grows out the body from its top-left position
                 
                 console.log(object.properties[0]["value"]);
+                //this isn't the most dynamic way to do this.....but it's giving me less issues
+                if( object.properties[0]["value"] == "Hold [Z] to apply disguise"){
+                    object.properties[0]["value"] = "Hold [" + PDisguiseT +"] to apply disguise"; 
+                }else if (object.properties[0]["value"] == "Press [UP] to jump"){
+                    object.properties[0]["value"] = "Press [" + PUpT +"] to jump";
+                }else if (object.properties[0]["value"] == "Hold [DOWN] to drop\n through platforms"){
+                    console.log("HEY?")
+                    object.properties[0]["value"] = "Hold [" + PDownT +"] to drop through platforms";
+                }
                 return true;
             }
             console.log("Not a message object");
             return false;
         });
+        //endscreen things
+        this.gameOverText = this.add.text(0,1000, 'GAMEOVER' ).setOrigin(0.5);;
+        this.restartbutton = this.add.text(0,1000 , 'Restart', {color: '#FF994F'}).setOrigin(0.5).setDepth(100);
+        this.MainMenubutton = this.add.text(0,1000 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5).setDepth(100);
     }
 
     create(){
@@ -192,9 +204,8 @@ class LevelBase extends Phaser.Scene {
                 this.uiMessage.text = "Objectives complete. Head for the exit!"
             }
         }
-        if(this.gameOver && this.check  ==3){
+        if(this.gameOver){
             this.gameOverFunc();
-            this.sound.play('sfx_discovered');
         }
         //allows text to follow player while getting dressed 
         if(this.plrSpy.gettingDressed || this.plrSpy.tempUI){
@@ -242,23 +253,21 @@ class LevelBase extends Phaser.Scene {
     }
 
     defineKeys(){
-        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+        keyLeft = this.input.keyboard.addKey(PLeft);
+        keyRight = this.input.keyboard.addKey(PRight);
+        keyDown = this.input.keyboard.addKey(PDown);
+        keyJump = this.input.keyboard.addKey(PUp);
+        keyDisguise = this.input.keyboard.addKey(PDisguise);
+        keyInteract = this.input.keyboard.addKey(PInteract);
     }
     gameOverFunc(){
-        this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y -32, 'GAMEOVER' ).setOrigin(0.5);;
-        this.restartbutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y , 'Restart', {color: '#FF994F'}).setOrigin(0.5).setDepth(100);
-        this.MainMenubutton = this.add.text(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y +32 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5).setDepth(100);
-        //im setting up levels based off numbers, 
-        localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
-        localStorage.setItem(localStorageName+'_loadlevel', loadlevel);
-        localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
-        localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
-        
+        //im setting up levels based off numbers,
+        this.gameOverText.x = this.cameras.main.midPoint.x; 
+        this.gameOverText.y = this.cameras.main.midPoint.y - 32; 
+        this.restartbutton.x = this.cameras.main.midPoint.x ;
+        this.restartbutton.y = this.cameras.main.midPoint.y; 
+        this.MainMenubutton.x = this.cameras.main.midPoint.x;
+        this.MainMenubutton.y = this.cameras.main.midPoint.y +32;
     }
     checkGameProgress(){
         //console.log(furthestLevel);

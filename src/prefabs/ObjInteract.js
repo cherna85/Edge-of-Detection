@@ -12,7 +12,7 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
             stroke: '#000000',
             strokeThickness: 4
         }
-        this.instructions = scene.add.text(this.x, this.y + 24, 'X: Activate', dressedTextConfig).setOrigin(0.5);
+        this.instructions = scene.add.text(this.x, this.y + 24, PInteractT+ ': Activate', dressedTextConfig).setOrigin(0.5);
         this.instructions.alpha = 0;
 
         this.playerRef = this.scene.plrSpy

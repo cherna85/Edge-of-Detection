@@ -21,23 +21,73 @@ class Menu extends Phaser.Scene {
                   backgroundColor: null,
                   color: '#FF994F'
             }
-
-            this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press Z to Select, X to go back', MenuConfig).setOrigin(0.5);
-
-            //setting up keys
-            keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-            keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-            keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        
+            
+            
+            
             //load data
             loadlevel = localStorage.getItem(localStorageName+'_loadlevel') == null ? 0 :
                 localStorage.getItem(localStorageName+'_loadlevel');
             furthestLevel = localStorage.getItem(localStorageName+'_furthestLevel') == null ? 0 :
                 localStorage.getItem(localStorageName+'_furthestLevel');
-            smokeBombsHeld = localStorage.getItem(localStorageName+'_smokeBombsHeld') == null ? 0 :
-                localStorage.getItem(localStorageName+'_smokeBombsHeld');
-            plotUnlocked = localStorage.getItem(localStorageName+'_plotUnlocked') == null ? 0 :
-                localStorage.getItem(localStorageName+'_plotUnlocked');
+            //loads users controls and sets them
+            let controls  = localStorage.getItem(localStorageName+'_controls_Text') == null ? 0 :
+                localStorage.getItem(localStorageName+'_controls_Text').split(',');
+                console.log(controls);
+            if(controls == 0){
+                console.log(controls, "not saved ");
+                PLeftT = 'ArrowLeft';
+                PRightT = 'ArrowRight';
+                PUpT = 'ArrowUp';
+                PDownT = 'ArrowDown';
+                PDisguiseT = "z";
+                PInteractT = 'x';
+            }else{
+               PLeftT = controls[0];
+                PRightT = controls[1];
+                PUpT = controls[2];
+                PDownT = controls[3];
+                PDisguiseT = controls[4];
+                PInteractT = controls[5]; 
+            }
+            
+
+            controls  = localStorage.getItem(localStorageName+'_controls') == null ? 0 :
+                localStorage.getItem(localStorageName+'_controls').split(',');
+                console.log(controls);
+                if(controls == 0){
+                    console.log(controls,"not saved");
+                    PLeft = 37;
+                    PRight = 39;
+                    PUp = 38;
+                    PDown = 40;
+                    PDisguise = 90;
+                    PInteract = 88;
+                }else{
+                    PLeft = parseInt(controls[0]);
+                PRight = parseInt(controls[1]);
+                PUp = parseInt(controls[2]);
+                PDown = parseInt(controls[3]);
+                PDisguise = parseInt(controls[4]);
+                PInteract = parseInt(controls[5]);
+                }
+                
+            
+    
+            //localStorage.removeItem(localStorageName+'_controls');
+            //localStorage.removeItem(localStorageName+'_controls_Text');
+
+
+
+            this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
+            
+
+             //setting up keys
+             keyUp = this.input.keyboard.addKey(PUp);
+             keyDown = this.input.keyboard.addKey(PDown);
+             keyJump = this.input.keyboard.addKey(PDisguise);
+             keyInteract = this.input.keyboard.addKey(PInteract);
 
             if(loadlevel == 'levelTutorialA'){
                 loadlevel = 0;
@@ -59,15 +109,6 @@ class Menu extends Phaser.Scene {
             this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Credits', MenuConfig).setOrigin(0.5);
             sceneSelect = 'levelTutorialA'; //reinitalize menu
 
-            // just making sure its saving 
-            // console.log(loadlevel);
-            // console.log(smokeBombsHeld);
-            //console.log(plotUnlocked);
-            //console.log(furthestLevel+'HI');
-            //localStorage.removeItem(localStorageName+'_furthestLevel');
-            // localStorage.removeItem(localStorageName+'_loadlevel');
-            // localStorage.removeItem(localStorageName+'_smokeBombsHeld');
-            // localStorage.removeItem(localStorageName+'_plotUnlocked');
 
         }
 
