@@ -33,7 +33,9 @@ class Menu extends Phaser.Scene {
             //loads users controls and sets them
             let controls  = localStorage.getItem(localStorageName+'_controls_Text') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls_Text').split(',');
+                console.log(controls);
             if(controls == 0){
+                console.log(controls, "not saved ");
                 PLeftT = 'ArrowLeft';
                 PRightT = 'ArrowRight';
                 PUpT = 'ArrowUp';
@@ -52,7 +54,9 @@ class Menu extends Phaser.Scene {
 
             controls  = localStorage.getItem(localStorageName+'_controls') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls').split(',');
+                console.log(controls);
                 if(controls == 0){
+                    console.log(controls,"not saved");
                     PLeft = 37;
                     PRight = 39;
                     PUp = 38;
@@ -70,8 +74,8 @@ class Menu extends Phaser.Scene {
                 
             
     
-            localStorage.removeItem(localStorageName+'_controls');
-            localStorage.removeItem(localStorageName+'_controls_Text');
+            //localStorage.removeItem(localStorageName+'_controls');
+            //localStorage.removeItem(localStorageName+'_controls_Text');
 
 
 
