@@ -193,8 +193,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.setAccelerationX(0);
                 localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
                 localStorage.setItem(localStorageName+'_loadlevel', loadlevel);
-                localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
-                localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
+                //localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
+                //localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
             }
         }
         if(this.check == 1){

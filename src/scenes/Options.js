@@ -97,6 +97,8 @@ class Option extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(keyInteract) ) {
             this.scene.start('menuScene'); 
+            localStorage.setItem(localStorageName+'_controls', [PLeft,PRight,PUp,PDown, PDisguise, PInteract]);
+            localStorage.setItem(localStorageName+'_controls_Text', [PLeftT,PRightT,PUpT,PDownT, PDisguiseT, PInteractT]);
         }
 
     } 
@@ -162,7 +164,6 @@ class Option extends Phaser.Scene {
                 }else{
                     this.scene.CDisguise.text = event.key;
                     PDisguiseT = event.key;
-                    console.log(PDisguiseT);
                 }
             }else if(this.scene.control == PInteract){
                 PInteract = event.keyCode;
