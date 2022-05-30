@@ -6,7 +6,7 @@ class Credit extends Phaser.Scene {
 
     create() {
         this.add.text(game.config.width/2, game.config.height/2, 'CREDITS').setOrigin(0.5);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        keyJump = this.input.keyboard.addKey(PInteract);
     }
 
     update() {

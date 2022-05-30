@@ -38,3 +38,17 @@ let config = {
 
   //reserve keyboard vars
   let keyLeft, keyRight, keyUp, keyDown, keyJump, keyDisguise, keyInteract;
+  // for player sets Controls //uses keycodes
+  let PLeft = 37;
+  let PRight = 39;
+  let PUp = 38;
+  let PDown = 40;
+  let PDisguise = 90;
+  let PInteract = 88;
+  // and the names for the keys......
+  let PLeftT = 'ArrowLeft';
+  let PRightT = 'ArrowRight';
+  let PUpT = 'ArrowUp';
+  let PDownT = 'ArrowDown';
+  let PDisguiseT = "z";
+  let PInteractT = 'x';

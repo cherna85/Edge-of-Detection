@@ -21,14 +21,15 @@ class Menu extends Phaser.Scene {
                   backgroundColor: null,
                   color: '#FF994F'
             }
-
-            this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press Z to Select, X to go back', MenuConfig).setOrigin(0.5);
-
             //setting up keys
-            keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-            keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-            keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+            keyUp = this.input.keyboard.addKey(PUp);
+            keyDown = this.input.keyboard.addKey(PDown);
+            keyJump = this.input.keyboard.addKey(PDisguise);
+            keyInteract = this.input.keyboard.addKey(PInteract);
+            
+            this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
+            
             //load data
             loadlevel = localStorage.getItem(localStorageName+'_loadlevel') == null ? 0 :
                 localStorage.getItem(localStorageName+'_loadlevel');

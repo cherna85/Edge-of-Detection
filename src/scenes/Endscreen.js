@@ -7,7 +7,7 @@ class Endscreen extends Phaser.Scene {
     create() {
         this.add.text(game.config.width/2, game.config.height/2, 'Congratulations').setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2+32, 'Press Z to go to Main Menu').setOrigin(0.5);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        keyJump = this.input.keyboard.addKey(PUp);
     }
 
     update() {

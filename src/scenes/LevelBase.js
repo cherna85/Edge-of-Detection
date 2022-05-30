@@ -244,15 +244,14 @@ class LevelBase extends Phaser.Scene {
     }
 
     defineKeys(){
-        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyInteract = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+        keyLeft = this.input.keyboard.addKey(PLeft);
+        keyRight = this.input.keyboard.addKey(PRight);
+        keyDown = this.input.keyboard.addKey(PDown);
+        keyJump = this.input.keyboard.addKey(PUp);
+        keyDisguise = this.input.keyboard.addKey(PDisguise);
+        keyInteract = this.input.keyboard.addKey(PInteract);
     }
     gameOverFunc(){
-        console.log("hey bestiee");
         //im setting up levels based off numbers,
         this.gameOverText.x = this.cameras.main.midPoint.x; 
         this.gameOverText.y = this.cameras.main.midPoint.y - 32; 

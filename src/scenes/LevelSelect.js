@@ -6,11 +6,10 @@ class LevelSelect extends Phaser.Scene {
 
     create() {
         this.add.text(game.config.width/2, game.config.height/2, 'Level Select').setOrigin(0.5);
-        keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        keyDisguise = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
-        keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        console.log(furthestLevel);
+        keyJump = this.input.keyboard.addKey(PDisguise);
+        keyDisguise = this.input.keyboard.addKey(PInteract);
+        keyUp = this.input.keyboard.addKey(PUp);
+        keyDown = this.input.keyboard.addKey(PDown);
 
         let LevelSelectConfig = {
             fontFamily:  'Ariel', 
