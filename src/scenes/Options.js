@@ -46,7 +46,6 @@ class Option extends Phaser.Scene {
         keyInteract = this.input.keyboard.addKey(PInteract);
         keyUp = this.input.keyboard.addKey(PUp);
         keyDown = this.input.keyboard.addKey(PDown);
-        console.log("works?");
     }
     setUpControls(){
         if (Phaser.Input.Keyboard.JustDown(keyDown)) {
@@ -110,7 +109,6 @@ class Option extends Phaser.Scene {
         this.editing = true;
 
         let newKey = this.input.keyboard.on('keydown', function (event){
-            console.log(event);
             if(PLeft == event.keyCode || PRight == event.keyCode || PUp == event.keyCode ||
                  PDown == event.keyCode || PDisguise == event.keyCode || PInteract == event.keyCode){
                     this.scene.warning.x = (game.config.width/2);
@@ -163,7 +161,8 @@ class Option extends Phaser.Scene {
                     PDisguiseT = "Space";
                 }else{
                     this.scene.CDisguise.text = event.key;
-                    PDisguiseT == event.key;
+                    PDisguiseT = event.key;
+                    console.log(PDisguiseT);
                 }
             }else if(this.scene.control == PInteract){
                 PInteract = event.keyCode;
@@ -176,7 +175,6 @@ class Option extends Phaser.Scene {
                     PInteractT = event.key;
                 }
             }
-            console.log("pass");
             newKey._events = {};
             this.scene.editing = false;
             this.scene.setUpKeys();

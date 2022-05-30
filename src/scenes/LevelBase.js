@@ -134,10 +134,19 @@ class LevelBase extends Phaser.Scene {
                 let newBody = this.messageBoxGroup.create(object.x, object.y, 'objButton', 0, false, true);
                 //This is actually a sprite; not a static body
                 newBody.setOrigin(0, 0); //Changes origin and position of the sprite, but not the body
-                newBody.refreshBody(); //Syncs the body to the sprite object
+                newBody.refreshBody(); //Syncs the body to the sprite ob  ject
                 newBody.body.setSize(object.width, object.height, false); //Grows out the body from its top-left position
                 
                 console.log(object.properties[0]["value"]);
+                //this isn't the most dynamic way to do this.....but it's giving me less issues
+                if( object.properties[0]["value"] == "Hold [Z] to apply disguise"){
+                    object.properties[0]["value"] = "Hold [" + PDisguiseT +"] to apply disguise"; 
+                }else if (object.properties[0]["value"] == "Press [UP] to jump"){
+                    object.properties[0]["value"] = "Press [" + PUpT +"] to jump";
+                }else if (object.properties[0]["value"] == "Hold [DOWN] to drop\n through platforms"){
+                    console.log("HEY?")
+                    object.properties[0]["value"] = "Hold [" + PDownT +"] to drop through platforms";
+                }
                 return true;
             }
             console.log("Not a message object");
