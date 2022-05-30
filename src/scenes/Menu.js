@@ -33,22 +33,46 @@ class Menu extends Phaser.Scene {
             //loads users controls and sets them
             let controls  = localStorage.getItem(localStorageName+'_controls_Text') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls_Text').split(',');
-            PLeftT = controls[0];
-            PRightT = controls[1];
-            PUpT = controls[2];
-            PDownT = controls[3];
-            PDisguiseT = controls[4];
-            PInteractT = controls[5];
+            if(controls == 0){
+                PLeftT = 'ArrowLeft';
+                PRightT = 'ArrowRight';
+                PUpT = 'ArrowUp';
+                PDownT = 'ArrowDown';
+                PDisguiseT = "z";
+                PInteractT = 'x';
+            }else{
+               PLeftT = controls[0];
+                PRightT = controls[1];
+                PUpT = controls[2];
+                PDownT = controls[3];
+                PDisguiseT = controls[4];
+                PInteractT = controls[5]; 
+            }
+            
 
             controls  = localStorage.getItem(localStorageName+'_controls') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls').split(',');
-            PLeft = parseInt(controls[0]);
-            PRight = parseInt(controls[1]);
-            PUp = parseInt(controls[2]);
-            PDown = parseInt(controls[3]);
-            PDisguise = parseInt(controls[4]);
-            PInteract = parseInt(controls[5]);
+                if(controls == 0){
+                    PLeft = 37;
+                    PRight = 39;
+                    PUp = 38;
+                    PDown = 40;
+                    PDisguise = 90;
+                    PInteract = 88;
+                }else{
+                    PLeft = parseInt(controls[0]);
+                PRight = parseInt(controls[1]);
+                PUp = parseInt(controls[2]);
+                PDown = parseInt(controls[3]);
+                PDisguise = parseInt(controls[4]);
+                PInteract = parseInt(controls[5]);
+                }
+                
+            
     
+            localStorage.removeItem(localStorageName+'_controls');
+            localStorage.removeItem(localStorageName+'_controls_Text');
+
 
 
             this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
@@ -81,7 +105,6 @@ class Menu extends Phaser.Scene {
             this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Credits', MenuConfig).setOrigin(0.5);
             sceneSelect = 'levelTutorialA'; //reinitalize menu
 
-    
 
         }
 
