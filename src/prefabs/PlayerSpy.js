@@ -20,6 +20,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.inLOS = false;
         this.graceTimer=0;
         this.graceDuration = 1000
+        this.check = 0; //prevents the game over sound from reapplying 
 
         this.disguiseTimer = 0;
         this.disguiseDuration = 3000;
@@ -186,11 +187,18 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //change val to change grace period
         if(this.graceTimer >= this.graceDuration){
             if(!this.disguiseActive && this.detected){
+                this.check++;
                 this.scene.gameOver = true;
-                this.scene.check++;
                 this.scene.dressedText.x = game.config.width/2 + 600; 
                 this.setAccelerationX(0);
+                localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
+                localStorage.setItem(localStorageName+'_loadlevel', loadlevel);
+                localStorage.setItem(localStorageName+'_smokeBombsHeld', smokeBombsHeld);
+                localStorage.setItem(localStorageName+'_plotUnlocked', plotUnlocked);
             }
+        }
+        if(this.check == 1){
+            this.scene.sound.play('sfx_discovered');
         }
         
     }
