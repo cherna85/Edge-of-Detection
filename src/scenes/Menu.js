@@ -85,6 +85,7 @@ class Menu extends Phaser.Scene {
         
             this.add.text(game.config.width/2, game.config.height/2 -96, 'Edge of Detection', MenuConfig).setOrigin(0.5);
             MenuConfig.fontSize =  '16px';
+            MenuConfig.color =  '#99AD95';
             this.add.text(game.config.width/2, game.config.height/2 -32, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
             
 
@@ -103,13 +104,13 @@ class Menu extends Phaser.Scene {
             
             this.playbutton = this.add.text(game.config.width/2, game.config.height/2  , 'New Game', MenuConfig).setOrigin(0.5);
             MenuConfig.shadow.color = '#000000';
-            MenuConfig.color =  '#72A046';
+            MenuConfig.color =  '#99AD95';
            
             if(loadlevel == 0){
                 MenuConfig.color =  '#808080';
            }
             this.loadgamebutton = this.add.text(game.config.width/2, game.config.height/2 +32, 'Load Game', MenuConfig).setOrigin(0.5); //not set up, will do when we save data
-            MenuConfig.color =  '#72A046';
+            MenuConfig.color =  '#99AD95';
 
             this.lsbutton = this.add.text(game.config.width/2, game.config.height/2 +64 , 'Level Select', MenuConfig).setOrigin(0.5);
             this.optionsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Options', MenuConfig).setOrigin(0.5);
@@ -130,7 +131,7 @@ class Menu extends Phaser.Scene {
         updateMenu(current, next, scene){
             next.setColor('#FFFFFF');
             next.setShadowColor('#FFFFFF');
-            current.setColor('#72A046');
+            current.setColor('#99AD95');
             current.setShadowColor('#000000');
             sceneSelect = scene;
         }
