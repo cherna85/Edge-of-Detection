@@ -16,14 +16,28 @@ class Menu extends Phaser.Scene {
         create(){
 
             let MenuConfig = {
-                  fontFamily:  'Ariel', 
-                  fontSize: '16px',
-                  backgroundColor: null,
-                  color: '#FF994F'
+                //font from https://fonts.google.com/specimen/Press+Start+2P
+                //https://www.1001fonts.com/sortelo-font.html
+                fontFamily:  'PressStart2P', 
+                fontSize: '38px',
+                backgroundColor: null,
+                color: '#72A046',
+                shadow: {
+                    offsetX: -5,
+                    offsetY: 3,
+                    color: '#FFFFFF',
+                    blur: 25,
+                    stroke: true,
+                    fill: true
+                }, padding: {
+                    left: 50,
+                    right: 50,
+                    top: 50,
+                    bottom: 50,
+                },
             }
-        
-            
-            
+               
+                      
             
             //load data
             loadlevel = localStorage.getItem(localStorageName+'_loadlevel') == null ? 0 :
@@ -33,9 +47,7 @@ class Menu extends Phaser.Scene {
             //loads users controls and sets them
             let controls  = localStorage.getItem(localStorageName+'_controls_Text') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls_Text').split(',');
-                console.log(controls);
             if(controls == 0){
-                console.log(controls, "not saved ");
                 PLeftT = 'ArrowLeft';
                 PRightT = 'ArrowRight';
                 PUpT = 'ArrowUp';
@@ -54,9 +66,7 @@ class Menu extends Phaser.Scene {
 
             controls  = localStorage.getItem(localStorageName+'_controls') == null ? 0 :
                 localStorage.getItem(localStorageName+'_controls').split(',');
-                console.log(controls);
                 if(controls == 0){
-                    console.log(controls,"not saved");
                     PLeft = 37;
                     PRight = 39;
                     PUp = 38;
@@ -65,22 +75,17 @@ class Menu extends Phaser.Scene {
                     PInteract = 88;
                 }else{
                     PLeft = parseInt(controls[0]);
-                PRight = parseInt(controls[1]);
-                PUp = parseInt(controls[2]);
-                PDown = parseInt(controls[3]);
-                PDisguise = parseInt(controls[4]);
-                PInteract = parseInt(controls[5]);
+                    PRight = parseInt(controls[1]);
+                    PUp = parseInt(controls[2]);
+                    PDown = parseInt(controls[3]);
+                    PDisguise = parseInt(controls[4]);
+                    PInteract = parseInt(controls[5]);
                 }
                 
-            
-    
-            //localStorage.removeItem(localStorageName+'_controls');
-            //localStorage.removeItem(localStorageName+'_controls_Text');
-
-
-
-            this.add.text(game.config.width/2, game.config.height/2 -96, 'Main Menu', MenuConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 -64, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
+        
+            this.add.text(game.config.width/2, game.config.height/2 -96, 'Edge of Detection', MenuConfig).setOrigin(0.5);
+            MenuConfig.fontSize =  '16px';
+            this.add.text(game.config.width/2, game.config.height/2 -32, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
             
 
              //setting up keys
@@ -95,18 +100,20 @@ class Menu extends Phaser.Scene {
 
             //setting up "buttons" for scene selecting 
             MenuConfig.color =  '#FFFFFF';
-            this.playbutton = this.add.text(game.config.width/2, game.config.height/2 - 32 , 'New Game', MenuConfig).setOrigin(0.5);
-            MenuConfig.color =  '#FF994F';
+            
+            this.playbutton = this.add.text(game.config.width/2, game.config.height/2  , 'New Game', MenuConfig).setOrigin(0.5);
+            MenuConfig.shadow.color = '#000000';
+            MenuConfig.color =  '#72A046';
            
             if(loadlevel == 0){
                 MenuConfig.color =  '#808080';
            }
-            this.loadgamebutton = this.add.text(game.config.width/2, game.config.height/2, 'Load Game', MenuConfig).setOrigin(0.5); //not set up, will do when we save data
-            MenuConfig.color =  '#FF994F';
+            this.loadgamebutton = this.add.text(game.config.width/2, game.config.height/2 +32, 'Load Game', MenuConfig).setOrigin(0.5); //not set up, will do when we save data
+            MenuConfig.color =  '#72A046';
 
-            this.lsbutton = this.add.text(game.config.width/2, game.config.height/2 +32 , 'Level Select', MenuConfig).setOrigin(0.5);
-            this.optionsbutton = this.add.text(game.config.width/2, game.config.height/2 +64 , 'Options', MenuConfig).setOrigin(0.5);
-            this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Credits', MenuConfig).setOrigin(0.5);
+            this.lsbutton = this.add.text(game.config.width/2, game.config.height/2 +64 , 'Level Select', MenuConfig).setOrigin(0.5);
+            this.optionsbutton = this.add.text(game.config.width/2, game.config.height/2 +96 , 'Options', MenuConfig).setOrigin(0.5);
+            this.creditsbutton = this.add.text(game.config.width/2, game.config.height/2 +128 , 'Credits', MenuConfig).setOrigin(0.5);
             sceneSelect = 'levelTutorialA'; //reinitalize menu
 
 
@@ -122,7 +129,9 @@ class Menu extends Phaser.Scene {
 
         updateMenu(current, next, scene){
             next.setColor('#FFFFFF');
-            current.setColor('#FF994F');
+            next.setShadowColor('#FFFFFF');
+            current.setColor('#72A046');
+            current.setShadowColor('#000000');
             sceneSelect = scene;
         }
         menuWithSave(){
