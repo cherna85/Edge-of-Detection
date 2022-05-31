@@ -27,8 +27,10 @@ class Option extends Phaser.Scene {
         }
        
         this.add.text(game.config.width/7, game.config.height/9, 'OPTIONS', OptionsConfig).setOrigin(0.5);
-        OptionsConfig.shadow.color = '#000000';
+        
         OptionsConfig.fontSize = '16px';
+        this.warning = this.add.text(-100, (game.config.height*10)/9 ,"Key Conflict: Retry", OptionsConfig).setOrigin(0.5);
+        OptionsConfig.shadow.color = '#000000';
         OptionsConfig.color =  '#99AD95';
         this.add.text((game.config.width/7)+20, (game.config.height*2)/9 , 'ADJUST CONTROLS:', OptionsConfig).setOrigin(0.5);
         OptionsConfig.color =  '#72A046';
@@ -49,12 +51,6 @@ class Option extends Phaser.Scene {
         this.CDown = this.add.text((game.config.width*3)/7, (game.config.height*6)/9 ,PDownT, OptionsConfig).setOrigin(0.5);
          this.CDisguise = this.add.text((game.config.width*3)/7, (game.config.height*7)/9 ,PDisguiseT, OptionsConfig).setOrigin(0.5);
          this.CInteract = this.add.text((game.config.width*3)/7, (game.config.height*8)/9 ,PInteractT, OptionsConfig).setOrigin(0.5);
-        //
-
-
-        this.warning = this.add.text(-100, (game.config.height*10)/9 ,"Key Conflict: Retry", OptionsConfig).setOrigin(0.5);
-
-        //
         this.setUpKeys();
         this.control = PLeft;
         this.editing = false;

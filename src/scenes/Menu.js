@@ -86,7 +86,7 @@ class Menu extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 -96, 'Edge of Detection', MenuConfig).setOrigin(0.5);
             MenuConfig.fontSize =  '16px';
             MenuConfig.color =  '#99AD95';
-            this.add.text(game.config.width/2, game.config.height/2 -32, 'Press "' + PDisguiseT+ '" to Select, "'+ PInteractT + '" to go back', MenuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 -32, 'Press [' + PDisguiseT+ '] to Select, ['+ PInteractT + '] to go back', MenuConfig).setOrigin(0.5);
             
 
              //setting up keys
