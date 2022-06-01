@@ -49,6 +49,7 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(!this.open){
                     this.open = true;
                     //console.log("open")
+                    this.scene.sound.play('sfx_Door');
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom
