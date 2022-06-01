@@ -219,6 +219,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         // if we have a 3sec disguise and only want to let them reapply after 1 second has passed
         // this.disguiseWait = 2000   .... 
         this.disguiseWait = 3000;
+        this.steps = 0;
 
         //needs to be tweaked 
         this.normalAccel = 384; //Horizontal acceleration
@@ -248,7 +249,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.warningText.alpha = 1;
                 this.scene.warningTween.restart();
             }
-            console.log(this.graceTimer%1000)
             if( this.graceTimer%300 < 20 ){
                 this.scene.sound.play('sfx_inLOS');
             }
@@ -261,6 +261,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.warningText.alpha = 0;
         }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
+            this.steps++;
             this.facingLeft = true;
             this.facingRight = false;
             if(this.disguiseActive){
@@ -270,12 +271,15 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('run_left_green', true);
             }
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
-            this.scene.sound.play('sfx_walking');
+            //this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
+                this.steps++;
             }
+            this.walkingSound();
         }
         else if(keyRight.isDown && this.x < config.width){
+            this.steps++;
             this.facingLeft = false;
             this.facingRight = true;
             if(this.disguiseActive){
@@ -285,14 +289,16 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('run_right_green', true);
             }
             this.gettingDressed ? this.setAccelerationX(this.slowedAccel) : this.setAccelerationX(this.normalAccel);
-            this.scene.sound.play('sfx_walking');
+            //this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x < 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
+            this.walkingSound();
         }
         else{
             if(this.body.velocity.x > 0){
                 this.setAccelerationX(0);
+                this.steps = 0;
                 if(this.disguiseActive){
                     this.anims.play('idle_right_red');
                 }
@@ -302,6 +308,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             }
             else if(this.body.velocity.x < 0){
                 this.setAccelerationX(0);
+                this.steps = 0;
                 if(this.disguiseActive){
                     this.anims.play('idle_left_red');
                 }
@@ -312,6 +319,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             //player stops moving when not holding 
             
         }
+        
         //while getting dressed max speed is slower
         this.gettingDressed ? this.setMaxVelocity(this.slowedVel,500) : this.setMaxVelocity(this.normalVel,500);
 
@@ -412,6 +420,15 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         this.inLOS = false; // unless overlapping it will be off.
     }
+    walkingSound(){
+        //play walking noise
+        if((this.body.velocity.y ==0))
+            if(this.steps%15 == 0 && !(this.steps%30 == 0)){
+                this.scene.sound.play('sfx_walking');
+            }else if(this.steps%30 == 0){
+                this.scene.sound.play('sfx_walking2');
+            }
+    }
 
     disguiseOn(){
         console.log("Disguise On");
@@ -433,6 +450,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     disguiseOff(){
         this.disguiseActive = false;
         this.anims.play('idle_right_green');
+        this.scene.sound.play('sfx_disguiseOff');
         //this.setTexture(this.texNormal);
     }
 
