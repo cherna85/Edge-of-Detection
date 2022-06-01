@@ -71,12 +71,14 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
+            this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
         }
         else if(keyRight.isDown && this.x < config.width){
             this.gettingDressed ? this.setAccelerationX(this.slowedAccel) : this.setAccelerationX(this.normalAccel);
+            this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x < 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }

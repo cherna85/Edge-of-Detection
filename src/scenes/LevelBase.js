@@ -201,6 +201,7 @@ class LevelBase extends Phaser.Scene {
         if(this.Exit[0].switch == true){
             //This happens at the next scene manager update, meaning the delay is actually 2 frames
             this.scene.start(sceneSelect);
+            this.sound.play('sfx_finishedObjective');
         }
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
