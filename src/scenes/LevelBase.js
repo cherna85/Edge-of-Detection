@@ -76,6 +76,7 @@ class LevelBase extends Phaser.Scene {
         this.cameras.main.zoom = 2;
         this.cameras.main.setBounds(0, 0, this.tilemap.widthInPixels, this.tilemap.heightInPixels);
         this.cameras.main.startFollow(this.plrSpy);
+        console.log(this.cameras.main);
 
 
         //UI

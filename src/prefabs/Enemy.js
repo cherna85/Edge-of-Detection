@@ -71,6 +71,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.path = scene.add.path();
         this.moving = false;
         this.draw = false;
+        this.steps = 0;
 
         this.scaleY = 0.75 //New body size is 16 x 24. Possibly smaller in future
         this.setBodySize(16, 32);
@@ -114,6 +115,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.path.getPoint(this.follower.t, this.follower.vec);
             this.x = this.follower.vec.x;
             this.y = this.follower.vec.y;
+            this.steps++;
             //The -8 for the ray puts it roughly where the enemy's eyes are - Santiago
             this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y - 8);
             //once you reach the end of the path flip
@@ -126,6 +128,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
             }
             this.setEnemyRangeXY(this.x,this.y);
+            this.walkingSound();
         }
         this.drawEnemyLOS(scene,this.detection);
     }
@@ -184,4 +187,17 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         
         this.rangeGraphics.x = X-320;
     }
+    walkingSound(){
+        //play walking noise
+        if(this.scene.cameras.main.worldView.contains(this.x, this.y)){ // will only make sound if in view
+            if((this.body.velocity.y ==0)){
+                if(this.steps%15 == 0 && !(this.steps%30 == 0)){
+                    this.scene.sound.play('sfx_walking');
+                }else if(this.steps%30 == 0){
+                    this.scene.sound.play('sfx_walking2');
+                }
+            }
+        }
+    }
+    
 }
