@@ -3,6 +3,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
 
         //Player animations created
+        //normal Idle left
         this.anims.create({
             key: 'idle_left_green',
             frames: this.anims.genereateFrameNames('green_atlas', {
@@ -16,6 +17,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+        //normal Idle right
         this.anims.create({
             key: 'idle_right_green',
             frames: this.anims.generateFrameNames('green_atlas', {
@@ -29,6 +31,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+
+        //normal run right
         this.anims.create({
             key: 'run_right_green',
             frames: this.anims.generateFrameName('green_atlas', {
@@ -42,6 +46,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+        //normal run left
         this.anims.create({
             key: 'run_left_green',
             frames: this.anims.generateFrameNames('green_atlas', {
@@ -55,6 +60,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+        //normal jump right
         this.anims.create({
             key: 'jump_right_green',
             frame: this.anims.generateFrameNames('green_atlas', {
@@ -68,6 +74,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+        //normal jump left
         this.anims.create({
             key: 'jump_left_green',
             frame: this.anims.generateFrameNames('green_atlas', {
@@ -81,6 +88,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1,
         });
 
+
+        //putting on disguse animation (right)
         this.anims.create({
             key: 'diguise_right',
             frame: this.anims.generateFrameNames('green_atlas', {
@@ -91,6 +100,103 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 zeroPad: 4
             }),
             frameRate: 2,
+        });
+
+        //putting on disguise animation (left)
+        this.anims.create({
+            key: 'disguise_left',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'disguise_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frmaeRate: 2,
+        });
+
+        //disguise idle left
+        this.anims.create({
+            key: 'idle_left_red',
+            frames: this.anims.genereateFrameNames('red_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 4, 
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+
+        //disguise idle right
+        this.anims.create({
+            key: 'idle_right_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+
+        //disguise run right
+        this.anims.create({
+            key: 'run_right_red',
+            frames: this.anims.generateFrameName('red_atlas', {
+                prefix: 'run_right_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        //disguise run left
+        this.anims.create({
+            key: 'run_left_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'run_left_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        //disguise jump right
+        this.anims.create({
+            key: 'jump_right_red',
+            frame: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'jump_right_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
+        });
+
+        //disguise jump left
+        this.anims.create({
+            key: 'jump_left_red',
+            frame: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'jump_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
         });
 
 

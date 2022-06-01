@@ -2,6 +2,69 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, flipped = false, losRange = 100, losAngle = 0, losWidth = 45) {
         super(scene, x, y + 4, texture, frame); //The +4 is to make them standing on the ground when they are spawned
        
+
+        //create enemy animations
+        // idle left enemy
+        this.anims.create({
+            key: 'idle_left_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 3,
+                suffix: '',
+                zeroPad: 4,
+            }),
+            frameRate: 3,
+            repeat: -1,
+            repeatDelay: 10000,
+            yoyo: true
+        });
+        
+        //idle right enemy
+        this.anims.create({
+            key: 'idle_right_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 3,
+                suffix: '',
+                zeroPad: 4,
+
+            }),
+            frameRate: 3,
+            repeat: -1,
+            repeatDelay: 11000,
+            yoyo: true
+        });
+
+        // enemy patrol left
+        this.anims.create({
+            key: 'walk_left_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'patrol_left_',
+                start: 1,
+                end: 9,
+                suffix: '', 
+                zeroPad: 4,
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        //enemy patrol right
+        this.anims.create({
+            key: 'walk_right_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'patrol_right_',
+                start: 1,
+                end: 9,
+                suffix: '',
+                zeroPad: 4,
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
         
