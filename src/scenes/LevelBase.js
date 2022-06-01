@@ -80,7 +80,8 @@ class LevelBase extends Phaser.Scene {
 
         //UI
         let dressedTextConfig = {
-            fontSize: '9px',
+            fontSize: '6px',
+            fontFamily:  'PressStart2P',
             align: 'center',
             stroke: '#000000',
             strokeThickness: 4
@@ -153,9 +154,32 @@ class LevelBase extends Phaser.Scene {
             return false;
         });
         //endscreen things
-        this.gameOverText = this.add.text(0,1000, 'GAMEOVER' ).setOrigin(0.5);;
-        this.restartbutton = this.add.text(0,1000 , 'Restart', {color: '#FF994F'}).setOrigin(0.5).setDepth(100);
-        this.MainMenubutton = this.add.text(0,1000 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5).setDepth(100);
+        let EndscreenConfig = {
+            //font from https://fonts.google.com/specimen/Press+Start+2P
+            //https://www.1001fonts.com/sortelo-font.html
+            fontFamily:  'PressStart2P', 
+            fontSize: '16px',
+            backgroundColor: null,
+            color: '#72A046',
+            shadow: {
+                offsetX: -5,
+                offsetY: 3,
+                color: '#FFFFFF',
+                blur: 25,
+                stroke: true,
+                fill: true
+            }, padding: {
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 50,
+            },
+        }
+        this.gameOverText = this.add.text(0,1000, 'GAMEOVER', EndscreenConfig ).setOrigin(0.5).setDepth(100);;
+        EndscreenConfig.color = '#99AD95';
+        this.restartbutton = this.add.text(0,1000 , 'Restart', EndscreenConfig).setOrigin(0.5).setDepth(100);
+        EndscreenConfig.shadow.color = '#000000';
+        this.MainMenubutton = this.add.text(0,1000 , 'Main Menu' ,EndscreenConfig).setOrigin(0.5).setDepth(100);
     }
 
     create(){
@@ -201,7 +225,7 @@ class LevelBase extends Phaser.Scene {
 
             if(this.buttonTracker.completed){
                 this.uiMessage.visible = true;
-                this.uiMessage.text = "Objectives complete. Head for the exit!"
+                this.uiMessage.text = "Objectives complete.\n Head for the exit!"
             }
         }
         if(this.gameOver){
@@ -209,38 +233,38 @@ class LevelBase extends Phaser.Scene {
         }
         //allows text to follow player while getting dressed 
         if(this.plrSpy.gettingDressed || this.plrSpy.tempUI){
-            this.dressedText.x = this.plrSpy.x + 8;
-            this.dressedText.y = this.plrSpy.y - 40;
-            this.disguiseTimer.x = this.plrSpy.x + 8;
-            this.disguiseTimer.y = this.plrSpy.y - 30;
+            this.dressedText.x = this.plrSpy.x -2;
+            this.dressedText.y = this.plrSpy.y - 30;
+            this.disguiseTimer.x = this.plrSpy.x -2;
+            this.disguiseTimer.y = this.plrSpy.y - 20;
         }
         if(this.plrSpy.detected){
-            this.warningText.x = this.plrSpy.x + 8;
-            this.warningText.y = this.plrSpy.y - 50;
+            this.warningText.x = this.plrSpy.x - 2;
+            this.warningText.y = this.plrSpy.y - 30;
         }
         //game over selection 
         if(this.gameOver){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
                 if(this.endScene == this.scene.key){
                     this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#FF994F');
+                    this.MainMenubutton.setColor('#99AD95');
                     this.endScene = 'menuScene';
                 }
                 else if(this.endScene == 'menuScene'){
                     this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#FF994F');
+                    this.restartbutton.setColor('#99AD95');
                     this.endScene = this.scene.key;
                 }  
               }
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
                 if(this.endScene == this.scene.key){
                     this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#FF994F');
+                    this.MainMenubutton.setColor('#99AD95');
                     this.endScene = 'menuScene';
                 }
                 else if(this.endScene == 'menuScene'){
                     this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#FF994F');
+                    this.restartbutton.setColor('#99AD95');
                     this.endScene = this.scene.key;
                 }  
             }  

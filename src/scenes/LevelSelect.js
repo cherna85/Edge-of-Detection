@@ -5,39 +5,54 @@ class LevelSelect extends Phaser.Scene {
 
 
     create() {
-        this.add.text(game.config.width/2, game.config.height/2, 'Level Select').setOrigin(0.5);
         keyJump = this.input.keyboard.addKey(PDisguise);
         keyDisguise = this.input.keyboard.addKey(PInteract);
         keyUp = this.input.keyboard.addKey(PUp);
         keyDown = this.input.keyboard.addKey(PDown);
 
         let LevelSelectConfig = {
-            fontFamily:  'Ariel', 
+            //font from https://fonts.google.com/specimen/Press+Start+2P
+            //https://www.1001fonts.com/sortelo-font.html
+            fontFamily:  'PressStart2P', 
             fontSize: '16px',
             backgroundColor: null,
-            color: '#FF994F'
+            color: '#72A046',
+            shadow: {
+                offsetX: -5,
+                offsetY: 3,
+                color: '#FFFFFF',
+                blur: 25,
+                stroke: true,
+                fill: true
+            }, padding: {
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 50,
+            },
         }
         LevelSelectConfig.color = '#FFFFFF';
-        this.tutA = this.add.text(game.config.width/4, game.config.height/4 , '• Tutorial A •', LevelSelectConfig);
-        LevelSelectConfig.color = '#FF994F';
-        this.add.text(game.config.width/4 + 30 , game.config.height/4+20, 'screenshot', LevelSelectConfig);
-        LevelSelectConfig.color = '#FF994F';
+        this.tutA = this.add.text(game.config.width/9, game.config.height/9 , '• Tutorial A •', LevelSelectConfig);
+        LevelSelectConfig.color = '#72A046';
+        LevelSelectConfig.shadow.color = '#000000';
+        this.add.text(game.config.width/9 + 30 , game.config.height/9+20, 'screenshot', LevelSelectConfig);
+        LevelSelectConfig.color = '#72A046';
         if(furthestLevel < 2){
             LevelSelectConfig.color =  '#808080';
         }
-        this.tutB = this.add.text(game.config.width/4, (game.config.height*2.5)/4 , '• Tutorial B •', LevelSelectConfig);
-        this.add.text(game.config.width/4 + 30 , (game.config.height*2.5)/4+20, 'screenshot', LevelSelectConfig);
+        this.tutB = this.add.text(game.config.width/9, (game.config.height*5)/9 , '• Tutorial B •', LevelSelectConfig);
+        this.add.text(game.config.width/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);
        
         if(furthestLevel < 3){
             LevelSelectConfig.color =  '#808080';
         }
-        this.climb = this.add.text((game.config.width*2.5)/4, game.config.height/4 , '• Climb •', LevelSelectConfig);
-        this.add.text((game.config.width*2.5)/4 + 30 , game.config.height/4+20, 'screenshot', LevelSelectConfig);
+        this.climb = this.add.text((game.config.width*5)/9, game.config.height/9 , '• Climb •', LevelSelectConfig);
+        this.add.text((game.config.width*5)/9 + 30 , game.config.height/9+20, 'screenshot', LevelSelectConfig);
         if(furthestLevel < 4){
             LevelSelectConfig.color =  '#808080';
         }
-        this.shipyard = this.add.text((game.config.width*2.5)/4, (game.config.height*2.5)/4 , '• Shipyard •', LevelSelectConfig);
-        this.add.text((game.config.width*2.5)/4 + 30 , (game.config.height*2.5)/4+20, 'screenshot', LevelSelectConfig);
+        this.shipyard = this.add.text((game.config.width*5)/9, (game.config.height*5)/9 , '• Shipyard •', LevelSelectConfig);
+        this.add.text((game.config.width*5)/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);
         sceneSelect = 'levelTutorialA'; //reinitalize menu
     }
 
@@ -71,11 +86,13 @@ class LevelSelect extends Phaser.Scene {
     }
     updateMenu(current, next, scene){
         next.setColor('#FFFFFF');
+        next.setShadowColor('#FFFFFF');
+        current.setShadowColor('#000000');
         if((sceneSelect == 'levelTutorialA' && furthestLevel <= 1 )|| (sceneSelect == 'levelTutorialB' && furthestLevel  < 2) 
             || (sceneSelect == 'levelClimb' && furthestLevel < 3) || (sceneSelect == 'levelShipyard' && furthestLevel < 4)){
                 current.setColor('#808080');
         }else{
-            current.setColor('#FF994F');
+            current.setColor('#72A046');
         }
         sceneSelect = scene;
     }

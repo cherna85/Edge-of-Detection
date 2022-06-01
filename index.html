@@ -7,9 +7,20 @@
     <title>Edge of Detection</title>
     <style>
         body {
-            background-color: beige;
+            background-color:  rgb(39,36,9);
         }
     </style>
+    <!-- Font inputing from 
+        https://stackoverflow.com/questions/51217147/how-to-use-a-local-font-in-phaser-3-->
+    <style media='screen' type='text/css'>
+        @font-face {
+            font-family: PressStart2P;
+            src: url('./assets/fonts/PressStart2P-Regular.ttf');
+            font-weight:400;
+            font-weight:normal;
+        }
+      </style>
+      <div style="font-family:PressStart2P; position:absolute; left:-1000px; visibility:hidden;">.</div>
 </head>
 <body>
     <script src="./lib/phaser.js"></script>

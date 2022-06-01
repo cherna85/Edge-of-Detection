@@ -181,7 +181,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Don't be seen without your disguise."
+                         "value":"Don't be seen  \nwithout your disguise."
                         }],
                  "rotation":0,
                  "type":"",

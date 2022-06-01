@@ -5,31 +5,52 @@ class Option extends Phaser.Scene {
 
     create() {
         let OptionsConfig = {
-            fontFamily:  'Ariel', 
-            fontSize: '16px',
+            //font from https://fonts.google.com/specimen/Press+Start+2P
+            //https://www.1001fonts.com/sortelo-font.html
+            fontFamily:  'PressStart2P', 
+            fontSize: '24px',
             backgroundColor: null,
-            color: '#FF994F'
+            color: '#72A046',
+            shadow: {
+                offsetX: -5,
+                offsetY: 3,
+                color: '#FFFFFF',
+                blur: 25,
+                stroke: true,
+                fill: true
+            }, padding: {
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 50,
+            },
         }
+       
         this.add.text(game.config.width/7, game.config.height/9, 'OPTIONS', OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*2)/9 , 'ADJUST CONTROLS:', OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*3)/9 , 'Move Left', OptionsConfig).setOrigin(0.5);
-        OptionsConfig.color =  '#FFFFFF';
-        this.CLeft = this.add.text((game.config.width*2)/7, (game.config.height*3)/9 ,PLeftT, OptionsConfig).setOrigin(0.5);
-        OptionsConfig.color =  '#FF994F';
-        this.add.text(game.config.width/7, (game.config.height*4)/9 , 'Move Right', OptionsConfig).setOrigin(0.5);
-        this.CRight = this.add.text((game.config.width*2)/7, (game.config.height*4)/9 ,PRightT, OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*5)/9 , 'Jump/Up', OptionsConfig).setOrigin(0.5);
-        this.CUp = this.add.text((game.config.width*2)/7, (game.config.height*5)/9 ,PUpT, OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*6)/9 , 'Drop/Down', OptionsConfig).setOrigin(0.5);
-        this.CDown = this.add.text((game.config.width*2)/7, (game.config.height*6)/9 ,PDownT, OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*7)/9 , 'Disguise', OptionsConfig).setOrigin(0.5);
-        this.CDisguise = this.add.text((game.config.width*2)/7, (game.config.height*7)/9 ,PDisguiseT, OptionsConfig).setOrigin(0.5);
-        this.add.text(game.config.width/7, (game.config.height*8)/9 , 'Interact', OptionsConfig).setOrigin(0.5);
-        this.CInteract = this.add.text((game.config.width*2)/7, (game.config.height*8)/9 ,PInteractT, OptionsConfig).setOrigin(0.5);
-
+        
+        OptionsConfig.fontSize = '16px';
         this.warning = this.add.text(-100, (game.config.height*10)/9 ,"Key Conflict: Retry", OptionsConfig).setOrigin(0.5);
+        OptionsConfig.shadow.color = '#000000';
+        OptionsConfig.color =  '#99AD95';
+        this.add.text((game.config.width/7)+20, (game.config.height*2)/9 , 'ADJUST CONTROLS:', OptionsConfig).setOrigin(0.5);
+        OptionsConfig.color =  '#72A046';
+        this.add.text(game.config.width/7, (game.config.height*3)/9 , 'Move Left', OptionsConfig).setOrigin(0.5);
+        this.add.text(game.config.width/7, (game.config.height*4)/9 , 'Move Right', OptionsConfig).setOrigin(0.5);
+        this.add.text(game.config.width/7, (game.config.height*5)/9 , 'Jump/Up', OptionsConfig).setOrigin(0.5);
+        this.add.text(game.config.width/7, (game.config.height*6)/9 , 'Drop/Down', OptionsConfig).setOrigin(0.5);
+        this.add.text(game.config.width/7, (game.config.height*7)/9 , 'Disguise', OptionsConfig).setOrigin(0.5);
+        this.add.text(game.config.width/7, (game.config.height*8)/9 , 'Interact', OptionsConfig).setOrigin(0.5);
+        
+        OptionsConfig.color =  '#FFFFFF';
+        this.CLeft = this.add.text((game.config.width*3)/7, (game.config.height*3)/9 ,PLeftT, OptionsConfig).setOrigin(0.5);
+        OptionsConfig.color =  '#99AD95';
+        //changing text
 
-        //
+        this.CRight = this.add.text((game.config.width*3)/7, (game.config.height*4)/9 ,PRightT, OptionsConfig).setOrigin(0.5);
+        this.CUp = this.add.text((game.config.width*3)/7, (game.config.height*5)/9 ,PUpT, OptionsConfig).setOrigin(0.5);
+        this.CDown = this.add.text((game.config.width*3)/7, (game.config.height*6)/9 ,PDownT, OptionsConfig).setOrigin(0.5);
+         this.CDisguise = this.add.text((game.config.width*3)/7, (game.config.height*7)/9 ,PDisguiseT, OptionsConfig).setOrigin(0.5);
+         this.CInteract = this.add.text((game.config.width*3)/7, (game.config.height*8)/9 ,PInteractT, OptionsConfig).setOrigin(0.5);
         this.setUpKeys();
         this.control = PLeft;
         this.editing = false;
@@ -104,7 +125,7 @@ class Option extends Phaser.Scene {
     } 
     updateMenu(current, next, scene){
         next.setColor('#FFFFFF');
-        current.setColor('#FF994F');
+        current.setColor('#99AD95');
         this.control = scene;
     }
     SelectControl(){
