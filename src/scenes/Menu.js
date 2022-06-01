@@ -10,6 +10,9 @@ class Menu extends Phaser.Scene {
             this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
             this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
             this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
+            //this.load.image('spymanGreen'. 'assets/')
+            this.load.atlas('green_atlas', 'Spyman-Sheet.png', 'spymanGreen.json');
+            this.load.atlas('red_atlas', 'SpymanDisguise-Sheet', 'spymanRed.json');
             
         }
 

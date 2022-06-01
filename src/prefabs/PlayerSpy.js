@@ -1,6 +1,8 @@
 class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, disguiseTex) {
         super(scene, x, y, texture, frame);
+        this.
+        
         this.texDisguise = disguiseTex; //Texture to use while disguised
         this.texNormal = texture;
         //These have to be first for physics stuff to work
