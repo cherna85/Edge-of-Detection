@@ -154,8 +154,13 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         if(keyDown.isDown){
             //console.log(this.scene.platformCollision);
             this.scene.platformCollision.active = false;
+            if(this.check == 1){
+                this.scene.sound.play('sfx_fall');
+            }
+            this.check++;
         }
         else{
+            this.check = 0;
             this.scene.platformCollision.active = true;
         }
         this.inLOS = false; // unless overlapping it will be off.

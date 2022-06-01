@@ -10,6 +10,7 @@ class Menu extends Phaser.Scene {
             this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
             this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
             this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
+            this.load.audio('sfx_fall', 'assets/sfx/Falling.wav');
             
         }
 
@@ -134,6 +135,7 @@ class Menu extends Phaser.Scene {
             current.setColor('#99AD95');
             current.setShadowColor('#000000');
             sceneSelect = scene;
+            this.sound.play('sfx_select');
         }
         menuWithSave(){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
@@ -207,7 +209,7 @@ class Menu extends Phaser.Scene {
         Select(){
             //selects the scene 
             if (Phaser.Input.Keyboard.JustDown(keyJump)) { 
-                this.sound.play('sfx_select');
+                this.sound.play('sfx_finishedObjective');
                 this.scene.start(sceneSelect);    
             }
         }

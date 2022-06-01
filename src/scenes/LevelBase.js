@@ -250,11 +250,13 @@ class LevelBase extends Phaser.Scene {
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#99AD95');
                     this.endScene = this.scene.key;
+                    this.sound.play('sfx_select');
                 }
                 else if(this.endScene == this.endScene){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#99AD95');
                     this.endScene = 'menuScene';
+                    this.sound.play('sfx_select');
                 }  
               }
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
@@ -262,17 +264,20 @@ class LevelBase extends Phaser.Scene {
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#99AD95');
                     this.endScene = this.scene.key;
+                    this.sound.play('sfx_select');
                 }
                 else if(this.endScene == this.scene.key ){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#99AD95');
                     this.endScene = 'menuScene';
+                    this.sound.play('sfx_select');
                 }  
             }  
             //BUG: Despite calling JustDown, this can trigger if the button is held down
             if (Phaser.Input.Keyboard.JustDown(keyDisguise)) {
                 //console.log('selecting');
-                this.scene.start(this.endScene);    
+                this.scene.start(this.endScene);  
+                this.sound.play('sfx_finishedObjective');  
             }  
         }
     }
