@@ -16,8 +16,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }),
             frameRate: 3,
             repeat: -1,
-            repeatDelay: 10000,
-            yoyo: true
+            repeatDelay: 5000,
         });
         
         //idle right enemy
@@ -33,8 +32,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }),
             frameRate: 3,
             repeat: -1,
-            repeatDelay: 11000,
-            yoyo: true
+            repeatDelay: 6000,
         });
 
         // enemy patrol left
