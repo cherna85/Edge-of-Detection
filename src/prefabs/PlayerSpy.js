@@ -53,9 +53,13 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //Horizontal movement
         //check if player is in LOS
         if(this.inLOS && !this.disguiseActive){
-            if(this.graceTimer < 30){
+            if(this.graceTimer < 20){
                 this.scene.warningText.alpha = 1;
                 this.scene.warningTween.restart();
+            }
+            console.log(this.graceTimer%1000)
+            if( this.graceTimer%300 < 20 ){
+                this.scene.sound.play('sfx_inLOS');
             }
             this.detected = true;
             this.graceTimer+=delta;
