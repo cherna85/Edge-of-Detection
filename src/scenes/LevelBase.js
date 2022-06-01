@@ -245,7 +245,6 @@ class LevelBase extends Phaser.Scene {
         }
         //game over selection 
         if(this.gameOver){
-            console.log(this.endScene, this.endScene == this.scene.key, this.scene.key);
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
                 if(this.endScene == 'menuScene'){
                     this.restartbutton.setColor('#FFFFFF');
