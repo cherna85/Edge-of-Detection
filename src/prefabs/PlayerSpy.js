@@ -1,8 +1,99 @@
 class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, disguiseTex) {
         super(scene, x, y, texture, frame);
-        this.
-        
+
+        //Player animations created
+        this.anims.create({
+            key: 'idle_left_green',
+            frames: this.anims.genereateFrameNames('green_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 4, 
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'idle_right_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'run_right_green',
+            frames: this.anims.generateFrameName('green_atlas', {
+                prefix: 'run_right_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'run_left_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'run_left_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'jump_right_green',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'jump_right_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'jump_left_green',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'jump_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'diguise_right',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'disguise_right_',
+                start: 1,
+                end: 6,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+        });
+
+
         this.texDisguise = disguiseTex; //Texture to use while disguised
         this.texNormal = texture;
         //These have to be first for physics stuff to work
