@@ -6,7 +6,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //normal Idle left
         this.anims.create({
             key: 'idle_left_green',
-            frames: this.anims.genereateFrameNames('green_atlas', {
+            frames: this.anims.generateFrameNames('green_atlas', {
                 prefix: 'idle_left_',
                 start: 1,
                 end: 4, 
@@ -35,7 +35,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //normal run right
         this.anims.create({
             key: 'run_right_green',
-            frames: this.anims.generateFrameName('green_atlas', {
+            frames: this.anims.generateFrameNames('green_atlas', {
                 prefix: 'run_right_',
                 start: 1,
                 end: 10,
@@ -63,7 +63,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //normal jump right
         this.anims.create({
             key: 'jump_right_green',
-            frame: this.anims.generateFrameNames('green_atlas', {
+            frames: this.anims.generateFrameNames('green_atlas', {
                 prefix: 'jump_right_',
                 start: 1,
                 end: 2,
@@ -118,7 +118,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //disguise idle left
         this.anims.create({
             key: 'idle_left_red',
-            frames: this.anims.genereateFrameNames('red_atlas', {
+            frames: this.anims.generateFrameNames('red_atlas', {
                 prefix: 'idle_left_',
                 start: 1,
                 end: 4, 
@@ -146,7 +146,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //disguise run right
         this.anims.create({
             key: 'run_right_red',
-            frames: this.anims.generateFrameName('red_atlas', {
+            frames: this.anims.generateFrameNames('red_atlas', {
                 prefix: 'run_right_',
                 start: 1,
                 end: 10,
@@ -174,7 +174,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //disguise jump right
         this.anims.create({
             key: 'jump_right_red',
-            frame: this.anims.generateFrameNames('red_atlas', {
+            frames: this.anims.generateFrameNames('red_atlas', {
                 prefix: 'jump_right_',
                 start: 1,
                 end: 2,
@@ -188,7 +188,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //disguise jump left
         this.anims.create({
             key: 'jump_left_red',
-            frame: this.anims.generateFrameNames('red_atlas', {
+            frames: this.anims.generateFrameNames('red_atlas', {
                 prefix: 'jump_left_',
                 start: 1,
                 end: 2,
@@ -279,6 +279,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         else{
             //player stops moving when not holding 
             this.setAccelerationX(0);
+            
         }
         //while getting dressed max speed is slower
         this.gettingDressed ? this.setMaxVelocity(this.slowedVel,500) : this.setMaxVelocity(this.normalVel,500);

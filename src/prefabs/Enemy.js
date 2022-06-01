@@ -47,7 +47,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
                 suffix: '', 
                 zeroPad: 4,
             }),
-            frameRate: 13,
+            frameRate: 10,
             repeat: -1,
         });
 
@@ -61,7 +61,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
                 suffix: '',
                 zeroPad: 4,
             }),
-            frameRate: 13,
+            frameRate: 10,
             repeat: -1,
         });
 
@@ -112,6 +112,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     update(time,delta, scene){
         //moves enemy along a path 
         if(this.moving){
+            this.anims.play('walk_right_enemy', true);
             this.path.getPoint(this.follower.t, this.follower.vec);
             this.x = this.follower.vec.x;
             this.y = this.follower.vec.y;
@@ -120,9 +121,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             //once you reach the end of the path flip
             if((this.path.getPoint(1).x == this.x) && (this.path.getPoint(1).y ==  this.y)){
                 this.flip(!this.flipSetting);
+                this.anims.play('walk_left_enemy', true)
             }
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
                 this.flip(this.flipSetting);
+
             }
             this.setEnemyRangeXY(this.x,this.y);
         }

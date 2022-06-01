@@ -22,12 +22,12 @@ class LevelTutorialA extends LevelBase {
         this.placeDoors(); //Makesure to load doors before any raycasting
 
         /*Creates 3 enemies, two of whom face left*/
-        this.enemy1 = new Enemy(this, 608, 432, 'playerDisguise', 0, true, 200);
+        this.enemy1 = new Enemy(this, 608, 432, 'enemy_atlas', 'idle_left_enemy', true, 200);
         //this.enemy1.standingTurn(this, 4000);
         //this.enemy1.straightPath(this, 432, 432, 4000);
 
-        this.enemy2 = new Enemy(this, 400, 336, 'playerDisguise', 0, false, 200);
-        this.enemy3 = new Enemy(this, 352, 336, 'playerDisguise', 0, true, 200);
+        this.enemy2 = new Enemy(this, 400, 336, 'enemy_atlas', 'idle_left_enemy', false, 200);
+        this.enemy3 = new Enemy(this, 352, 336, 'enemy_atlas', 'idle_right_atlas', true, 200);
 
         this.createButtons();
         this.doorCollision([this.plrSpy,this.enemy1, this.enemy2, this.enemy3]);
