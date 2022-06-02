@@ -24,7 +24,7 @@ class LevelClimb extends LevelBase {
         this.createButtons();
 
         this.doorCollision([this.plrSpy,this.enemy1]);
-        this.placeExit('levelShipyard', true, this.buttonTracker);
+        this.placeExit('endscreenScene', true, this.buttonTracker);
 
         this.rayTween = this.tweens.addCounter({
             from: -110,

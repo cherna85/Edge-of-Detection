@@ -48,11 +48,13 @@ class LevelSelect extends Phaser.Scene {
         }
         this.climb = this.add.text((game.config.width*5)/9, game.config.height/9 , '• Climb •', LevelSelectConfig);
         this.add.text((game.config.width*5)/9 + 30 , game.config.height/9+20, 'screenshot', LevelSelectConfig);
+        
+        /*
         if(furthestLevel < 4){
             LevelSelectConfig.color =  '#808080';
         }
         this.shipyard = this.add.text((game.config.width*5)/9, (game.config.height*5)/9 , '• Shipyard •', LevelSelectConfig);
-        this.add.text((game.config.width*5)/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);
+        this.add.text((game.config.width*5)/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);*/
         sceneSelect = 'levelTutorialA'; //reinitalize menu
     }
 
