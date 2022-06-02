@@ -150,7 +150,7 @@
          "name":"ObjGuide",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":25,
          "x":0,
          "y":0
