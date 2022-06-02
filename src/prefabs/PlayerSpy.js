@@ -78,7 +78,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 suffix: '',
                 zeroPad: 4
             }),
-            frameRate: 2,
+            frameRate: 6,
             repeat: -1,
         });
         //putting on disguse animation (right)
@@ -210,8 +210,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.graceTimer=0;
         this.graceDuration = 1000
         this.check = 0; //prevents the game over sound from reapplying 
-        this.facingLeft = true;
-        this.facingRight = false;
+        this.facingLeft = false;
 
         this.disguiseTimer = 0;
         this.disguiseDuration = 3000;
@@ -272,7 +271,6 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         }
         else if(keyRight.isDown && this.x < config.width){
             this.facingLeft = false;
-            this.facingRight = true;
             if(this.disguiseActive){
                 this.anims.play('run_right_red', true);
             }
@@ -322,29 +320,34 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.sound.play('sfx_jump');
                 // // starts the jump
                 this.setVelocityY(this.jumpPower);
-                // if(this.disguiseActive){
-                //     if(keyLeft.isDown){
-                //         this.anims.play('jump_left_red', true);
-                //     }
-                //     else if(keyRight.isDown){
-                //         this.anims.play('jump_right_red', true);
-                //     }
-                // }
-                // else if(!this.disguiseActive){
-                //     if(this.body.velocity.x < 0){
-                //         this.anims.play('jump_left_green', true);
-                //     }
-                //     else if(this.body.velocity.x < 0){
-                //         this.anims.play('jump_right_green', true);
-                //     }
-                // }
             }
         }
+        //   //play jump animations
+        //  if(!this.body.blocked.down){
+        //      if(this.disguiseAcive){
+        //         if(this.facingLeft){
+        //             this.anims.play('jump_left_red', true);
+        //         } 
+        //         else{
+        //             this.anims.play('jump_right_red', true);
+        //         }
+        //      }
+        //      else{
+        //          if(this.facingLeft){
+        //              this.anims.play('jump_left_green', true);
+        //          }
+        //          else{
+        //              this.anims.play('jump_right_green', true);
+        //          }
+        //      }
+        //  }
+
         if(Phaser.Input.Keyboard.JustUp(keyJump)) {
             if(this.body.velocity.y < this.jumpPowerMin) {
                 this.body.velocity.y = this.jumpPowerMin;
             }
         }
+       
 
         this.disguiseTimer -= delta;
         if(this.disguiseTimer <= 0 && this.disguiseActive){
@@ -360,7 +363,9 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.dressedText.text = "Disguised";
             this.scene.disguiseTimer.text = Math.ceil(this.disguiseTimer / 1000);
         }
-
+        //play getting dressed animation
+              
+            
         //applying disguise
         if( (  keyDisguise.getDuration() >= 0.5*1000) && this.disguiseTimer <= this.disguiseWait && !this.inLOS ){
             if(keyDisguise.getDuration() <= 0.53*1000){ //player needs to release key before they can reapply disguise
@@ -373,7 +378,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             }
         }else if( keyDisguise.getDuration() != 0 && (keyDisguise.getDuration() <= 5*1000  )&& this.disguiseTimer <= this.disguiseWait && !this.inLOS){
             this.gettingDressed = true; // text follows player 
-            this.scene.dressedText.text = "Getting Dressed..."; 
+            //this.scene.dressedText.text = "Getting Dressed..."; 
         }else if (!this.disguiseActive){
             this.gettingDressed = false;
             this.scene.dressedText.x = game.config.width/2 + 600; 
@@ -414,14 +419,26 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.scene.disguiseTween.restart();
 
         //this.setTexture(this.texDisguise);
-        this.anims.play('idle_right_red');
+        //play idle animation
+        if(this.facingLeft){
+            this.anims.play('idle_left_red');
+        }
+        else{
+            this.anims.play('idle_right_red');
+        }
         this.disguiseTimer = this.disguiseDuration;
 
     }
 
     disguiseOff(){
         this.disguiseActive = false;
-        this.anims.play('idle_right_green');
+        //play new idle animation
+        if(this.facingLeft){
+            this.anims.play('idle_left_green');
+        }
+        else{
+            this.anims.play('idle_right_green');
+        }
         //this.setTexture(this.texNormal);
     }
 
