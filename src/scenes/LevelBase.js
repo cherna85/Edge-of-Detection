@@ -76,6 +76,7 @@ class LevelBase extends Phaser.Scene {
         this.cameras.main.zoom = 2;
         this.cameras.main.setBounds(0, 0, this.tilemap.widthInPixels, this.tilemap.heightInPixels);
         this.cameras.main.startFollow(this.plrSpy);
+        console.log(this.cameras.main);
 
 
         //UI
@@ -176,8 +177,9 @@ class LevelBase extends Phaser.Scene {
             },
         }
         this.gameOverText = this.add.text(0,1000, 'GAMEOVER', EndscreenConfig ).setOrigin(0.5).setDepth(100);;
-        EndscreenConfig.color = '#99AD95';
+        EndscreenConfig.color = '#FFFFFF';
         this.restartbutton = this.add.text(0,1000 , 'Restart', EndscreenConfig).setOrigin(0.5).setDepth(100);
+        EndscreenConfig.color = '#99AD95';
         EndscreenConfig.shadow.color = '#000000';
         this.MainMenubutton = this.add.text(0,1000 , 'Main Menu' ,EndscreenConfig).setOrigin(0.5).setDepth(100);
     }
@@ -200,6 +202,7 @@ class LevelBase extends Phaser.Scene {
         if(this.Exit[0].switch == true){
             //This happens at the next scene manager update, meaning the delay is actually 2 frames
             this.scene.start(sceneSelect);
+            this.sound.play('sfx_finishedObjective');
         }
         if(!this.gameOver){
             this.plrSpy.update(time, delta); 
@@ -245,33 +248,38 @@ class LevelBase extends Phaser.Scene {
         //game over selection 
         if(this.gameOver){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
-                if(this.endScene == this.scene.key){
+                if(this.endScene == 'menuScene'){
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#99AD95');
-                    this.endScene = 'menuScene';
+                    this.endScene = this.scene.key;
+                    this.sound.play('sfx_select');
                 }
-                else if(this.endScene == 'menuScene'){
+                else if(this.endScene == this.endScene){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#99AD95');
-                    this.endScene = this.scene.key;
+                    this.endScene = 'menuScene';
+                    this.sound.play('sfx_select');
                 }  
               }
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
-                if(this.endScene == this.scene.key){
+                if(this.endScene == 'menuScene' ){
                     this.restartbutton.setColor('#FFFFFF');
                     this.MainMenubutton.setColor('#99AD95');
-                    this.endScene = 'menuScene';
+                    this.endScene = this.scene.key;
+                    this.sound.play('sfx_select');
                 }
-                else if(this.endScene == 'menuScene'){
+                else if(this.endScene == this.scene.key ){
                     this.MainMenubutton.setColor('#FFFFFF');
                     this.restartbutton.setColor('#99AD95');
-                    this.endScene = this.scene.key;
+                    this.endScene = 'menuScene';
+                    this.sound.play('sfx_select');
                 }  
             }  
             //BUG: Despite calling JustDown, this can trigger if the button is held down
             if (Phaser.Input.Keyboard.JustDown(keyDisguise)) {
                 //console.log('selecting');
-                this.scene.start(this.endScene);    
+                this.scene.start(this.endScene);  
+                this.sound.play('sfx_finishedObjective');  
             }  
         }
     }
