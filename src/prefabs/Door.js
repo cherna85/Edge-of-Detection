@@ -2,6 +2,32 @@ class Door extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y,texture, frame) {
         super(scene, x, y, texture, frame);
 
+        //Create open/close animations
+        this.anims.create({
+            key: 'open_wood',
+            frames: this.anims.generateFrameNames('doors_atlas', {
+                prefix: 'wood_',
+                start: 2,
+                end: 3,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'close_wood',
+            frames: this.anims.generateFrameNames('doors_atlas', {
+                prefix: 'wood_',
+                start: 2,
+                end: 1,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 8,
+            repeat: 0,
+        });
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.body.immovable = true;
@@ -22,13 +48,12 @@ class Door extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(time, delta){
-        
+        //If not overlapping with interactable objects...
         if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
             //Places locked door visuals in the world
-            this.scene.solidLayer.putTileAtWorldXY(9, this.x, this.y-10); //top of door
-            this.scene.solidLayer.putTileAtWorldXY(9, this.x, this.y);
+            this.anims.play('close_wood', true);
             //visual
             this.alpha= 1;
               
@@ -48,19 +73,19 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(!this.open){
                     this.open = true;
                     //console.log("open")
-                    this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y-10); //top of door
-                    this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y); //top of door
-                    this.scene.solidLayer.putTileAtWorldXY(0,this.x, this.y+10); //bottom
+                    this.anims.play('open_wood', true);
                     // just to see some change
-                    this.alpha= 0.0;
 
                 }
-            }   
+            }  
         }
     }
+
     setCollision(interactables, toggle, checklist){
         this.interactable = interactables;
         this.scene.physics.add.overlap(this, this.interactable, this.activate, null, this);
+        //Function attached to overlap plays once when the objects overlap
+
         this.locked = toggle;
         this.checklist = checklist;
 
