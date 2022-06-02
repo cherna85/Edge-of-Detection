@@ -218,6 +218,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         // if we have a 3sec disguise and only want to let them reapply after 1 second has passed
         // this.disguiseWait = 2000   .... 
         this.disguiseWait = 3000;
+        this.steps = 0;
 
         //needs to be tweaked 
         this.normalAccel = 384; //Horizontal acceleration
@@ -243,9 +244,12 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //Horizontal movement
         //check if player is in LOS
         if(this.inLOS && !this.disguiseActive){
-            if(this.graceTimer < 30){
+            if(this.graceTimer < 20){
                 this.scene.warningText.alpha = 1;
                 this.scene.warningTween.restart();
+            }
+            if( this.graceTimer%300 < 20 ){
+                this.scene.sound.play('sfx_inLOS');
             }
             this.detected = true;
             this.graceTimer+=delta;
@@ -256,6 +260,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.warningText.alpha = 0;
         }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
+            this.steps++;
             this.facingLeft = true;
             this.facingRight = false;
             if(this.disguiseActive){
@@ -265,11 +270,15 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('run_left_green', true);
             }
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
+            //this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
+                this.steps++;
             }
+            this.walkingSound();
         }
         else if(keyRight.isDown && this.x < config.width){
+            this.steps++;
             this.facingLeft = false;
             if(this.disguiseActive){
                 this.anims.play('run_right_red', true);
@@ -278,13 +287,16 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('run_right_green', true);
             }
             this.gettingDressed ? this.setAccelerationX(this.slowedAccel) : this.setAccelerationX(this.normalAccel);
+            //this.scene.sound.play('sfx_walking');
             if(this.body.velocity.x < 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
+            this.walkingSound();
         }
         else{
             if(this.body.velocity.x > 0){
                 this.setAccelerationX(0);
+                this.steps = 0;
                 if(this.disguiseActive){
                     this.anims.play('idle_right_red');
                 }
@@ -294,6 +306,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             }
             else if(this.body.velocity.x < 0){
                 this.setAccelerationX(0);
+                this.steps = 0;
                 if(this.disguiseActive){
                     this.anims.play('idle_left_red');
                 }
@@ -304,6 +317,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             //player stops moving when not holding 
             
         }
+        
         //while getting dressed max speed is slower
         this.gettingDressed ? this.setMaxVelocity(this.slowedVel,500) : this.setMaxVelocity(this.normalVel,500);
 
@@ -400,11 +414,25 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         if(keyDown.isDown){
             //console.log(this.scene.platformCollision);
             this.scene.platformCollision.active = false;
+            if(this.check == 1&& this.body.velocity.y > 0){
+                this.scene.sound.play('sfx_fall');
+            }
+            this.check++;
         }
         else{
+            this.check = 0;
             this.scene.platformCollision.active = true;
         }
         this.inLOS = false; // unless overlapping it will be off.
+    }
+    walkingSound(){
+        //play walking noise
+        if((this.body.velocity.y ==0))
+            if(this.steps%15 == 0 && !(this.steps%30 == 0)){
+                this.scene.sound.play('sfx_walking');
+            }else if(this.steps%30 == 0){
+                this.scene.sound.play('sfx_walking2');
+            }
     }
 
     disguiseOn(){
@@ -439,6 +467,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         else{
             this.anims.play('idle_right_green');
         }
+        this.scene.sound.play('sfx_disguiseOff');
         //this.setTexture(this.texNormal);
     }
 
@@ -461,11 +490,5 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.sound.play('sfx_discovered');
         }
         
-    }
-
-    gameOverFunc(){23
-        this.scene.add.text(this.scene.camera.main.x, this.scene.camera.main.y, 'GAMEOVER' ).setOrigin(0.5);
-        this.scene.restartbutton = this.scene.add.text(game.config.width/2, game.config.height/2 +32 , 'Restart', {color: '#FF994F'}).setOrigin(0.5);
-        this.scene.MainMenubutton = this.scene.add.text(game.config.width/2, game.config.height/2 +64 , 'Main Menu' ,{color: '#FFFFFF'}).setOrigin(0.5);
     }
 }
