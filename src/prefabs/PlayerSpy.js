@@ -71,14 +71,14 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         //normal jump left
         this.anims.create({
             key: 'jump_left_green',
-            frame: this.anims.generateFrameNames('green_atlas', {
+            frames: this.anims.generateFrameNames('green_atlas', {
                 prefix: 'jump_left_',
                 start: 1,
                 end: 2,
                 suffix: '',
                 zeroPad: 4
             }),
-            frameRate: 6,
+            frameRate: 2,
             repeat: -1,
         });
         //putting on disguse animation (right)
@@ -336,25 +336,25 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityY(this.jumpPower);
             }
         }
-        //   //play jump animations
-        //  if(!this.body.blocked.down){
-        //      if(this.disguiseAcive){
-        //         if(this.facingLeft){
-        //             this.anims.play('jump_left_red', true);
-        //         } 
-        //         else{
-        //             this.anims.play('jump_right_red', true);
-        //         }
-        //      }
-        //      else{
-        //          if(this.facingLeft){
-        //              this.anims.play('jump_left_green', true);
-        //          }
-        //          else{
-        //              this.anims.play('jump_right_green', true);
-        //          }
-        //      }
-        //  }
+           //play jump animations
+          if(!this.body.blocked.down){
+              if(this.disguiseAcive){
+                 if(this.facingLeft){
+                     this.anims.play('jump_left_red', true);
+                 } 
+                 else{
+                     this.anims.play('jump_right_red', true);
+                 }
+              }
+              else{
+                  if(this.facingLeft){
+                      this.anims.play('jump_left_green', true);
+                  }
+                  else{
+                      this.anims.play('jump_right_green', true);
+                  }
+              }
+          }
 
         if(Phaser.Input.Keyboard.JustUp(keyJump)) {
             if(this.body.velocity.y < this.jumpPowerMin) {
