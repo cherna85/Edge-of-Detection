@@ -307,7 +307,7 @@ class LevelBase extends Phaser.Scene {
         this.doors = this.tilemap.createFromObjects("Objects", {
             name: "door",
             key: this.tilesSheetName,
-            frame: 13,
+            frame: 45,
             classType: Door
         })
         this.groupDoors = this.add.group(this.doors);
@@ -316,7 +316,7 @@ class LevelBase extends Phaser.Scene {
         this.lockedDoors = this.tilemap.createFromObjects("Objects", {
             name: "lockedDoor",
             key: this.tilesSheetName,
-            frame: 9,
+            frame: 15,
             classType: Door
         })
         
@@ -343,12 +343,12 @@ class LevelBase extends Phaser.Scene {
         {
             name: "exit",
             key: this.tilesSheetName,
-            frame: 11,
+            frame: 126,
             classType: Exit
         },{ // sets the bottom half but does put the sprite in the group
             name: "exitB",
             key: this.tilesSheetName,
-            frame: 15,
+            frame: 141,
         }]);
         this.Exit[0].setNextLevel(nextLevel, locked, checklist);
         this.Exit[1].setDepth(-4);
