@@ -7,11 +7,11 @@ class LevelTutorialA extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_tutorial_A.json',
-         'PH_tiles.png', 'tilemapTutorialA'); //Gotta be something wrong with the way the tileset is set up...
+         'tiles_final.png', 'tilemapTutorialA', 'tilesFinal'); //Gotta be something wrong with the way the tileset is set up...
     }
 
     create(){
-        this.createDefault('PH_tiles');
+        this.createDefault('tiles_final');
 
         //this.cache.tilemap.exists('')
 

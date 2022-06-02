@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="tiles_final..tsx" format="tsx"/>
  </editorsettings>
- <image source="../UntitledSpyGameSpriteMap-1.png.png" width="240" height="160"/>
+ <image source="../tiles_final.png" width="240" height="160"/>
  <tile id="0">
   <properties>
    <property name="collides" type="bool" value="false"/>

@@ -43,6 +43,9 @@ class LevelBase extends Phaser.Scene {
         //THE TILESET NAME MUST MATCH ITS NAME IN THE JSON FILE!!!!!
         this.solidLayer = this.tilemap.createLayer('Solid', this.tileset);
         this.platformLayer = this.tilemap.createLayer('Platform', this.tileset);
+        this.decorationTopLayer = this.tilemap.createLayer('Decoration(Top)', this.tileset);
+        this.decorationBottomLayer = this.tilemap.createLayer('Decoration(Bottom)', this.tileset);
+        this.backgroundLayer = this.tilemap.createLayer('Background', this.tileset);
 
         this.plrSpy = new PlayerSpy(this, game.config.width/2-250, game.config.height/2+110, 'green_atlas',
          0, 'playerDisguise');
@@ -53,8 +56,11 @@ class LevelBase extends Phaser.Scene {
         //Makes all tiles that have property "collides" have collision
         this.solidLayer.setCollisionByProperty( {collides: true} );
         this.platformLayer.setCollisionByProperty( {collides: true} );
+        this.decorationTopLayer.setDepth(11);
         this.solidLayer.setDepth(10);
         this.platformLayer.setDepth(-3);
+        this.decorationBottomLayer.setDepth(-5);
+        this.backgroundLayer.setDepth(-6);
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
             if(tile.index == 6){

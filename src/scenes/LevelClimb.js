@@ -6,11 +6,11 @@ class LevelClimb extends LevelBase {
     preload(){
         //Replace arguments w/ TutorialA's tilemap and tileset
         this.preloadDefault('level_climb.json',
-        'PH_tiles.png', 'tilemapClimb');
+        'tiles_final.png', 'tilemapClimb');
     }
 
     create(){
-        this.createDefault('PH_tiles');
+        this.createDefault('tiles_final');
 
         /*Adjust player starting position */
         this.plrSpy.x = 4 * 16;
