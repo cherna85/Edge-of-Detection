@@ -307,7 +307,7 @@ class LevelBase extends Phaser.Scene {
         this.doors = this.tilemap.createFromObjects("Objects", {
             name: "door",
             key: 'doors_atlas',
-            frame: 0,
+            frame: "wood_01",
             classType: Door
         })
         this.groupDoors = this.add.group(this.doors);
@@ -315,8 +315,8 @@ class LevelBase extends Phaser.Scene {
         //locked doors 
         this.lockedDoors = this.tilemap.createFromObjects("Objects", {
             name: "lockedDoor",
-            key: this.tilesSheetName,
-            frame: 15,
+            key: 'doors_atlas',
+            frame: "metal_01",
             classType: Door
         })
         
