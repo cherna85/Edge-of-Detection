@@ -63,17 +63,9 @@ class LevelBase extends Phaser.Scene {
         this.backgroundLayer.setDepth(-6);
         //Makes all the platform tiles only have 1-way collision
         this.platformLayer.forEachTile(tile => {
-            if(tile.index == 6){
-                tile.collideLeft = false;
-                tile.collideRight = false;
-                tile.collideDown = false;
-            }
-            if(tile.index == 7){
-                tile.collideRight = true;
-                tile.collideLeft = false;
-                tile.collideDown = true;
-                tile.collideUp = true;
-            }
+            tile.collideLeft = false;
+            tile.collideRight = false;
+            tile.collideDown = false;
         });
         this.physics.add.collider(this.plrSpy, this.solidLayer);
         this.platformCollision = this.physics.add.collider(this.plrSpy, this.platformLayer);

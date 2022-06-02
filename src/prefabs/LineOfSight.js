@@ -1,17 +1,33 @@
 class LOS extends Phaser.GameObjects.GameObject {
     constructor(scene, type = 'LoS', mappedObject){
-            super(scene,type);
-            this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
-            this.raycaster.setBoundingBox(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels)
-            //Maps objects to the ray so it can collide with them
-            this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: [1, 9, 13]});   
-            // true sets dynamic updating
+        super(scene,type);
+        this.raycaster = scene.raycasterPlugin.createRaycaster({debug:false}); //when debugging is true, we get an error when we restart a level
+        this.raycaster.setBoundingBox(0, 0, scene.tilemap.widthInPixels, scene.tilemap.heightInPixels)
+        //Maps objects to the ray so it can collide with them
+        /*Need to add all tiles with collision
+        Mapped object is the solid layer
+        Can loop through all tiles that collide
+        */
+        let solidIndiciesSet = new Set([]);
+        mappedObject.forEachTile(tile => {
+            if(tile.collides){
+                solidIndiciesSet.add(tile.index);
+            }
+        })
+        let solidIndicies = [];
+        for(let i of solidIndiciesSet.values()){
+            solidIndicies.push(i);
+        }
+        console.log(solidIndicies);
 
-            this.scene = scene; 
-            this.rangeLayer = scene.add.layer();  
-            
-            this.rangeGraphics = scene.make.graphics();
-            this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: solidIndicies});
+        // true sets dynamic updating
+
+        this.scene = scene; 
+        this.rangeLayer = scene.add.layer();  
+        
+        this.rangeGraphics = scene.make.graphics();
+        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
 
 
                      
