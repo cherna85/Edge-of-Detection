@@ -14,7 +14,8 @@ class Menu extends Phaser.Scene {
             this.load.atlas('green_atlas', './assets/Spyman-Sheet.png', './assets/spymanGreen.json');
             this.load.atlas('red_atlas', './assets/SpymanDisguise-Sheet.png', './assets/spymanRed.json');
             this.load.atlas('enemy_atlas', './assets/SpyEnemy-Sheet.png', './assets/spyEnemy.json');
-        
+            this.load.atlas('doors_atlas', './assets/doors.png', './assets/doors.json');
+            console.log("Menu assets loaded");
         }
 
         create(){

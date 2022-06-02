@@ -306,8 +306,8 @@ class LevelBase extends Phaser.Scene {
     placeDoors(){
         this.doors = this.tilemap.createFromObjects("Objects", {
             name: "door",
-            key: this.tilesSheetName,
-            frame: 45,
+            key: 'doors_atlas',
+            frame: 0,
             classType: Door
         })
         this.groupDoors = this.add.group(this.doors);
