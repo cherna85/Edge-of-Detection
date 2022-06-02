@@ -320,7 +320,9 @@ class LevelBase extends Phaser.Scene {
             classType: Door
         })
         
-        
+        for(let door of this.lockedDoors){
+            door.isMetal = true;
+        }        
 
         this.groupLockedDoors = this.add.group(this.lockedDoors);
         this.groupLockedDoors.runChildUpdate = true;  

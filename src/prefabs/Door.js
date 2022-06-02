@@ -27,6 +27,30 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             frameRate: 8,
             repeat: 0,
         });
+        this.anims.create({
+            key: 'open_metal',
+            frames: this.anims.generateFrameNames('doors_atlas', {
+                prefix: 'metal_',
+                start: 2,
+                end: 3,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'close_metal',
+            frames: this.anims.generateFrameNames('doors_atlas', {
+                prefix: 'metal_',
+                start: 2,
+                end: 1,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 8,
+            repeat: 0,
+        });
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -41,6 +65,11 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         this.checklist = scene.buttonTracker //if there are no checklist then this will create an error
         this.locked = false;
   
+        this.isMetal = false;
+        if(this.frame == 'metal_01'){
+            this.isMetal = true;
+        }
+
         this.scene = scene;
 
         this.check = 0;
@@ -52,8 +81,11 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
-            //Places locked door visuals in the world
-            this.anims.play('close_wood', true);
+            //Play the door closed animation
+            if(this.isMetal)
+                this.anims.play('close_metal', true);
+            else
+                this.anims.play('close_wood', true);
             //visual
             this.alpha= 1;
               
@@ -72,9 +104,10 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(this.check == 1){
             if(!this.open){
                     this.open = true;
-                    //console.log("open")
-                    this.anims.play('open_wood', true);
-                    // just to see some change
+                    if(this.isMetal)
+                        this.anims.play('open_metal', true);
+                    else
+                        this.anims.play('open_wood', true);
 
                 }
             }  
