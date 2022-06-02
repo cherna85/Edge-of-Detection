@@ -18,7 +18,8 @@ class LevelClimb extends LevelBase {
 
         this.placeDoors(); //Makesure to load doors before any raycasting
 
-        this.enemy1 = new Enemy(this, 13 * 16, 16 * 37, 'playerDisguise', 0, false, 1000, 90, 30);
+        this.enemy1 = new Enemy(this, 13 * 16, 16 * 37, 'enemy_atlas', 0, false, 1000, 90, 30);
+        this.enemy1.anims.play('idle_right_enemy', true);
         this.enemy1.enemyLOS.setAngleDegRay(this.enemy1.detection, -90);
         this.createButtons();
 

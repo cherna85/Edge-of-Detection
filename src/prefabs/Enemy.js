@@ -2,6 +2,67 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, flipped = false, losRange = 100, losAngle = 0, losWidth = 45) {
         super(scene, x, y + 4, texture, frame); //The +4 is to make them standing on the ground when they are spawned
        
+
+        //create enemy animations
+        // idle left enemy
+        this.anims.create({
+            key: 'idle_left_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 3,
+                suffix: '',
+                zeroPad: 4,
+            }),
+            frameRate: 3,
+            repeat: -1,
+            repeatDelay: 5000,
+        });
+        
+        //idle right enemy
+        this.anims.create({
+            key: 'idle_right_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 3,
+                suffix: '',
+                zeroPad: 4,
+
+            }),
+            frameRate: 3,
+            repeat: -1,
+            repeatDelay: 6000,
+        });
+
+        // enemy patrol left
+        this.anims.create({
+            key: 'walk_left_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'patrol_left_',
+                start: 1,
+                end: 9,
+                suffix: '', 
+                zeroPad: 4,
+            }),
+            frameRate: 10,
+            repeat: -1,
+        });
+
+        //enemy patrol right
+        this.anims.create({
+            key: 'walk_right_enemy',
+            frames: this.anims.generateFrameNames('enemy_atlas', {
+                prefix: 'patrol_right_',
+                start: 1,
+                end: 9,
+                suffix: '',
+                zeroPad: 4,
+            }),
+            frameRate: 10,
+            repeat: -1,
+        });
+
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
         
@@ -49,6 +110,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     update(time,delta, scene){
         //moves enemy along a path 
         if(this.moving){
+            this.anims.play('walk_right_enemy', true);
             this.path.getPoint(this.follower.t, this.follower.vec);
             this.x = this.follower.vec.x;
             this.y = this.follower.vec.y;
@@ -57,9 +119,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             //once you reach the end of the path flip
             if((this.path.getPoint(1).x == this.x) && (this.path.getPoint(1).y ==  this.y)){
                 this.flip(!this.flipSetting);
+                this.anims.play('walk_left_enemy', true)
             }
             else if((this.path.getPoint(0).x == this.x) && (this.path.getPoint(0).y ==  this.y)){
                 this.flip(this.flipSetting);
+
             }
             this.setEnemyRangeXY(this.x,this.y);
         }

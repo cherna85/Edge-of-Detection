@@ -1,8 +1,197 @@
 class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, disguiseTex) {
         super(scene, x, y, texture, frame);
-        this.texDisguise = disguiseTex; //Texture to use while disguised
-        this.texNormal = texture;
+
+        //Player animations created
+        //normal Idle left
+        this.anims.create({
+            key: 'idle_left_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 4, 
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+        //normal Idle right
+        this.anims.create({
+            key: 'idle_right_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+        //normal run right
+        this.anims.create({
+            key: 'run_right_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'run_right_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+        //normal run left
+        this.anims.create({
+            key: 'run_left_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'run_left_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+        //normal jump right
+        this.anims.create({
+            key: 'jump_right_green',
+            frames: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'jump_right_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+            repeat: -1,
+        });
+        //normal jump left
+        this.anims.create({
+            key: 'jump_left_green',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'jump_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+            repeat: -1,
+        });
+        //putting on disguse animation (right)
+        this.anims.create({
+            key: 'diguise_right',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'disguise_right_',
+                start: 1,
+                end: 6,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+            repeat: -1,
+        });
+        //putting on disguise animation (left)
+        this.anims.create({
+            key: 'disguise_left',
+            frame: this.anims.generateFrameNames('green_atlas', {
+                prefix: 'disguise_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frmaeRate: 2,
+            repeat: -1,
+        });
+        //disguise idle left
+        this.anims.create({
+            key: 'idle_left_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'idle_left_',
+                start: 1,
+                end: 4, 
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+        //disguise idle right
+        this.anims.create({
+            key: 'idle_right_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'idle_right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 6,
+            repeat: -1,
+        });
+        //disguise run right
+        this.anims.create({
+            key: 'run_right_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'run_right_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        //disguise run left
+        this.anims.create({
+            key: 'run_left_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'run_left_',
+                start: 1,
+                end: 10,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 13,
+            repeat: -1,
+        });
+
+        //disguise jump right
+        this.anims.create({
+            key: 'jump_right_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'jump_right_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
+        });
+
+        //disguise jump left
+        this.anims.create({
+            key: 'jump_left_red',
+            frames: this.anims.generateFrameNames('red_atlas', {
+                prefix: 'jump_left_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 4,
+            repeat: -1,
+        });
+
+
+        //this.texDisguise = disguiseTex; //Texture to use while disguised
+        //this.texNormal = texture;
         //These have to be first for physics stuff to work
         scene.add.existing(this);
         scene.physics.add.existing(this); //Assigns this sprite a physics body
@@ -21,6 +210,8 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.graceTimer=0;
         this.graceDuration = 1000
         this.check = 0; //prevents the game over sound from reapplying 
+        this.facingLeft = true;
+        this.facingRight = false;
 
         this.disguiseTimer = 0;
         this.disguiseDuration = 3000;
@@ -66,20 +257,54 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.scene.warningText.alpha = 0;
         }  
         if(keyLeft.isDown && this.x > 0 ){  //player will move slower when disguise is active
+            this.facingLeft = true;
+            this.facingRight = false;
+            if(this.disguiseActive){
+                this.anims.play('run_left_red', true);
+            }
+            else{
+                this.anims.play('run_left_green', true);
+            }
             this.gettingDressed ? this.setAccelerationX(-this.slowedAccel) : this.setAccelerationX(-this.normalAccel);
             if(this.body.velocity.x > 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
         }
         else if(keyRight.isDown && this.x < config.width){
+            this.facingLeft = false;
+            this.facingRight = true;
+            if(this.disguiseActive){
+                this.anims.play('run_right_red', true);
+            }
+            else{
+                this.anims.play('run_right_green', true);
+            }
             this.gettingDressed ? this.setAccelerationX(this.slowedAccel) : this.setAccelerationX(this.normalAccel);
             if(this.body.velocity.x < 0){ //prevents 'sliding' when changing directions
                 this.setAccelerationX(0);
             }
         }
         else{
+            if(this.body.velocity.x > 0){
+                this.setAccelerationX(0);
+                if(this.disguiseActive){
+                    this.anims.play('idle_right_red');
+                }
+                else{
+                    this.anims.play('idle_right_green');
+                }
+            }
+            else if(this.body.velocity.x < 0){
+                this.setAccelerationX(0);
+                if(this.disguiseActive){
+                    this.anims.play('idle_left_red');
+                }
+                else{
+                    this.anims.play('idle_left_green');
+                }
+            }
             //player stops moving when not holding 
-            this.setAccelerationX(0);
+            
         }
         //while getting dressed max speed is slower
         this.gettingDressed ? this.setMaxVelocity(this.slowedVel,500) : this.setMaxVelocity(this.normalVel,500);
@@ -95,8 +320,24 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         if(!this.gettingDressed) { // player can only jump when not gettig dressed
             if(Phaser.Input.Keyboard.JustDown(keyJump) && this.body.onFloor()) {
                 this.scene.sound.play('sfx_jump');
-                // starts the jump
+                // // starts the jump
                 this.setVelocityY(this.jumpPower);
+                // if(this.disguiseActive){
+                //     if(keyLeft.isDown){
+                //         this.anims.play('jump_left_red', true);
+                //     }
+                //     else if(keyRight.isDown){
+                //         this.anims.play('jump_right_red', true);
+                //     }
+                // }
+                // else if(!this.disguiseActive){
+                //     if(this.body.velocity.x < 0){
+                //         this.anims.play('jump_left_green', true);
+                //     }
+                //     else if(this.body.velocity.x < 0){
+                //         this.anims.play('jump_right_green', true);
+                //     }
+                // }
             }
         }
         if(Phaser.Input.Keyboard.JustUp(keyJump)) {
@@ -172,14 +413,16 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
         this.scene.disguiseTimer.alpha = 1;
         this.scene.disguiseTween.restart();
 
-        this.setTexture(this.texDisguise);
+        //this.setTexture(this.texDisguise);
+        this.anims.play('idle_right_red');
         this.disguiseTimer = this.disguiseDuration;
 
     }
 
     disguiseOff(){
         this.disguiseActive = false;
-        this.setTexture(this.texNormal);
+        this.anims.play('idle_right_green');
+        //this.setTexture(this.texNormal);
     }
 
     detectedFunc(){

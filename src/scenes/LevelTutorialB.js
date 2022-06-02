@@ -26,7 +26,7 @@ class LevelTutorialB extends LevelBase {
 
         this.placeDoors(); //Makesure to load doors before any raycasting
 
-        this.enemy1 = new Enemy(this, 320, 304, 'playerDisguise', 0, false, 200);
+        this.enemy1 = new Enemy(this, 320, 304, 'enemy_atlas', 0, false, 200);
         this.enemy1.straightPath(this, 592, 304, 4000);
         this.createButtons();
 

@@ -6,11 +6,15 @@ class Menu extends Phaser.Scene {
         preload(){
                 //load audio
             this.load.audio('sfx_select', './assets/sfx/Blip_Select.wav');
-            this.load.audio('sfx_disguise', 'assets/sfx/Disguise_applied.wav');
-            this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
-            this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
-            this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
-            
+            this.load.audio('sfx_disguise', './assets/sfx/Disguise_applied.wav');
+            this.load.audio('sfx_finishedObjective', './assets/sfx/Finished_objective.wav');
+            this.load.audio('sfx_jump', './assets/sfx/Jump2.wav');
+            this.load.audio('sfx_discovered', './assets/sfx/Player_discovered.wav');
+            //load sprite atlases
+            this.load.atlas('green_atlas', './assets/Spyman-Sheet.png', './assets/spymanGreen.json');
+            this.load.atlas('red_atlas', './assets/SpymanDisguise-Sheet.png', './assets/spymanRed.json');
+            this.load.atlas('enemy_atlas', './assets/SpyEnemy-Sheet.png', './assets/spyEnemy.json');
+        
         }
 
         create(){
