@@ -177,7 +177,7 @@ class LevelBase extends Phaser.Scene {
         this.gameOverText = this.add.text(0,1000, 'GAMEOVER', EndscreenConfig ).setOrigin(0.5).setDepth(100);;
         EndscreenConfig.color = '#FFFFFF';
         this.restartbutton = this.add.text(0,1000 , 'Restart', EndscreenConfig).setOrigin(0.5).setDepth(100);
-        EndscreenConfig.color = '#99AD95';
+        EndscreenConfig.color = '#72A046';
         EndscreenConfig.shadow.color = '#000000';
         this.MainMenubutton = this.add.text(0,1000 , 'Main Menu' ,EndscreenConfig).setOrigin(0.5).setDepth(100);
     }
@@ -248,13 +248,13 @@ class LevelBase extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
                 if(this.endScene == 'menuScene'){
                     this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#99AD95');
+                    this.MainMenubutton.setColor('#72A046');
                     this.endScene = this.scene.key;
                     this.sound.play('sfx_select');
                 }
                 else if(this.endScene == this.endScene){
                     this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#99AD95');
+                    this.restartbutton.setColor('#72A046');
                     this.endScene = 'menuScene';
                     this.sound.play('sfx_select');
                 }  
@@ -262,13 +262,13 @@ class LevelBase extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(keyJump)) {
                 if(this.endScene == 'menuScene' ){
                     this.restartbutton.setColor('#FFFFFF');
-                    this.MainMenubutton.setColor('#99AD95');
+                    this.MainMenubutton.setColor('#72A046');
                     this.endScene = this.scene.key;
                     this.sound.play('sfx_select');
                 }
                 else if(this.endScene == this.scene.key ){
                     this.MainMenubutton.setColor('#FFFFFF');
-                    this.restartbutton.setColor('#99AD95');
+                    this.restartbutton.setColor('#72A046');
                     this.endScene = 'menuScene';
                     this.sound.play('sfx_select');
                 }  
