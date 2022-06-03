@@ -108,6 +108,8 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(this.check == 1){
             if(!this.open){
                     this.open = true;
+                    //this replaces the solid door eith an invisible tile, 
+                    //lets the raycaster go through
                     this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y-10); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y); //top of door
                     this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y+10); //bottom

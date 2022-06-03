@@ -10,6 +10,8 @@ class LevelSelect extends Phaser.Scene {
         keyUp = this.input.keyboard.addKey(PUp);
         keyDown = this.input.keyboard.addKey(PDown);
 
+        furthestLevel = 2;
+
         let LevelSelectConfig = {
             //font from https://fonts.google.com/specimen/Press+Start+2P
             //https://www.1001fonts.com/sortelo-font.html
@@ -60,7 +62,8 @@ class LevelSelect extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyDisguise)) {
-            this.scene.start('menuScene');    
+            this.scene.start('menuScene');  
+            this.sound.play('sfx_fall');  
         }
         if (Phaser.Input.Keyboard.JustDown(keyDown)) {
             if(sceneSelect == 'levelTutorialA'){
@@ -90,6 +93,7 @@ class LevelSelect extends Phaser.Scene {
         next.setColor('#FFFFFF');
         next.setShadowColor('#FFFFFF');
         current.setShadowColor('#000000');
+        this.sound.play('sfx_select');
         if((sceneSelect == 'levelTutorialA' && furthestLevel <= 1 )|| (sceneSelect == 'levelTutorialB' && furthestLevel  < 2) 
             || (sceneSelect == 'levelClimb' && furthestLevel < 3) || (sceneSelect == 'levelShipyard' && furthestLevel < 4)){
                 current.setColor('#808080');
@@ -104,9 +108,9 @@ class LevelSelect extends Phaser.Scene {
             if((sceneSelect == 'levelTutorialA' && furthestLevel <= 1 )|| (sceneSelect == 'levelTutorialB' && furthestLevel  < 2) 
             || (sceneSelect == 'levelClimb' && furthestLevel < 3) || (sceneSelect == 'levelShipyard' && furthestLevel < 4)){
                 console.log('not allowed');
-                //this.sound.play('sfx_select');
+                this.sound.play('sfx_discovered');
             }else{
-                this.sound.play('sfx_select');
+                this.sound.play('sfx_finishedObjective');
                 this.scene.start(sceneSelect);    
             }   
         }

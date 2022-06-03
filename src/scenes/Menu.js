@@ -6,11 +6,17 @@ class Menu extends Phaser.Scene {
         preload(){
                 //load audio
             this.load.audio('sfx_select', './assets/sfx/Blip_Select.wav');
-            this.load.audio('sfx_disguise', './assets/sfx/Disguise_applied.wav');
-            this.load.audio('sfx_finishedObjective', './assets/sfx/Finished_objective.wav');
-            this.load.audio('sfx_jump', './assets/sfx/Jump2.wav');
-            this.load.audio('sfx_discovered', './assets/sfx/Player_discovered.wav');
-            //load sprite atlases
+            this.load.audio('sfx_disguise', 'assets/sfx/Disguise_applied.wav');
+            this.load.audio('sfx_finishedObjective', 'assets/sfx/Finished_objective.wav');
+            this.load.audio('sfx_jump', 'assets/sfx/Jump2.wav');
+            this.load.audio('sfx_discovered', 'assets/sfx/Player_discovered.wav');
+            this.load.audio('sfx_fall', 'assets/sfx/Falling.wav');
+            this.load.audio('sfx_inLOS', 'assets/sfx/inLOS.wav');
+            this.load.audio('sfx_walking', 'assets/sfx/walking.wav');
+            this.load.audio('sfx_walking2', 'assets/sfx/walking2.wav');
+            this.load.audio('sfx_disguiseOff', 'assets/sfx/Disguise_Fall.wav');
+            this.load.audio('sfx_Door', 'assets/sfx/DoorOpen.wav');
+            
             this.load.atlas('green_atlas', './assets/Spyman-Sheet.png', './assets/spymanGreen.json');
             this.load.atlas('red_atlas', './assets/SpymanDisguise-Sheet.png', './assets/spymanRed.json');
             this.load.atlas('enemy_atlas', './assets/SpyEnemy-Sheet.png', './assets/spyEnemy.json');
@@ -139,6 +145,7 @@ class Menu extends Phaser.Scene {
             current.setColor('#99AD95');
             current.setShadowColor('#000000');
             sceneSelect = scene;
+            this.sound.play('sfx_select');
         }
         menuWithSave(){
             if (Phaser.Input.Keyboard.JustDown(keyDown)) {
@@ -212,7 +219,7 @@ class Menu extends Phaser.Scene {
         Select(){
             //selects the scene 
             if (Phaser.Input.Keyboard.JustDown(keyJump)) { 
-                this.sound.play('sfx_select');
+                this.sound.play('sfx_finishedObjective');
                 this.scene.start(sceneSelect);    
             }
         }

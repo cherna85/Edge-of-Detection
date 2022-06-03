@@ -120,6 +120,7 @@ class Option extends Phaser.Scene {
             this.scene.start('menuScene'); 
             localStorage.setItem(localStorageName+'_controls', [PLeft,PRight,PUp,PDown, PDisguise, PInteract]);
             localStorage.setItem(localStorageName+'_controls_Text', [PLeftT,PRightT,PUpT,PDownT, PDisguiseT, PInteractT]);
+            this.sound.play('sfx_fall');
         }
 
     } 
@@ -127,15 +128,17 @@ class Option extends Phaser.Scene {
         next.setColor('#FFFFFF');
         current.setColor('#99AD95');
         this.control = scene;
+        this.sound.play('sfx_select');
     }
     SelectControl(){
         this.editing = true;
-
+        this.sound.play('sfx_finishedObjective');
         let newKey = this.input.keyboard.on('keydown', function (event){
             if(PLeft == event.keyCode || PRight == event.keyCode || PUp == event.keyCode ||
                  PDown == event.keyCode || PDisguise == event.keyCode || PInteract == event.keyCode){
                     this.scene.warning.x = (game.config.width/2);
                     this.scene.warning.y = game.config.height/2 ;
+                    this.scene.sound.play('sfx_discovered');
             }else if(this.scene.control == PLeft){
                 PLeft = event.keyCode;
                 this.scene.control = event.keyCode;
