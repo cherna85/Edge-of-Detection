@@ -80,7 +80,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             
         this.rangeGraphics = scene.make.graphics();
 
-        this.rangeGraphics.fillStyle(0xffffff);
+        this.rangeGraphics.fillStyle(0xff8282);
         this.rangeGraphics.fillCircle(x, y, losRange);
         //console.log(this.rangeGraphics );
     
@@ -88,7 +88,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.rangeLayer.setMask(mask); 
 
-        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xff2a2a, alpha: 0.4 } });
+        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xff8282, alpha: 0.4 } });
         this.enemyLOS = new LOS(scene, "EnemyLOS",scene.solidLayer);
         this.rangeLayer.add([this,this.graphics]);
         //console.log(this.rangeLayer );
@@ -177,7 +177,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         let intersections = this.detection.castCone();
         intersections.push(this.detection.origin);
         this.graphics.clear();
-        this.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.fillStyle(0xff8282, 0.5);
         this.graphics.fillPoints(intersections);
 
         if(this.draw){

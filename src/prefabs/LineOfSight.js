@@ -30,7 +30,7 @@ class LOS extends Phaser.GameObjects.GameObject {
         this.rangeLayer = scene.add.layer();  
         
         this.rangeGraphics = scene.make.graphics();
-        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xff8282, alpha: 0.3 } });
 
 
                      
@@ -97,7 +97,7 @@ class LOS extends Phaser.GameObjects.GameObject {
             this.getIntersectionsCone(rays[r]).push(rays[r].origin);
         }  
         this.graphics.clear();
-        this.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.fillStyle(0xff8282, 0.3);
         for(let r in rays){
             this.graphics.fillPoints(this.getIntersectionsCone(rays[r]));
         }
@@ -109,7 +109,7 @@ class LOS extends Phaser.GameObjects.GameObject {
             this.getIntersectionsCircle(rays[r]).push(rays[r].origin);
         }  
         this.graphics.clear();
-        this.graphics.fillStyle(0xffffff, 0.3);
+        this.graphics.fillStyle(0xff8282, 0.3);
         for(let r in rays){
             this.graphics.fillPoints(this.getIntersectionsCircle(rays[r]));
         }
@@ -127,7 +127,7 @@ class LOS extends Phaser.GameObjects.GameObject {
     setRange(x,y,fov){
 
 
-        this.rangeGraphics.fillStyle(0xffffff);
+        this.rangeGraphics.fillStyle(0xff8282);
         this.rangeGraphics.fillCircle(x,y, fov);
     
         const mask = this.rangeGraphics.createGeometryMask();
