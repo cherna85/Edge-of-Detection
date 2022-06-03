@@ -18,7 +18,10 @@ class LOS extends Phaser.GameObjects.GameObject {
         for(let i of solidIndiciesSet.values()){
             solidIndicies.push(i);
         }
-        console.log(solidIndicies);
+
+        solidIndicies.push(47); // what we will use as the door for raycasting
+        //since the layer is below objects you cant see it
+        
 
         this.raycaster.mapGameObjects(mappedObject, true, {collisionTiles: solidIndicies});
         // true sets dynamic updating

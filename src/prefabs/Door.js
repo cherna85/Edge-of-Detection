@@ -81,6 +81,10 @@ class Door extends Phaser.Physics.Arcade.Sprite {
         if(!this.scene.physics.overlap(this, this.interactable) && this.check != 0){
             this.open = false;
             this.check = 0;
+            // this places the solid door... back so raycasting is blocked
+            this.scene.solidLayer.putTileAtWorldXY(47,this.x, this.y-10); //top of door
+            this.scene.solidLayer.putTileAtWorldXY(47,this.x, this.y); // middle... if applicable
+            this.scene.solidLayer.putTileAtWorldXY(47,this.x, this.y+10); //bottom
             //Play the door closed animation
             if(this.isMetal)
                 this.anims.play('close_metal', true);
@@ -104,6 +108,9 @@ class Door extends Phaser.Physics.Arcade.Sprite {
             if(this.check == 1){
             if(!this.open){
                     this.open = true;
+                    this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y-10); //top of door
+                    this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y); //top of door
+                    this.scene.solidLayer.putTileAtWorldXY(148,this.x, this.y+10); //bottom
                     if(this.isMetal)
                         this.anims.play('open_metal', true);
                     else
