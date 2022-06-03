@@ -79,11 +79,13 @@ class LevelBase extends Phaser.Scene {
 
         //UI
         let dressedTextConfig = {
-            fontSize: '6px',
+            fontSize: '8px',
             fontFamily:  'PressStart2P',
             align: 'center',
+            backgroundColor: null,
+            resolution: 8,
             stroke: '#000000',
-            strokeThickness: 4
+            strokeThickness: 3
         }
         this.warningText = this.add.text(game.config.width/2 + 600, game.config.height/2, 'WARNING SPOTTED', dressedTextConfig).setOrigin(0.5).setDepth(99);
         this.warningText.alpha = 0;

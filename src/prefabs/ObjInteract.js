@@ -7,9 +7,10 @@ class ObjInteract extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         let dressedTextConfig = {
-            fontSize: '6px',
+            fontSize: '8px',
             fontFamily:  'PressStart2P',
             align: 'center',
+            resolution: 8,
             stroke: '#000000',
             strokeThickness: 4
         }
