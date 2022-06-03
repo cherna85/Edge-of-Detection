@@ -16,7 +16,8 @@ class Menu extends Phaser.Scene {
             this.load.audio('sfx_walking2', 'assets/sfx/walking2.wav');
             this.load.audio('sfx_disguiseOff', 'assets/sfx/Disguise_Fall.wav');
             this.load.audio('sfx_Door', 'assets/sfx/DoorOpen.wav');
-            
+            this.load.audio('spy_music', './assets/sfx/OWOmanySuspence.wav')
+
             this.load.atlas('green_atlas', './assets/Spyman-Sheet.png', './assets/spymanGreen.json');
             this.load.atlas('red_atlas', './assets/SpymanDisguise-Sheet.png', './assets/spymanRed.json');
             this.load.atlas('enemy_atlas', './assets/SpyEnemy-Sheet.png', './assets/spyEnemy.json');
@@ -48,7 +49,13 @@ class Menu extends Phaser.Scene {
                 },
             }
                
-                      
+            
+
+            //pwetty music
+            var spyMusic = this.sound.add('spy_music', {volume: 0.15}); 
+            spyMusic.setLoop(true);
+            spyMusic.play();
+
             
             //load data
             loadlevel = localStorage.getItem(localStorageName+'_loadlevel') == null ? 0 :

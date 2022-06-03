@@ -88,7 +88,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.rangeLayer.setMask(mask); 
 
-        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } });
+        this.graphics = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xff2a2a, alpha: 0.4 } });
         this.enemyLOS = new LOS(scene, "EnemyLOS",scene.solidLayer);
         this.rangeLayer.add([this,this.graphics]);
         //console.log(this.rangeLayer );
