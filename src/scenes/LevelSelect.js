@@ -2,15 +2,17 @@ class LevelSelect extends Phaser.Scene {
     constructor() {
         super('levelselectScene');
     }
-
+    preload(){
+        this.load.image('TutA' , 'assets/gameScreenShots/Level1.png');
+        this.load.image('TutB' , 'assets/gameScreenShots/Level2.png');
+        this.load.image('Climb' , 'assets/gameScreenShots/LevelClimb.png');
+    }
 
     create() {
         keyJump = this.input.keyboard.addKey(PDisguise);
         keyDisguise = this.input.keyboard.addKey(PInteract);
         keyUp = this.input.keyboard.addKey(PUp);
         keyDown = this.input.keyboard.addKey(PDown);
-
-        furthestLevel = 2;
 
         let LevelSelectConfig = {
             //font from https://fonts.google.com/specimen/Press+Start+2P
@@ -34,29 +36,33 @@ class LevelSelect extends Phaser.Scene {
             },
         }
         LevelSelectConfig.color = '#FFFFFF';
-        this.tutA = this.add.text(game.config.width/9, game.config.height/9 , '• Tutorial A •', LevelSelectConfig);
+        this.tutA = this.add.text((game.config.width)/10, game.config.height/10 , '• Tutorial A •', LevelSelectConfig);
         LevelSelectConfig.color = '#72A046';
         LevelSelectConfig.shadow.color = '#000000';
-        this.add.text(game.config.width/9 + 30 , game.config.height/9+20, 'screenshot', LevelSelectConfig);
+        this.add.tileSprite((game.config.width*2.75)/10 + 30 , (game.config.height*3.75)/10+20, 1561,889, 'TutA',).setScale(0.15);
         LevelSelectConfig.color = '#72A046';
         if(furthestLevel < 2){
             LevelSelectConfig.color =  '#808080';
+        }else{
+            this.add.tileSprite((game.config.width*2.75)/10 + 30 , (game.config.height*7.75)/10+20, 1588,885,  'TutB').setScale(0.15);
         }
-        this.tutB = this.add.text(game.config.width/9, (game.config.height*5)/9 , '• Tutorial B •', LevelSelectConfig);
-        this.add.text(game.config.width/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);
+        this.tutB = this.add.text(game.config.width/10, (game.config.height*5)/10 , '• Tutorial B •', LevelSelectConfig);
+        
        
         if(furthestLevel < 3){
             LevelSelectConfig.color =  '#808080';
+        }else{ 
+          this.add.tileSprite((game.config.width*6.75)/10 + 30 , (game.config.height*3.75)/10+20, 1593,890,'Climb').setScale(0.15);  
         }
-        this.climb = this.add.text((game.config.width*5)/9, game.config.height/9 , '• Climb •', LevelSelectConfig);
-        this.add.text((game.config.width*5)/9 + 30 , game.config.height/9+20, 'screenshot', LevelSelectConfig);
+        this.climb = this.add.text((game.config.width*5.75)/10, game.config.height/10 , '• Climb •', LevelSelectConfig);
+        
         
         /*
         if(furthestLevel < 4){
             LevelSelectConfig.color =  '#808080';
         }
-        this.shipyard = this.add.text((game.config.width*5)/9, (game.config.height*5)/9 , '• Shipyard •', LevelSelectConfig);
-        this.add.text((game.config.width*5)/9 + 30 , (game.config.height*5)/9+20, 'screenshot', LevelSelectConfig);*/
+        this.shipyard = this.add.text((game.config.width*5)/10, (game.config.height*5)/10 , '• Shipyard •', LevelSelectConfig);
+        this.add.text((game.config.width*5)/10 + 30 , (game.config.height*5)/10+20, 'screenshot', LevelSelectConfig);*/
         sceneSelect = 'levelTutorialA'; //reinitalize menu
     }
 

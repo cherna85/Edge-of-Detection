@@ -31,6 +31,8 @@ class Endscreen extends Phaser.Scene {
         EndConfig.shadow.color = '#000000';
         this.add.text(game.config.width/2, game.config.height/2+32, 'Press [' + PDisguiseT + '] to go to Main Menu', EndConfig).setOrigin(0.5);
         keyDisguise = this.input.keyboard.addKey(PDisguise);
+        furthestLevel = 3;
+        localStorage.setItem(localStorageName+'_furthestLevel', furthestLevel);
     }
 
     update() {

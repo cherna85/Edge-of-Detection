@@ -1,6 +1,6 @@
 class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, flipped = false, losRange = 100, losAngle = 0, losWidth = 45) {
-        super(scene, x, y + 4, texture, frame); //The +4 is to make them standing on the ground when they are spawned
+        super(scene, x, y + 7, texture, frame); //The +4 is to make them standing on the ground when they are spawned
        
 
         //create enemy animations
@@ -95,7 +95,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         
        
         
-        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 8, losAngle, losWidth, losRange);
+        this.detection = this.enemyLOS.createConeRay(scene, this.x, this.y - 7.5, losAngle, losWidth, losRange);
         this.drawEnemyLOS(scene,[this.detection]);
 
 
@@ -106,6 +106,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.flipSetting = flipped;
         this.flip(flipped);
         this.setDepth(-2);
+        this.drawPath(false);
     }
 
     update(time,delta, scene){
@@ -116,8 +117,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.x = this.follower.vec.x;
             this.y = this.follower.vec.y;
             this.steps++;
-            //The -8 for the ray puts it roughly where the enemy's eyes are - Santiago
-            this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y - 8);
+            //The -7.5 for the ray puts it roughly where the enemy's eyes are - Santiago
+            this.enemyLOS.setOriginRay(this.detection, this.follower.vec.x, this.follower.vec.y -7.5);
             //once you reach the end of the path flip
             if((this.path.getPoint(1).x == this.x) && (this.path.getPoint(1).y ==  this.y)){
                 this.flip(!this.flipSetting);
@@ -145,7 +146,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     
     straightPath(scene, endX ,endY, duration){
-        let line = new Phaser.Curves.Line([this.x,this.y, endX, endY + 4]);
+        let line = new Phaser.Curves.Line([this.x,this.y, endX, endY+7]);
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
         this.path.add(line);
         scene.tweens.add({
