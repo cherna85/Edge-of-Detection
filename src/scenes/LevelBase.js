@@ -145,7 +145,7 @@ class LevelBase extends Phaser.Scene {
                     object.properties[0]["value"] = "Press [" + PUpT +"] to jump";
                 }else if (object.properties[0]["value"] == "Hold [DOWN] to drop\n through platforms"){
                     console.log("HEY?")
-                    object.properties[0]["value"] = "Hold [" + PDownT +"] to drop through platforms";
+                    object.properties[0]["value"] = "Hold [" + PDownT +"] to drop \nthrough platforms";
                 }
                 return true;
             }

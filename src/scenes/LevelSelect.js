@@ -77,21 +77,21 @@ class LevelSelect extends Phaser.Scene {
             }else if(sceneSelect == 'levelTutorialB'){
                 this.updateMenu(this.tutB,this.climb, 'levelClimb');
             }else if(sceneSelect == 'levelClimb'){
-                this.updateMenu(this.climb,this.shipyard, 'levelShipyard');
-            }else if (sceneSelect == 'levelShipyard'){
-                this.updateMenu(this.shipyard, this.tutA, 'levelTutorialA');
-            }
+                this.updateMenu(this.climb,this.tutA, 'levelTutorialA');
+            }//else if (sceneSelect == 'levelShipyard'){
+                //this.updateMenu(this.shipyard, this.tutA, 'levelTutorialA');
+            //}
         }
         if (Phaser.Input.Keyboard.JustDown(keyUp)) {
             if(sceneSelect == 'levelTutorialA'){
-                this.updateMenu(this.tutA,this.shipyard, 'levelShipyard');
+                this.updateMenu(this.tutA,this.climb, 'levelClimb');
             }else if(sceneSelect == 'levelTutorialB'){
                 this.updateMenu(this.tutB,this.tutA, 'levelTutorialA');
             }else if(sceneSelect == 'levelClimb'){
                 this.updateMenu(this.climb,this.tutB, 'levelTutorialB');
-            }else if (sceneSelect == 'levelShipyard'){
-                this.updateMenu(this.shipyard, this.climb, 'levelClimb');
-            }
+            }//else if (sceneSelect == 'levelShipyard'){
+                //this.updateMenu(this.shipyard, this.climb, 'levelClimb');
+            //}
         }
         this.Select();
     }
