@@ -294,7 +294,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             this.walkingSound();
         }
         else{
-            if(this.body.velocity.x > 0){
+            if(this.body.velocity.x > 0 && this.body.blocked.down){
                 this.setAccelerationX(0);
                 this.steps = 0;
                 if(this.disguiseActive){
@@ -304,7 +304,7 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
                     this.anims.play('idle_right_green');
                 }
             }
-            else if(this.body.velocity.x < 0){
+            else if(this.body.velocity.x < 0 && this.body.blocked.down){
                 this.setAccelerationX(0);
                 this.steps = 0;
                 if(this.disguiseActive){
@@ -337,24 +337,23 @@ class PlayerSpy extends Phaser.Physics.Arcade.Sprite {
             }
         }
            //play jump animations
-          if(!this.body.blocked.down){
-              if(this.disguiseAcive){
+          if(!this.body.blocked.down && this.disguiseActive){
                  if(this.facingLeft){
-                     this.anims.play('jump_left_red', true);
+                    this.anims.play('jump_left_red', true);
                  } 
                  else{
-                     this.anims.play('jump_right_red', true);
+                    this.anims.play('jump_right_red', true);
                  }
-              }
-              else{
+          }
+          else if(!this.body.blocked.down && !this.diguiseActive){
                   if(this.facingLeft){
-                      this.anims.play('jump_left_green', true);
+                    this.anims.play('jump_left_green', true);
                   }
                   else{
-                      this.anims.play('jump_right_green', true);
+                    this.anims.play('jump_right_green', true);
                   }
-              }
-          }
+            }
+            
 
         if(Phaser.Input.Keyboard.JustUp(keyJump)) {
             if(this.body.velocity.y < this.jumpPowerMin) {
