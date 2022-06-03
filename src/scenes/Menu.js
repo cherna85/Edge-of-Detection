@@ -52,9 +52,11 @@ class Menu extends Phaser.Scene {
             
 
             //pwetty music
-            var spyMusic = this.sound.add('spy_music', {volume: 0.15}); 
-            spyMusic.setLoop(true);
-            spyMusic.play();
+            if(this.sound.get('spy_music') == null){
+                var spyMusic = this.sound.add('spy_music', {volume: 0.15}); 
+                spyMusic.setLoop(true);
+                spyMusic.play();
+            }
 
             
             //load data
